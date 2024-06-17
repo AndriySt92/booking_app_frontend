@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes, BrowserRouter as Router } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import Layout from './layout/Layout'
 import {
   AddHotel,
@@ -12,7 +12,6 @@ import {
   SignIn,
   SignUp,
 } from './pages'
-import { PrivateRoutes, PublicRoutes } from './routes'
 
 function App() {
   const isLoggedIn = true
@@ -58,7 +57,6 @@ function App() {
           </Layout>
         }
       />
-
       {isLoggedIn && (
         <>
           <Route
@@ -69,7 +67,6 @@ function App() {
               </Layout>
             }
           />
-
           <Route
             path="/add-hotel"
             element={
