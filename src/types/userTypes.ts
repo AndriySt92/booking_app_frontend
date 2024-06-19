@@ -5,7 +5,7 @@ export interface IUser {
   email: string
 }
 
-export interface IRegisterData {
+export interface ISignUpData {
   firstName: string
   lastName: string
   email: string
@@ -13,7 +13,7 @@ export interface IRegisterData {
   confirmPassword: string
 }
 
-export interface ILoginData {
+export interface ISignInData {
   email: string
   password: string
 }

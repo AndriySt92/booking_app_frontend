@@ -12,9 +12,11 @@ import {
   SignIn,
   SignUp,
 } from './pages'
+import { useAppContext } from './contexts/AppContext'
 
 function App() {
-  const isLoggedIn = true
+  const { isLoggedIn } = useAppContext()
+
   return (
     <Routes>
       <Route

@@ -1,4 +1,4 @@
-import { IUser, IRegisterData, ILoginData } from '../types/userTypes'
+import { IUser, ISignUpData, ISignInData } from '../types/userTypes'
 const API_BASE_URL = 'http://localhost:3001'
 
 export const fetchCurrentUser = async (): Promise<IUser> => {
@@ -13,7 +13,7 @@ export const fetchCurrentUser = async (): Promise<IUser> => {
   return response.json()
 }
 
-export const signUp = async (formData: IRegisterData) => {
+export const signUp = async (formData: ISignUpData) => {
   const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
     method: 'POST',
     credentials: 'include',
@@ -30,7 +30,7 @@ export const signUp = async (formData: IRegisterData) => {
   }
 }
 
-export const login = async (formData: ILoginData) => {
+export const signIn = async (formData: ISignInData) => {
   const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
     method: 'POST',
     credentials: 'include',
@@ -53,7 +53,7 @@ export const validateToken = async () => {
   const response = await fetch(`${API_BASE_URL}/api/auth/validate-token`, {
     credentials: 'include',
   })
-  
+
   if (!response.ok) {
     throw new Error('Token invalid')
   }
@@ -61,7 +61,7 @@ export const validateToken = async () => {
   return response.json()
 }
 
-export const logout = async () => {
+export const signOut = async () => {
   const response = await fetch(`${API_BASE_URL}/api/auth/logout`, {
     credentials: 'include',
     method: 'POST',
