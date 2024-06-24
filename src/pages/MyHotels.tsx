@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query'
 import { Link } from 'react-router-dom'
-import { fetchMyHotels } from '../services/hotelApi'
+import { fetchMyHotels } from '../services/my-hotelApi'
 import { BsBuilding, BsMap } from 'react-icons/bs'
 import { BiHotel, BiMoney, BiStar } from 'react-icons/bi'
 import { Button, Loader } from '../components'
@@ -28,7 +28,9 @@ const MyHotels = () => {
           Add Hotel
         </Link>
       </span>
-      {hotelData?.length === 0 && <h3 className="text-2xl font-bold text-center">No hotels found</h3>}
+      {hotelData?.length === 0 && (
+        <h3 className="text-2xl font-bold text-center">No hotels found</h3>
+      )}
       {hotelData && (
         <div className="grid grid-cols-1 gap-8">
           {hotelData.map((hotel) => (
