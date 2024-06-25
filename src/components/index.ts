@@ -6,3 +6,4 @@ export { default as Button } from './Button'
 export { default as SignOutButton } from './SignOutButton'
 export { default as LoadingButton } from './LoadingButton'
 export { default as Loader } from './Loader'
+export { default as HomeCard } from './HomeCard';
