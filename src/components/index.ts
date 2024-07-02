@@ -11,6 +11,8 @@ export { default as FacilitiesFilter } from './Filter/FacilitiesFilter'
 export { default as HotelTypesFilter } from './Filter/HotelTypesFilter';
 export { default as PriceFilter } from './Filter/PriceFilter';
 export { default as StarRatingFilter } from './Filter/StarRatingFilter';
+export { default as Filter } from './Filter/Filter';
 export { default as Pagination } from './Common/Pagination';
 export { default as SearchResultsCard } from './Search/SearchResultsCard';
 export { default as SearchBar } from './Search/SearchBar';
+export { default as Modal } from './Common/Modal';
