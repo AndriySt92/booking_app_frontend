@@ -32,3 +32,33 @@ export interface IBooking {
   checkOut: Date
   totalCost: number
 }
+
+export interface IGuestInfoFormData {
+  checkIn: Date;
+  checkOut: Date;
+  adultCount: number;
+  childCount: number;
+};
+
+export interface ISearchParams {
+  destination?: string;
+  checkIn?: string;
+  checkOut?: string;
+  adultCount?: string;
+  childCount?: string;
+  page?: string;
+  facilities?: string[];
+  types?: string[];
+  stars?: string[];
+  maxPrice?: string;
+  sortOption?: string;
+};
+
+export interface IHotelSearchResponse {
+  data: IHotel[];
+  pagination: {
+    total: number;
+    page: number;
+    pages: number;
+  };
+};
