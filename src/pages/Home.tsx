@@ -10,13 +10,14 @@ const Home = () => {
   const [page, setPage] = useState<number>(1)
   const [totalPages, setTotalPages] = useState<number>(0)
   const [limit, setLimit] = useState<number>(12)
-  const { data, isError, isLoading, refetch } = useQuery('fetchQuery', () =>
+  const { data, isError, isLoading } = useQuery(['fetchQuery', page], () =>
     fetchHotels(page, limit),
   )
-
+  
   const { ref, inView } = useInView({
     threshold: 0,
   })
+
   useEffect(() => {
     if (data) {
       setHotels([...hotels, ...data.hotels])
@@ -30,18 +31,12 @@ const Home = () => {
     }
   }, [inView])
 
-  useEffect(() => {
-    if (page > 1) {
-      refetch()
-    }
-  }, [page])
-
   if (isLoading) {
     return <Loader />
   }
 
   return (
-    <div className="space-y-3">
+    <div>
       <h2 className="text-3xl font-bold">Latest Destinations</h2>
       <p>Most recent desinations added by our hosts</p>
       <div className="grid">
@@ -49,7 +44,7 @@ const Home = () => {
           {hotels && hotels.map((hotel) => <HomeCard hotel={hotel} key={hotel._id} />)}
         </div>
       </div>
-      {isError && <span className='text-3xl text-red-600 mx-8'>Occured some error with fetching events</span>}
+      {isError && <span className='text-3xl text-red-600 mx-8 block text-center mt-5'>Occured some error with fetching hotels</span>}
       {hotels.length > 0 && page < totalPages && <div ref={ref}></div>}
     </div>
   )

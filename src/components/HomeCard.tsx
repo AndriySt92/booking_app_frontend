@@ -22,9 +22,10 @@ const HomeCard = ({ hotel }: Props) => {
             {hotel.city}, {hotel.country}
           </span>
         </div>
-        <div className='flex justify-center items-center '>
-          <span className='text-white font-bold pr-1'>{hotel.starRating}</span>
-          <AiFillStar className="fill-yellow-400 h-[20px] w-[20px]" />
+        <div className="flex justify-center items-center ">
+          {Array.from({ length: hotel.starRating }).map((_, i) => (
+            <AiFillStar className="fill-yellow-400" key={i} />
+          ))}
         </div>
       </div>
     </Link>

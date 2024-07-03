@@ -2,19 +2,9 @@ import { useMemo, useState } from 'react'
 import { useQuery } from 'react-query'
 import { useSearchContext } from '../contexts/SearchContext'
 import { searchHotels } from '../services/hotelApi'
-import {
-  StarRatingFilter,
-  HotelTypesFilter,
-  FacilitiesFilter,
-  PriceFilter,
-  Pagination,
-  SearchResultsCard,
-  Modal,
-  Button,
-  Loader,
-  Filter,
-} from '../components'
+import { Pagination, SearchResultsCard, Modal, Button, Loader, Filter } from '../components'
 import { useAppContext } from '../contexts/AppContext'
+import { sortOptions } from '../config/hotelOptionsConfig'
 
 const Search = () => {
   const search = useSearchContext()
@@ -112,7 +102,6 @@ const Search = () => {
       </div>
       {isFilterModalOpen && (
         <Modal onClose={() => setIsFilterModalOpen(false)}>
-          <>
             <Filter
               selectedStars={selectedStars}
               handleStarsChange={handleStarsChange}
@@ -123,7 +112,6 @@ const Search = () => {
               selectedFacilities={selectedFacilities}
               handleFacilityChange={handleFacilityChange}
             />
-          </>
         </Modal>
       )}
       <div className="flex flex-col gap-5">
@@ -145,23 +133,23 @@ const Search = () => {
               onChange={(event) => setSortOption(event.target.value)}
               className="p-2 border rounded-md">
               <option value="">Sort By</option>
-              <option value="starRating">Star Rating</option>
-              <option value="pricePerNightAsc">Price Per Night (low to high)</option>
-              <option value="pricePerNightDesc">Price Per Night (high to low)</option>
+              {sortOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
             </select>
           </div>
         </div>
         {isLoading && <Loader />}
         {hotelData?.data.map((hotel) => (
-          <SearchResultsCard hotel={hotel} />
+          <SearchResultsCard hotel={hotel} key={hotel._id}/>
         ))}
-        <div className="">
-          <Pagination
-            page={hotelData?.pagination.page || 1}
-            pages={hotelData?.pagination.pages || 1}
-            onPageChange={(page) => setPage(page)}
-          />
-        </div>
+        <Pagination
+          page={hotelData?.pagination.page || 1}
+          pages={hotelData?.pagination.pages || 1}
+          onPageChange={(page) => setPage(page)}
+        />
       </div>
     </div>
   )

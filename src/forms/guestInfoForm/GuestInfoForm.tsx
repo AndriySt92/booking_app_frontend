@@ -1,15 +1,15 @@
 import { useForm } from "react-hook-form";
+import { useLocation, useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import { useSearchContext } from "../../contexts/SearchContext";
 import { useAppContext } from "../../contexts/AppContext";
-import { useLocation, useNavigate } from "react-router-dom";
 import { IGuestInfoFormData } from "../../types/hotelTypes";
+import { Button } from "../../components";
 
 interface Props {
   hotelId: string;
   pricePerNight: number;
 };
-
 
 const GuestInfoForm = ({ hotelId, pricePerNight }: Props) => {
   const search = useSearchContext();
@@ -101,13 +101,13 @@ const GuestInfoForm = ({ hotelId, pricePerNight }: Props) => {
             />
           </div>
           <div className="flex bg-white px-2 py-1 gap-2">
-            <label className="items-center flex">
+            <label className="items-center flex flex-1">
               Adults:
               <input
                 className="w-full p-1 focus:outline-none font-bold"
                 type="number"
                 min={1}
-                max={20}
+                max={100}
                 {...register("adultCount", {
                   required: "This field is required",
                   min: {
@@ -118,13 +118,13 @@ const GuestInfoForm = ({ hotelId, pricePerNight }: Props) => {
                 })}
               />
             </label>
-            <label className="items-center flex">
+            <label className="items-center flex flex-1">
               Children:
               <input
                 className="w-full p-1 focus:outline-none font-bold"
                 type="number"
                 min={0}
-                max={20}
+                max={100}
                 {...register("childCount", {
                   valueAsNumber: true,
                 })}
@@ -137,13 +137,13 @@ const GuestInfoForm = ({ hotelId, pricePerNight }: Props) => {
             )}
           </div>
           {isLoggedIn ? (
-            <button className="bg-blue-600 text-white h-full p-2 font-bold hover:bg-blue-500 text-xl">
+            <Button classes="flex justify-center bg-blue-600 text-white hover:bg-blue-500">
               Book Now
-            </button>
+            </Button>
           ) : (
-            <button className="bg-blue-600 text-white h-full p-2 font-bold hover:bg-blue-500 text-xl">
+            <Button classes="flex justify-center bg-blue-600 text-white text-center hover:bg-blue-500">
               Sign in to Book
-            </button>
+            </Button>
           )}
         </div>
       </form>

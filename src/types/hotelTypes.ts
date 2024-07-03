@@ -62,3 +62,11 @@ export interface IHotelSearchResponse {
     pages: number;
   };
 };
+
+export interface ISearchFormValues {
+  destination: string;
+  checkIn: Date | null;
+  checkOut: Date | null;
+  adultCount: number;
+  childCount: number;
+}

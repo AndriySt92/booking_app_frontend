@@ -7,12 +7,10 @@ import GuestInfoForm from '../forms/guestInfoForm/GuestInfoForm'
 const Detail = () => {
   const { hotelId } = useParams()
 
-  const { data: hotel } = useQuery('fetchHotelById', () => fetchHotelById(hotelId || ''), {
-    enabled: !!hotelId,
-  })
+  const { data: hotel } = useQuery('fetchHotelById', () => fetchHotelById(hotelId || ''))
 
   if (!hotel) {
-    return <></>
+    return null
   }
 
   return (

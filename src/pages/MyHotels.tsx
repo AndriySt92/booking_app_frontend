@@ -36,10 +36,11 @@ const MyHotels = () => {
           {hotelData.map((hotel) => (
             <div
               data-testid="hotel-card"
-              className="flex flex-col justify-between border border-slate-300 rounded-lg p-8 gap-5">
+              className="flex flex-col justify-between border border-slate-300 rounded-lg p-8 gap-5"
+              key={hotel._id}>
               <h2 className="text-2xl font-bold">{hotel.name}</h2>
               <div className="whitespace-pre-line">{hotel.description}</div>
-              <div className="grid grid-cols-5 gap-2">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-2">
                 <div className="border border-slate-300 rounded-sm p-3 flex items-center">
                   <BsMap className="mr-1" />
                   {hotel.city}, {hotel.country}
