@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
-import Layout from './layout/Layout'
+import Layout from './components/Layout/Layout'
 import {
   AddHotel,
   Booking,

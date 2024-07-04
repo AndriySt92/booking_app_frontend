@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { IHotel } from '../types/hotelTypes'
+import { IHotel } from '../../types/hotelTypes'
 import { AiFillStar } from 'react-icons/ai'
 
 interface Props {

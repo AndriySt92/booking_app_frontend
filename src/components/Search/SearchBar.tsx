@@ -3,7 +3,7 @@ import { useForm, Controller } from 'react-hook-form'
 import { useSearchContext } from '../../contexts/SearchContext'
 import { MdTravelExplore } from 'react-icons/md'
 import DatePicker from 'react-datepicker'
-import Button from '../Button'
+import Button from '../Button/Button'
 import { ISearchFormValues } from '../../types/hotelTypes'
 
 const SearchBar = () => {
