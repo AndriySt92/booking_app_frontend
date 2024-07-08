@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
-import { useAppContext } from '../contexts/AppContext'
-import { Button, SignOutButton } from './'
+import { useAppContext } from '../../contexts/AppContext'
+import { Button, SignOutButton } from '../'
 import { useState } from 'react'
 import { FaBars, FaTimes } from 'react-icons/fa'
 

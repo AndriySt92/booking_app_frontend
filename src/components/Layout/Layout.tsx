@@ -1,4 +1,4 @@
-import { Footer, Header, Hero, SearchBar } from '../components'
+import { Footer, Header, Hero, SearchBar } from '../'
 
 interface Props {
   children: React.ReactNode

@@ -1,6 +1,7 @@
 export { default as Hero } from './Layout/Hero'
 export { default as Header } from './Layout/Header'
 export { default as Footer } from './Layout/Footer'
+export { default as Layout } from './Layout/Layout'
 export { default as Button } from './Button/Button'
 export { default as SignOutButton } from './Button/SignOutButton'
 export { default as LoadingButton } from './Button/LoadingButton'

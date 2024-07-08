@@ -8,8 +8,10 @@ const EditHotel = () => {
   const { showToast } = useAppContext()
   const { hotelId } = useParams()
 
-  const { data: hotel } = useQuery('fetchHotelById', () => fetchMyHotelById(hotelId || ''))
-
+  const { data: hotel } = useQuery('fetchHotelById', () => fetchMyHotelById(hotelId || ''), {
+    enabled: !!hotelId,
+  })
+  
   const { mutate, isLoading } = useMutation(updateMyHotelById, {
     onSuccess: () => {
       showToast({ message: 'Hotel Saved!', type: 'SUCCESS' })
