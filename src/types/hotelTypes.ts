@@ -33,6 +33,11 @@ export interface IBooking {
   totalCost: number
 }
 
+export interface IBookedDates {
+  checkIn: Date
+  checkOut: Date
+}
+
 export interface IGuestInfoFormData {
   checkIn: Date;
   checkOut: Date;

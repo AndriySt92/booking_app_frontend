@@ -6,9 +6,9 @@
     outline: 1px solid red;
   } */
 
-  body {
-    overflow-x: hidden;
-  }
+body {
+  overflow-x: hidden;
+}
 
 /* Header Styles */
 .menu-container {
@@ -23,4 +23,78 @@
   @apply max-h-screen opacity-100;
 }
 
+.booked {
+  background-color: red !important;
+  color: white !important;
+}
 
+/* Datepicker styles */
+.datail__calender .react-datepicker__month-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.datail__calender .react-datepicker__header {
+  background-color: rgb(191 219 254 / 0.8) !important;
+}
+
+.datail__calender h2.react-datepicker__current-month {
+  font-size: 23px !important;
+}
+
+.datail__calender .react-datepicker__week {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-left: 1px solid grey;
+  height: calc(100% / 5) !important;
+  cursor: default !important;
+}
+
+.datail__calender .react-datepicker__day-name,
+.datail__calender .react-datepicker__day {
+  font-size: 20px;
+  flex: 1;
+  margin: 0px !important;
+}
+
+.datail__calender .react-datepicker__day {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  border: 1px solid grey;
+}
+
+.datail__calender .react-datepicker__month {
+  flex: 1;
+  margin: 0px !important;
+}
+
+.datail__calender .react-datepicker__day-names {
+  display: flex;
+  margin-bottom: -1px !important;
+  margin-top: 10px;
+}
+
+.datail__calender .react-datepicker__navigation-icon::before {
+  border-color: black !important;
+  height: 12px !important;
+  width: 12px !important;
+}
+
+.datail__calender .react-datepicker__day--keyboard-selected {
+  border-radius: 0px !important;
+  font-weight: 400 !important;
+  background-color: transparent !important;
+}
+
+.datail__calender .react-datepicker__day--excluded {
+  border-radius: 0px !important;
+  font-weight: 500 !important;
+  background-color: rgb(250, 78, 78) !important;
+  color: rgb(0, 0, 0)
+}

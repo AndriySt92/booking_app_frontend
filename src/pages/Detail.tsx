@@ -1,22 +1,31 @@
 import { useQuery } from 'react-query'
 import { useParams } from 'react-router-dom'
-import { fetchHotelById } from '../services/hotelApi'
+import { fetchBookedDates, fetchHotelById } from '../services/hotelApi'
 import { AiFillStar } from 'react-icons/ai'
 import GuestInfoForm from '../forms/guestInfoForm/GuestInfoForm'
+import DatePicker from 'react-datepicker'
+import { transformBookedDates } from '../utils/dateUtils'
 
 const Detail = () => {
   const { hotelId } = useParams()
-
   const { data: hotel } = useQuery('fetchHotelById', () => fetchHotelById(hotelId || ''), {
     enabled: !!hotelId,
   })
 
-  if (!hotel) {
+  const { data: bookedDates } = useQuery(
+    'fetchBookedDates',
+    () => fetchBookedDates(hotelId || ''),
+    {
+      enabled: !!hotelId,
+    },
+  )
+
+  if (!hotel || !bookedDates) {
     return null
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 detail">
       <div>
         <h1 className="text-3xl font-bold">{hotel.name}</h1>
         <span className="flex mt-2">
@@ -48,8 +57,20 @@ const Detail = () => {
       <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-6">
         <div className="whitespace-pre-line">{hotel.description}</div>
         <div className="h-fit">
-          <GuestInfoForm pricePerNight={hotel.pricePerNight} hotelId={hotel._id} />
+          <GuestInfoForm
+            bookedDates={bookedDates}
+            pricePerNight={hotel.pricePerNight}
+            hotelId={hotel._id}
+          />
         </div>
+      </div>
+      <div className="w-full h-[370px] md:h-[500px] pt-5 pb-12 datail__calender">
+        <h1 className="text-2xl font-bold mb-5">Calendar of booked dates</h1>
+        <DatePicker
+          inline
+          excludeDates={transformBookedDates(bookedDates)}
+          calendarClassName="w-full h-full"
+        />
       </div>
     </div>
   )
