@@ -1,3 +1,5 @@
+import { IBooking } from "./bookingTypes";
+
 export interface IHotelFormData {
     name: string;
     city: string;
@@ -18,19 +20,6 @@ export interface IHotel extends IHotelFormData {
   userId: string
   lastUpdated: Date
   bookings: IBooking[]
-}
-
-export interface IBooking {
-  _id: string
-  userId: string
-  firstName: string
-  lastName: string
-  email: string
-  adultCount: number
-  childCount: number
-  checkIn: Date
-  checkOut: Date
-  totalCost: number
 }
 
 export interface IBookedDates {

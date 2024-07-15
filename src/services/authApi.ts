@@ -2,7 +2,7 @@ import { IUser, ISignUpData, ISignInData } from '../types/userTypes'
 const API_BASE_URL = 'http://localhost:3001'
 
 export const fetchCurrentUser = async (): Promise<IUser> => {
-  const response = await fetch(`${API_BASE_URL}/api/users/current`, {
+  const response = await fetch(`${API_BASE_URL}/api/auth/current`, {
     credentials: 'include',
   })
 
