@@ -23,12 +23,6 @@ export const createPaymentIntent = async (
   }
 
   return response.json();
-  // const paymentIntentData = Promise.resolve({
-  //   clientSecret: 'pi_3PcklDBplQwpmfr102sp4vyF_secret_lBJ2t5NAlUeoOglfuzSqbH34c',
-  //   paymentIntentId: 'pi_3PcklDBplQwpmfr102sp4vyF',
-  //   totalCost: 2502,
-  // })
-  // return paymentIntentData as any
 }
 
 export const createRoomBooking = async (formData: IBooking) => {
@@ -45,3 +39,15 @@ export const createRoomBooking = async (formData: IBooking) => {
     throw new Error('Error booking room')
   }
 }
+
+export const fetchMyBookings = async (): Promise<IBooking[]> => {
+  const response = await fetch(`${API_BASE_URL}/api/bookings`, {
+    credentials: "include",
+  });
+ 
+  if (!response.ok) {
+    throw new Error("Unable to fetch bookings");
+  }
+
+  return response.json();
+};
