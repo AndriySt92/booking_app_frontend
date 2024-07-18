@@ -34,21 +34,35 @@ export const fetchMyHotelById = async (hotelId: string): Promise<IHotel> => {
   })
 
   if (!response.ok) {
-    throw new Error('Error fetching Hotels')
+    throw new Error('Error fetching hotels')
   }
 
   return response.json()
 }
 
 export const updateMyHotelById = async (hotelFormData: FormData) => {
-  const response = await fetch(`${API_BASE_URL}/api/my-hotels/${hotelFormData.get('hotelId')}`, {
+  const hotelId = hotelFormData.get('hotelId')
+  const response = await fetch(`${API_BASE_URL}/api/my-hotels/${hotelId}`, {
     method: 'PUT',
     body: hotelFormData,
     credentials: 'include',
   })
 
   if (!response.ok) {
-    throw new Error('Failed to update Hotel')
+    throw new Error('Failed to update hotel')
+  }
+
+  return response.json()
+}
+
+export const deleteMyHotel = async (hotelId: string) => {
+  const response = await fetch(`${API_BASE_URL}/api/my-hotels/${hotelId}`, {
+    method: 'DELETE',
+    credentials: 'include',
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to delete hotel')
   }
 
   return response.json()

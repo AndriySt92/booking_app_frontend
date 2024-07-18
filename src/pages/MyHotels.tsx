@@ -1,6 +1,5 @@
-import { useQuery } from 'react-query'
-import { Link } from 'react-router-dom'
-import { fetchMyHotels } from '../services/my-hotelApi'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
+import { deleteMyHotel, fetchMyHotels } from '../services/my-hotelApi'
 import { BsBuilding, BsMap } from 'react-icons/bs'
 import { BiHotel, BiMoney, BiStar } from 'react-icons/bi'
 import { Button, Loader } from '../components'
@@ -8,11 +7,27 @@ import { useAppContext } from '../contexts/AppContext'
 
 const MyHotels = () => {
   const { showToast } = useAppContext()
-  const { data: hotelData, isLoading } = useQuery('fetchMyHotels', fetchMyHotels, {
+  
+  const queryClient = useQueryClient()
+  const { data: hotels, isLoading } = useQuery('fetchMyHotels', fetchMyHotels, {
     onError: () => {
       showToast({ message: 'Error fetching my hotel', type: 'ERROR' })
     },
   })
+
+  const mutation = useMutation(deleteMyHotel, {
+    onSuccess: async () => {
+      await queryClient.invalidateQueries('fetchMyHotels')
+      showToast({ message: 'Hotel deleted successfully', type: 'SUCCESS' })
+    },
+    onError: (error: Error) => {
+      showToast({ message: error.message, type: 'ERROR' })
+    },
+  })
+
+  const handleDelete = (hotelId: string) => {
+    mutation.mutate(hotelId)
+  }
 
   if (isLoading) {
     return <Loader />
@@ -22,21 +37,20 @@ const MyHotels = () => {
     <div className="space-y-5">
       <span className="flex justify-between">
         <h1 className="text-3xl font-bold">My Hotels</h1>
-        <Link
+        <Button
+          role="link"
           to="/add-hotel"
-          className="flex bg-blue-600 text-white text-xl font-bold p-2 hover:bg-blue-500">
+          classes="bg-blue-600 text-white hover:bg-blue-500">
           Add Hotel
-        </Link>
+        </Button>
       </span>
-      {hotelData?.length === 0 && (
-        <h3 className="text-2xl font-bold text-center">No hotels found</h3>
-      )}
-      {hotelData && (
+      {hotels?.length === 0 && <h3 className="text-2xl font-bold text-center">No hotels found</h3>}
+      {hotels && (
         <div className="grid grid-cols-1 gap-8">
-          {hotelData.map((hotel) => (
+          {hotels.map((hotel) => (
             <div
               data-testid="hotel-card"
-              className="flex flex-col justify-between border border-slate-300 rounded-lg p-8 gap-5"
+              className="flex flex-col justify-between rounded-lg p-3 md:p-8 gap-5 shadow-[0px_6px_20px_3px_#00000024]"
               key={hotel._id}>
               <h2 className="text-2xl font-bold">{hotel.name}</h2>
               <div className="whitespace-pre-line">{hotel.description}</div>
@@ -61,14 +75,19 @@ const MyHotels = () => {
                   {hotel.starRating} Star Rating
                 </div>
               </div>
-              <span className="flex justify-end">
+              <div className="flex  justify-between sm:justify-end gap-4">
+                <Button
+                  onClick={() => handleDelete(hotel._id)}
+                  classes="bg-blue-600 text-white hover:bg-blue-500">
+                  Delete
+                </Button>
                 <Button
                   role="link"
                   to={`/edit-hotel/${hotel._id}`}
                   classes="bg-blue-600 text-white hover:bg-blue-500">
                   View Details
                 </Button>
-              </span>
+              </div>
             </div>
           ))}
         </div>
