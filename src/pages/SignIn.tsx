@@ -1,37 +1,20 @@
 import { useForm } from 'react-hook-form'
-import { useMutation, useQueryClient } from 'react-query'
-import { signIn } from '../services/authApi'
-import { useAppContext } from '../contexts/AppContext'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Button, LoadingButton } from '../components'
 import { ISignInData } from '../types/userTypes'
+import { useSignIn } from '../hooks'
 
 const SignIn = () => {
-  const { showToast } = useAppContext()
-  const navigate = useNavigate()
-  const queryClient = useQueryClient()
-
-  const location = useLocation()
-
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm<ISignInData>()
 
-  const mutation = useMutation(signIn, {
-    onSuccess: async () => {
-      showToast({ message: 'Sign in Successful!', type: 'SUCCESS' })
-      await queryClient.invalidateQueries('validateToken')
-      navigate(location.state?.from?.pathname || '/')
-    },
-    onError: (error: Error) => {
-      showToast({ message: error.message, type: 'ERROR' })
-    },
-  })
+  const { mutate, isLoading } = useSignIn()
 
   const onSubmit = handleSubmit((data) => {
-    mutation.mutate(data)
+    mutate(data)
   })
 
   return (
@@ -66,9 +49,9 @@ const SignIn = () => {
             Create an account here
           </Link>
         </span>
-        {!mutation.isLoading ? (
+        {!isLoading ? (
           <Button
-            disabled={mutation.isLoading}
+            disabled={isLoading}
             btnType="submit"
             classes="bg-blue-600 text-white hover:bg-blue-500">
             Sign In

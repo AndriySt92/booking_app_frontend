@@ -1,58 +1,36 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useQuery } from "react-query";
-import { Elements } from "@stripe/react-stripe-js";
-import { useAppContext } from "../contexts/AppContext";
-import { useBookingContext } from "../contexts/BookingContext";
-import { createPaymentIntent } from "../services/bookingApi";
-import BookingForm from "../forms/bookingForm/BookingForm";
-import {BookingDetailsSummary} from "../components";
-import { fetchHotelById } from "../services/hotelApi";
-import { fetchCurrentUser } from "../services/authApi";
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { Elements } from '@stripe/react-stripe-js'
+import { useAppContext } from '../contexts/AppContext'
+import { useBookingContext } from '../contexts/BookingContext'
+import BookingForm from '../forms/bookingForm/BookingForm'
+import { BookingDetailsSummary } from '../components'
+import { useGetCurrentUser, useGetHotel, useGetPaymentIntendData } from '../hooks'
 
 const Booking = () => {
-  const [numberOfNights, setNumberOfNights] = useState<number>(0);
-  const { hotelId } = useParams();
-  const { stripePromise } = useAppContext();
-  const booking = useBookingContext();
+  const [numberOfNights, setNumberOfNights] = useState<number>(0)
+  const { hotelId } = useParams()
+  const { stripePromise } = useAppContext()
+  const booking = useBookingContext()
+
+  const { data: currentUser } = useGetCurrentUser()
+  const { data: hotel } = useGetHotel(hotelId as string || '')
+  const { data: paymentIntentData } = useGetPaymentIntendData({
+    hotelId: hotelId as string || '',
+    numberOfNights,
+  })
 
   useEffect(() => {
     if (booking.checkIn && booking.checkOut) {
       const nights =
-        Math.abs(booking.checkOut.getTime() - booking.checkIn.getTime()) /
-        (1000 * 60 * 60 * 24);
+        Math.abs(booking.checkOut.getTime() - booking.checkIn.getTime()) / (1000 * 60 * 60 * 24)
 
-      setNumberOfNights(Math.ceil(nights));
+      setNumberOfNights(Math.ceil(nights))
     }
-  }, [booking.checkIn, booking.checkOut]);
-
-  const { data: paymentIntentData } = useQuery(
-    "createPaymentIntent",
-    () =>
-      createPaymentIntent(
-        hotelId as string,
-        numberOfNights.toString()
-      ),
-    {
-      enabled: !!hotelId && numberOfNights > 0,
-    }
-  );
-
-  const { data: hotel } = useQuery(
-    "fetchHotelByID",
-    () => fetchHotelById(hotelId as string),
-    {
-      enabled: !!hotelId,
-    }
-  );
-
-  const { data: currentUser } = useQuery(
-    "fetchCurrentUser",
-    fetchCurrentUser
-  );
+  }, [booking.checkIn, booking.checkOut])
 
   if (!hotel) {
-    return null;
+    return null
   }
 
   return (
@@ -70,16 +48,12 @@ const Booking = () => {
           stripe={stripePromise}
           options={{
             clientSecret: paymentIntentData.clientSecret,
-          }}
-        >
-          <BookingForm
-            currentUser={currentUser}
-            paymentIntent={paymentIntentData}
-          />
+          }}>
+          <BookingForm currentUser={currentUser} paymentIntent={paymentIntentData} />
         </Elements>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Booking;
+export default Booking

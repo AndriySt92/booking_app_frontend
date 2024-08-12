@@ -1,26 +1,21 @@
-import { useMutation, useQueryClient } from 'react-query'
-import { useNavigate, useLocation } from 'react-router-dom'
-import { useAppContext } from '../contexts/AppContext'
-import { signIn } from '../services/authApi'
+import { useMutation, useQueryClient } from "react-query"
+import { useAppContext } from "../contexts/AppContext"
+import { addMyHotel } from "../services/my-hotelApi"
 
-const useSignIn = () => {
-  const queryClient = useQueryClient()
-  const { showToast } = useAppContext()
-  
-  const navigate = useNavigate()
-  const location = useLocation()
-
-  return useMutation(signIn, {
-    onSuccess: async () => {
-      showToast({ message: 'Sign in Successful!', type: 'SUCCESS' })
-      await queryClient.invalidateQueries('validateToken')
-      navigate(location.state?.from?.pathname || '/')
-    },
-    onError: (error: Error) => {
-      let message = error.message || 'Something went wrong'
-      showToast({ message, type: 'ERROR' })
-    },
-  })
+const useCreateHotel = () => {
+    const queryClient = useQueryClient()
+    const { showToast } = useAppContext()
+    
+    return useMutation(addMyHotel, {
+      onSuccess: () => {
+        showToast({ message: 'Hotel saved!', type: 'SUCCESS' })
+        queryClient.invalidateQueries('hotels')
+      },
+      onError: (error: Error) => {
+        const message = error.message || 'Error saving hotel'
+        showToast({ message, type: 'ERROR' })
+      },
+    })
 }
 
-export default useSignIn
+export default useCreateHotel

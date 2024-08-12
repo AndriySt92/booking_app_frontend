@@ -5,11 +5,13 @@ import { ISearchParams } from '../types/hotelTypes'
 
 const useGetSearchHotels = (searchParams: ISearchParams) => {
   const { showToast } = useAppContext()
+  
   return useQuery(['searchHotels', searchParams], () => searchHotels(searchParams), {
     onError: (error: Error) => {
-      let message = error.message || 'Error fetching hotel data'
+      const message = error.message || 'Error fetching hotel data'
       showToast({ message, type: 'ERROR' })
     },
+    staleTime: Infinity
   })
 }
 

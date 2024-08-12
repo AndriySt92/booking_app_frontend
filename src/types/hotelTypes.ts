@@ -22,6 +22,11 @@ export interface IHotel extends IHotelFormData {
   bookings: IBooking[]
 }
 
+export interface IFetchHotelResponse {
+  hotels: IHotel[]
+  total: number
+}
+
 export interface IBookedDates {
   checkIn: Date
   checkOut: Date
@@ -32,7 +37,7 @@ export interface IGuestInfoFormData {
   checkOut: Date;
   adultCount: number;
   childCount: number;
-};
+}
 
 export interface ISearchParams {
   destination?: string;
@@ -46,7 +51,7 @@ export interface ISearchParams {
   stars?: string[];
   maxPrice?: string;
   sortOption?: string;
-};
+}
 
 export interface IHotelSearchResponse {
   data: IHotel[];
@@ -55,7 +60,7 @@ export interface IHotelSearchResponse {
     page: number;
     pages: number;
   };
-};
+}
 
 export interface ISearchFormValues {
   destination: string;

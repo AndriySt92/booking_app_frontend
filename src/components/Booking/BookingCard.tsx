@@ -1,10 +1,6 @@
-import React from 'react'
-import { useQuery } from 'react-query'
-import { fetchHotelById } from '../../services/hotelApi'
-import Loader from '../Common/Loader'
-import { useAppContext } from '../../contexts/AppContext'
 import { AiFillStar } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
+import { useGetHotel } from '../../hooks'
 
 interface Props {
   hotelId: string
@@ -15,17 +11,7 @@ interface Props {
 }
 
 const BookingCard = ({ hotelId, checkIn, checkOut, adultCount, childCount }: Props) => {
-  const { showToast } = useAppContext()
-  const { data: hotel } = useQuery(
-    ['fetchHotelById', hotelId],
-    () => fetchHotelById(hotelId || ''),
-    {
-      enabled: !!hotelId,
-      onError: () => {
-        showToast({ message: 'Error fetching hotel', type: 'ERROR' })
-      },
-    },
-  )
+  const { data: hotel } = useGetHotel(hotelId as string || '')
 
   if (!hotel) {
     return null

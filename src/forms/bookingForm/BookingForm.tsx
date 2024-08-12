@@ -1,14 +1,12 @@
 import { useParams } from 'react-router-dom'
-import { useMutation } from 'react-query'
 import { useForm } from 'react-hook-form'
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import { StripeCardElement } from '@stripe/stripe-js'
-import { useAppContext } from '../../contexts/AppContext'
-import { createRoomBooking } from '../../services/bookingApi'
 import { useBookingContext } from '../../contexts/BookingContext'
 import { IBooking, IPaymentIntentResponse } from '../../types/bookingTypes'
 import { IUser } from '../../types/userTypes'
 import { Button, LoadingButton } from '../../components'
+import { useCreateRoomBooking } from '../../hooks'
 
 interface Props {
   currentUser: IUser
@@ -20,16 +18,8 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
   const stripe = useStripe()
   const elements = useElements()
   const booking = useBookingContext()
-  const { showToast } = useAppContext()
 
-  const { mutate: bookRoom, isLoading } = useMutation(createRoomBooking, {
-    onSuccess: () => {
-      showToast({ message: 'Booking Saved!', type: 'SUCCESS' })
-    },
-    onError: () => {
-      showToast({ message: 'Error saving booking', type: 'ERROR' })
-    },
-  })
+  const { mutate: bookingRoom, isLoading } = useCreateRoomBooking()
 
   const { handleSubmit, register } = useForm<IBooking>({
     defaultValues: {
@@ -58,7 +48,7 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
     })
     
     if (result.paymentIntent?.status === 'succeeded') {
-      bookRoom({ ...formData, paymentIntentId: result.paymentIntent.id })
+      bookingRoom({ ...formData, paymentIntentId: result.paymentIntent.id })
     }
   }
 

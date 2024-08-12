@@ -8,11 +8,13 @@ const useDeleteMyHotel = () => {
 
   return useMutation(deleteMyHotel, {
     onSuccess: async () => {
-      await queryClient.invalidateQueries('fetchMyHotels')
       showToast({ message: 'Hotel deleted successfully', type: 'SUCCESS' })
+
+      queryClient.invalidateQueries('fetchMyHotels')  
+      queryClient.invalidateQueries('fetchHotels') 
     },
     onError: (error: Error) => {
-      let message = error.message || 'Error deleting hotel'
+      const message = error.message || 'Error deleting hotel'
       showToast({ message, type: 'ERROR' })
     },
   })

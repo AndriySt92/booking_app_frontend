@@ -11,11 +11,13 @@ const useSignUp = () => {
   return useMutation(signUp, {
     onSuccess: async () => {
       showToast({ message: 'Registration Success!', type: 'SUCCESS' })
+
       await queryClient.invalidateQueries('validateToken')
+
       navigate('/')
     },
     onError: (error: Error) => {
-      let message = error.message || 'Something went wrong'
+      const message = error.message || 'Something went wrong'
       showToast({ message, type: 'ERROR' })
     },
   })

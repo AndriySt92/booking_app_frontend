@@ -1,14 +1,11 @@
 import { useMemo, useState } from 'react'
-import { useQuery } from 'react-query'
 import { useSearchContext } from '../contexts/SearchContext'
-import { searchHotels } from '../services/hotelApi'
 import { Pagination, SearchResultsCard, Modal, Button, Loader, Filter } from '../components'
-import { useAppContext } from '../contexts/AppContext'
 import { sortOptions } from '../config/hotelOptionsConfig'
+import { useGetSearchHotels } from '../hooks'
 
 const Search = () => {
   const search = useSearchContext()
-  const { showToast } = useAppContext()
   const [page, setPage] = useState<number>(1)
   const [selectedStars, setSelectedStars] = useState<string[]>([])
   const [selectedHotelTypes, setSelectedHotelTypes] = useState<string[]>([])
@@ -46,15 +43,7 @@ const Search = () => {
     ],
   )
 
-  const { data: hotelData, isLoading } = useQuery(
-    ['searchHotels', searchParams],
-    () => searchHotels(searchParams),
-    {
-      onError: () => {
-        showToast({ message: 'Error fetching hotel data', type: 'ERROR' })
-      },
-    },
-  )
+  const { data: hotelData, isLoading } = useGetSearchHotels(searchParams)
 
   const handleStarsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const starRating = event.target.value

@@ -1,24 +1,14 @@
-import { useQuery } from 'react-query'
 import { useParams } from 'react-router-dom'
-import { fetchBookedDates, fetchHotelById } from '../services/hotelApi'
 import { AiFillStar } from 'react-icons/ai'
 import GuestInfoForm from '../forms/guestInfoForm/GuestInfoForm'
 import DatePicker from 'react-datepicker'
 import { transformBookedDates } from '../utils/dateUtils'
+import { useGetBookedDates, useGetHotel } from '../hooks'
 
 const Detail = () => {
   const { hotelId } = useParams()
-  const { data: hotel } = useQuery('fetchHotelById', () => fetchHotelById(hotelId || ''), {
-    enabled: !!hotelId,
-  })
-
-  const { data: bookedDates } = useQuery(
-    'fetchBookedDates',
-    () => fetchBookedDates(hotelId || ''),
-    {
-      enabled: !!hotelId,
-    },
-  )
+  const { data: hotel } = useGetHotel(hotelId as string || '')
+  const { data: bookedDates } = useGetBookedDates(hotelId as string || '')
 
   if (!hotel || !bookedDates) {
     return null

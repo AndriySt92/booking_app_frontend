@@ -1,32 +1,14 @@
-import { useMutation, useQuery, useQueryClient } from 'react-query'
-import { deleteMyHotel, fetchMyHotels } from '../services/my-hotelApi'
 import { BsBuilding, BsMap } from 'react-icons/bs'
 import { BiHotel, BiMoney, BiStar } from 'react-icons/bi'
 import { Button, Loader } from '../components'
-import { useAppContext } from '../contexts/AppContext'
+import { useDeleteMyHotel, useGetMyHotels } from '../hooks'
 
 const MyHotels = () => {
-  const { showToast } = useAppContext()
-  
-  const queryClient = useQueryClient()
-  const { data: hotels, isLoading } = useQuery('fetchMyHotels', fetchMyHotels, {
-    onError: () => {
-      showToast({ message: 'Error fetching my hotel', type: 'ERROR' })
-    },
-  })
-
-  const mutation = useMutation(deleteMyHotel, {
-    onSuccess: async () => {
-      await queryClient.invalidateQueries('fetchMyHotels')
-      showToast({ message: 'Hotel deleted successfully', type: 'SUCCESS' })
-    },
-    onError: (error: Error) => {
-      showToast({ message: error.message, type: 'ERROR' })
-    },
-  })
+  const { data: hotels, isLoading } = useGetMyHotels()
+  const { mutate, isLoading: isDeleting } = useDeleteMyHotel()
 
   const handleDelete = (hotelId: string) => {
-    mutation.mutate(hotelId)
+    mutate(hotelId)
   }
 
   if (isLoading) {
@@ -37,10 +19,7 @@ const MyHotels = () => {
     <div className="space-y-5">
       <span className="flex justify-between">
         <h1 className="text-3xl font-bold">My Hotels</h1>
-        <Button
-          role="link"
-          to="/add-hotel"
-          classes="bg-blue-600 text-white hover:bg-blue-500">
+        <Button role="link" to="/add-hotel" classes="bg-blue-600 text-white hover:bg-blue-500">
           Add Hotel
         </Button>
       </span>
@@ -77,7 +56,7 @@ const MyHotels = () => {
               </div>
               <div className="flex  justify-between sm:justify-end gap-4">
                 <Button
-                  onClick={() => handleDelete(hotel._id)}
+                  onClick={!isDeleting ? () => handleDelete(hotel._id) : undefined}
                   classes="bg-blue-600 text-white hover:bg-blue-500">
                   Delete
                 </Button>

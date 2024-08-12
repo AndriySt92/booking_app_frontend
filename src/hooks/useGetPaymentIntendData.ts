@@ -13,6 +13,7 @@ const useGetPaymentIntendData = ({
     () => createPaymentIntent(hotelId, numberOfNights.toString()),
     {
       enabled: !!hotelId && numberOfNights > 0,
+      staleTime: Infinity
     },
   )
 }

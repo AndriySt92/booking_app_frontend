@@ -10,6 +10,7 @@ const useGetHotel = (hotelId: string) => {
     onError: () => {
       showToast({ message: 'Error fetching hotel', type: 'ERROR' })
     },
+    staleTime: Infinity
   })
 }
 

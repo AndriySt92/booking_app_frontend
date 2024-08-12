@@ -1,8 +1,8 @@
-import { IHotel, IHotelSearchResponse, ISearchParams } from '../types/hotelTypes'
+import { IFetchHotelResponse, IHotel, IHotelSearchResponse, ISearchParams } from '../types/hotelTypes'
 
 const API_BASE_URL = 'http://localhost:3001'
 
-export const fetchHotels = async (page: number, limit: number): Promise<{hotels: IHotel[], totalCount: number}> => {
+export const fetchHotels = async (page: number, limit: number): Promise<IFetchHotelResponse> => {
   const response = await fetch(`${API_BASE_URL}/api/hotels/?limit=${limit}&page=${page}`);
   
   if (!response.ok) {

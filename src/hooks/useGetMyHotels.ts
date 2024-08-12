@@ -7,9 +7,10 @@ const useGetMyHotels = () => {
 
   return useQuery('fetchMyHotels', fetchMyHotels, {
     onError: (error: Error) => {
-      let message = error.message || 'Error fetching my hotel'
+      const message = error.message || 'Error fetching my hotel'
       showToast({ message, type: 'ERROR' })
     },
+    staleTime: Infinity
   })
 }
 

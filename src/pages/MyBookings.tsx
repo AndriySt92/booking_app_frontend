@@ -1,9 +1,8 @@
-import { useQuery } from 'react-query'
-import { fetchMyBookings } from '../services/bookingApi'
 import { BookingCard, Loader } from '../components'
+import { useGetMyBooking } from '../hooks'
 
 const MyBookings = () => {
-  const { data: bookings, isLoading, isError } = useQuery('fetchMyBookings', fetchMyBookings)
+  const { data: bookings, isLoading, isError } = useGetMyBooking()
   
   if (isLoading) {
     return <Loader />

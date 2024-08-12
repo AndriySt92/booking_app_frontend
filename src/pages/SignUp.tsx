@@ -1,16 +1,9 @@
 import { useForm } from 'react-hook-form'
-import { useMutation, useQueryClient } from 'react-query'
-import { signUp } from '../services/authApi'
-import { useAppContext } from '../contexts/AppContext'
-import { useNavigate } from 'react-router-dom'
 import { ISignUpData } from '../types/userTypes'
 import { Button, LoadingButton } from '../components'
+import { useSignUp } from '../hooks'
 
 const Register = () => {
-  const queryClient = useQueryClient()
-  const navigate = useNavigate()
-  const { showToast } = useAppContext()
-
   const {
     register,
     watch,
@@ -18,19 +11,10 @@ const Register = () => {
     formState: { errors },
   } = useForm<ISignUpData>()
 
-  const mutation = useMutation(signUp, {
-    onSuccess: async () => {
-      showToast({ message: 'Registration Success!', type: 'SUCCESS' })
-      await queryClient.invalidateQueries('validateToken')
-      navigate('/')
-    },
-    onError: (error: Error) => {
-      showToast({ message: error.message, type: 'ERROR' })
-    },
-  })
+  const { mutate, isLoading } = useSignUp()
 
   const onSubmit = handleSubmit((data) => {
-    mutation.mutate(data)
+    mutate(data)
   })
 
   return (
@@ -93,9 +77,9 @@ const Register = () => {
         )}
       </label>
       <span>
-        {!mutation.isLoading ? (
+        {!isLoading ? (
           <Button
-            disabled={mutation.isLoading}
+            disabled={isLoading}
             btnType="submit"
             classes="bg-blue-600 text-white hover:bg-blue-500">
             Create Account

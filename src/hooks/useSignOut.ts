@@ -9,10 +9,11 @@ const useSignOut = () => {
   return useMutation(signOut, {
     onSuccess: async () => {
       await queryClient.invalidateQueries('validateToken')
+
       showToast({ message: 'Signed Out!', type: 'SUCCESS' })
     },
     onError: (error: Error) => {
-      let message = error.message || 'Something went wrong'
+      const message = error.message || 'Something went wrong'
       showToast({ message, type: 'ERROR' })
     },
   })
