@@ -4,7 +4,7 @@ interface Props {
   message: string;
   type: "SUCCESS" | "ERROR";
   onClose: () => void;
-};
+}
 
 const Toast = ({ message, type, onClose }: Props) => {
   useEffect(() => {

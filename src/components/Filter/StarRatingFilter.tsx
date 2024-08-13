@@ -1,7 +1,7 @@
 interface Props {
     selectedStars: string[];
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  };
+  }
   
   const StarRatingFilter = ({ selectedStars, onChange }: Props) => {
     return (

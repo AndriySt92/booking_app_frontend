@@ -7,7 +7,7 @@ interface Props {
   childCount: number;
   numberOfNights: number;
   hotel: IHotel;
-};
+}
 
 const BookingDetailsSummary = ({
   checkIn,

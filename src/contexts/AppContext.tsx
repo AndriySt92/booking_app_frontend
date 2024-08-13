@@ -2,9 +2,8 @@ import React, { useContext, useState } from 'react'
 import { useQuery } from 'react-query'
 import { validateToken } from '../services/authApi'
 import { Toast } from '../components'
-import { loadStripe, Stripe } from '@stripe/stripe-js';
-
-const STRIPE_PUB_KEY = import.meta.env.VITE_STRIPE_PUB_KEY || "";
+import { Stripe } from '@stripe/stripe-js';
+import { stripePromise } from '../utils/stripe';  
 
 interface IToastMessage {
   message: string
@@ -19,13 +18,11 @@ interface IAppContext {
 
 const AppContext = React.createContext<IAppContext | undefined>(undefined)
 
-const stripePromise = loadStripe(STRIPE_PUB_KEY);
-
 export const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [toast, setToast] = useState<IToastMessage | null>(null)
 
   const { isError } = useQuery('validateToken', validateToken, {
-    retry: false,
+    staleTime: 5000,
   })
 
   return (

@@ -13,6 +13,7 @@ interface ISearchContext {
     checkOut: Date,
     adultCount: number,
     childCount: number,
+    hotelId?: string,
   ) => void
 }
 

@@ -3,7 +3,7 @@ import { hotelTypes } from "../../config/hotelOptionsConfig";
 interface Props {
   selectedHotelTypes: string[];
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-};
+}
 
 const HotelTypesFilter = ({ selectedHotelTypes, onChange }: Props) => {
   return (

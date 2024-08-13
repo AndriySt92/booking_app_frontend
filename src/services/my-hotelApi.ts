@@ -2,7 +2,7 @@ import { IHotel } from '../types/hotelTypes'
 
 const API_BASE_URL = 'http://localhost:3001'
 
-export const addMyHotel = async (hotelFormData: any) => {
+export const addMyHotel = async (hotelFormData: FormData) => {
   const response = await fetch(`${API_BASE_URL}/api/my-hotels`, {
     method: 'POST',
     credentials: 'include',
