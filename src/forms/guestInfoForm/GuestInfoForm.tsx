@@ -26,6 +26,7 @@ const GuestInfoForm = ({ adultCount, childCount, bookedDates, hotelId, pricePerN
     register,
     handleSubmit,
     control,
+    clearErrors,
     formState: { errors },
   } = useForm<IGuestInfoFormData>({
     mode: 'onChange',
@@ -80,7 +81,14 @@ const GuestInfoForm = ({ adultCount, childCount, bookedDates, hotelId, pricePerN
               rules={{
                 required: 'Check-in date is required',
                 validate: {
-                  validDateRange: (value) => validateDateRange(bookedDates, value, checkOut),
+                  validDateRange: (value) => {
+                    const isValid = validateDateRange(bookedDates, value, checkOut)
+                    if (isValid) {
+                      clearErrors('checkIn')
+                      clearErrors('checkOut')
+                    }
+                    return isValid
+                  },
                 },
               }}
               render={({ field }) => (
@@ -101,7 +109,6 @@ const GuestInfoForm = ({ adultCount, childCount, bookedDates, hotelId, pricePerN
                 />
               )}
             />
-            {errors.checkIn && <span className="text-red-500">{errors.checkIn.message}</span>}
           </div>
           <div>
             <Controller
@@ -110,7 +117,14 @@ const GuestInfoForm = ({ adultCount, childCount, bookedDates, hotelId, pricePerN
               rules={{
                 required: 'Check-out date is required',
                 validate: {
-                  validDateRange: (value) => validateDateRange(bookedDates, checkIn, value),
+                  validDateRange: (value) => {
+                    const isValid = validateDateRange(bookedDates, checkIn, value)
+                    if (isValid) {
+                      clearErrors('checkIn')
+                      clearErrors('checkOut')
+                    }
+                    return isValid
+                  },
                 },
               }}
               render={({ field }) => (

@@ -19,13 +19,14 @@ export const transformBookedDates = (bookedDates: IBookedDates[]): Date[] => {
 }
 
 export const validateDateRange = (bookedDates: IBookedDates[], checkIn: Date, checkOut: Date) => {
-  return bookedDates.some((dateRange) => {
+  return !bookedDates.some((dateRange) => {
     const startDate = new Date(dateRange.checkIn)
     const endDate = new Date(dateRange.checkOut)
 
     return (
-      (checkIn < startDate && checkOut < startDate) || 
-      (checkIn > endDate && checkOut > startDate)
+      (checkIn >= startDate && checkIn < endDate) ||
+      (checkOut > startDate && checkOut <= endDate) ||
+      (checkIn <= startDate && checkOut >= endDate)
     )
   })
 }
