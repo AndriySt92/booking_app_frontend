@@ -7,6 +7,7 @@ import { IBooking, IPaymentIntentResponse } from '../../types/bookingTypes'
 import { IUser } from '../../types/userTypes'
 import { Button, LoadingButton } from '../../components'
 import { useCreateRoomBooking } from '../../hooks'
+import { useAppContext } from '../../contexts/AppContext'
 
 interface Props {
   currentUser: IUser
@@ -15,6 +16,7 @@ interface Props {
 
 const BookingForm = ({ currentUser, paymentIntent }: Props) => {
   const { hotelId } = useParams()
+  const { showToast } = useAppContext()
   const stripe = useStripe()
   const elements = useElements()
   const booking = useBookingContext()
@@ -46,10 +48,16 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
         card: elements.getElement(CardElement) as StripeCardElement,
       },
     })
-    
+
     if (result.paymentIntent?.status === 'succeeded') {
       bookingRoom({ ...formData, paymentIntentId: result.paymentIntent.id })
     }
+
+    if(result.error) {
+      const message = result.error.message || "Confirm card payment error" 
+      showToast({ message: message, type: 'ERROR' })
+    }
+   
   }
 
   return (
