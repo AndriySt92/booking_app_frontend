@@ -38,7 +38,7 @@ const SearchBar = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="-mt-8 p-3 bg-orange-400 rounded shadow-md grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 items-center gap-4">
+      className="bg-orange-400 rounded shadow-md grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-4 items-center gap-4 -mt-[117px] 2xl:-mt-8 xl:-mt-[60px] sm:-mt-[60px] p-3">
       <div className="flex flex-row items-center flex-1 bg-white p-2">
         <MdTravelExplore size={25} className="mr-2" />
         <input
@@ -71,46 +71,48 @@ const SearchBar = () => {
         </label>
       </div>
 
-      <div className="overflow-x-hidden">
-        <Controller
-          name="checkIn"
-          control={control}
-          render={({ field }) => (
-            <DatePicker
-              placeholderText="Check-in Date"
-              onChange={(date) => field.onChange(date)}
-              selected={field.value}
-              selectsStart
-              startDate={field.value as Date}
-              endDate={getValues('checkOut') as Date}
-              minDate={minDate}
-              maxDate={maxDate}
-              className="min-w-full bg-white p-2 focus:outline-none"
-              wrapperClassName="min-w-full"
-            />
-          )}
-        />
-      </div>
+      <div className="flex gap-2">
+        <div className="flex-1">
+          <Controller
+            name="checkIn"
+            control={control}
+            render={({ field }) => (
+              <DatePicker
+                placeholderText="Check-in Date"
+                onChange={(date) => field.onChange(date)}
+                selected={field.value}
+                selectsStart
+                startDate={field.value as Date}
+                endDate={getValues('checkOut') as Date}
+                minDate={minDate}
+                maxDate={maxDate}
+                className="w-full bg-white p-2 focus:outline-none"
+                wrapperClassName="w-full"
+              />
+            )}
+          />
+        </div>
 
-      <div className="overflow-x-hidden">
-        <Controller
-          name="checkOut"
-          control={control}
-          render={({ field }) => (
-            <DatePicker
-              placeholderText="Check-out Date"
-              onChange={(date) => field.onChange(date)}
-              selected={field.value}
-              selectsEnd
-              startDate={getValues('checkIn') as Date}
-              endDate={field.value as Date}
-              minDate={getValues('checkIn') as Date}
-              maxDate={maxDate}
-              className="min-w-full bg-white p-2 focus:outline-none"
-              wrapperClassName="min-w-full"
-            />
-          )}
-        />
+        <div className="flex-1">
+          <Controller
+            name="checkOut"
+            control={control}
+            render={({ field }) => (
+              <DatePicker
+                placeholderText="Check-out Date"
+                onChange={(date) => field.onChange(date)}
+                selected={field.value}
+                selectsEnd
+                startDate={getValues('checkIn') as Date}
+                endDate={field.value as Date}
+                minDate={getValues('checkIn') as Date}
+                maxDate={maxDate}
+                className="w-full bg-white p-2 focus:outline-none"
+                wrapperClassName="w-full"
+              />
+            )}
+          />
+        </div>
       </div>
 
       <div className="flex gap-1">
