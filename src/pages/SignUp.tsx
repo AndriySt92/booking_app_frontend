@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form'
 import { ISignUpData } from '../types/userTypes'
 import { Button, LoadingButton } from '../components'
 import { useSignUp } from '../hooks'
+import { Link } from 'react-router-dom'
 
 const Register = () => {
   const {
@@ -18,17 +19,19 @@ const Register = () => {
   })
 
   return (
-    <form className="flex flex-col gap-5" onSubmit={onSubmit}>
+    <form
+      className="flex flex-col gap-5 max-w-lg w-full custom-shadow-rounded p-8"
+      onSubmit={onSubmit}>
       <h2 className="text-3xl font-bold">Create an Account</h2>
       <div className="flex flex-col md:flex-row gap-5">
-        <label className="text-gray-700 text-sm font-bold flex-1">
+        <label className="text-gray-700 text-md sm:text-lg font-bold flex-1">
           First Name
           <input
             className="border rounded w-full py-1 px-2 font-normal"
             {...register('firstName', { required: 'This field is required' })}></input>
           {errors.firstName && <span className="text-red-500">{errors.firstName.message}</span>}
         </label>
-        <label className="text-gray-700 text-sm font-bold flex-1">
+        <label className="text-gray-700 text-md sm:text-lg font-bold flex-1">
           Last Name
           <input
             className="border rounded w-full py-1 px-2 font-normal"
@@ -36,7 +39,7 @@ const Register = () => {
           {errors.lastName && <span className="text-red-500">{errors.lastName.message}</span>}
         </label>
       </div>
-      <label className="text-gray-700 text-sm font-bold flex-1">
+      <label className="text-gray-700 text-md sm:text-lg font-bold flex-1">
         Email
         <input
           type="email"
@@ -44,7 +47,7 @@ const Register = () => {
           {...register('email', { required: 'This field is required' })}></input>
         {errors.email && <span className="text-red-500">{errors.email.message}</span>}
       </label>
-      <label className="text-gray-700 text-sm font-bold flex-1">
+      <label className="text-gray-700 text-md sm:text-lg font-bold flex-1">
         Password
         <input
           type="password"
@@ -58,7 +61,7 @@ const Register = () => {
           })}></input>
         {errors.password && <span className="text-red-500">{errors.password.message}</span>}
       </label>
-      <label className="text-gray-700 text-sm font-bold flex-1">
+      <label className="text-gray-700 text-md sm:text-lg font-bold flex-1">
         Confirm Password
         <input
           type="password"
@@ -76,6 +79,12 @@ const Register = () => {
           <span className="text-red-500">{errors.confirmPassword.message}</span>
         )}
       </label>
+      <div className="text-sm">
+        Already have an account?{' '}
+        <Link className="underline" to="/sign-in">
+          Sign in here
+        </Link>
+      </div>
       <span>
         {!isLoading ? (
           <Button

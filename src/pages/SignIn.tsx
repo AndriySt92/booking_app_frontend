@@ -10,7 +10,6 @@ const SignIn = () => {
     formState: { errors },
     handleSubmit,
   } = useForm<ISignInData>()
-
   const { mutate, isLoading } = useSignIn()
 
   const onSubmit = handleSubmit((data) => {
@@ -18,9 +17,11 @@ const SignIn = () => {
   })
 
   return (
-    <form className="flex flex-col gap-5" onSubmit={onSubmit}>
+    <form
+      className="flex flex-col gap-5 max-w-lg w-full custom-shadow-rounded p-8"
+      onSubmit={onSubmit}>
       <h2 className="text-3xl font-bold">Sign In</h2>
-      <label className="text-gray-700 text-sm font-bold flex-1">
+      <label className="text-gray-700 text-md sm:text-lg font-bold flex-1">
         Email
         <input
           type="email"
@@ -28,7 +29,7 @@ const SignIn = () => {
           {...register('email', { required: 'This field is required' })}></input>
         {errors.email && <span className="text-red-500">{errors.email.message}</span>}
       </label>
-      <label className="text-gray-700 text-sm font-bold flex-1">
+      <label className="text-gray-700 text-md sm:text-lg font-bold flex-1">
         Password
         <input
           type="password"
@@ -42,26 +43,26 @@ const SignIn = () => {
           })}></input>
         {errors.password && <span className="text-red-500">{errors.password.message}</span>}
       </label>
-      <span className="flex items-center justify-between">
-        <span className="text-sm">
-          Not Registered?{' '}
-          <Link className="underline" to="/sign-up">
-            Create an account here
-          </Link>
-        </span>
+      <div className="text-sm">
+        Not Registered?{' '}
+        <Link className="underline" to="/sign-up">
+          Create an account here
+        </Link>
+      </div>
+      <div>
         {!isLoading ? (
           <Button
             disabled={isLoading}
             btnType="submit"
-            classes="bg-blue-600 text-white hover:bg-blue-500">
+            classes="w-full justify-center bg-blue-600 text-white hover:bg-blue-500">
             Sign In
           </Button>
         ) : (
-          <LoadingButton classes="bg-blue-600 text-white hover:bg-blue-500">
+          <LoadingButton classes="w-full justify-center bg-blue-600 text-white hover:bg-blue-500">
             Loading...
           </LoadingButton>
         )}
-      </span>
+      </div>
     </form>
   )
 }
