@@ -10,9 +10,9 @@ const HomeCard = ({ hotel }: Props) => {
   return (
     <Link
       to={`/detail/${hotel._id}`}
-      className="relative cursor-pointer overflow-hidden rounded-md shadow-[0px_6px_20px_3px_#00000024] animate-slideIn">
-      <div className="h-[300px]">
-        <img src={hotel.imageUrls[0]} className="w-full h-full object-cover object-center" />
+      className="relative cursor-pointer animate-slideIn">
+      <div className="h-[300px] custom-shadow-rounded">
+        <img src={hotel.imageUrls[0]} className="w-full rounded-lg h-full object-cover object-center" />
         <div className="absolute bottom-0 left-0 right-0 top-0 flex justify-center items-center h-full w-full overflow-hidden bg-white bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-20"></div>
       </div>
       <div className="absolute bottom-0 flex justify-between px-2 py-1 bg-black bg-opacity-40 w-full rounded-b-md">

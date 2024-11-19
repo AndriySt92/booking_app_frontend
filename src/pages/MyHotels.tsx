@@ -16,7 +16,7 @@ const MyHotels = () => {
   }
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-7">
       <span className="flex justify-between">
         <h1 className="text-3xl font-bold">My Hotels</h1>
         <Button role="link" to="/add-hotel" classes="bg-blue-600 text-white hover:bg-blue-500">
@@ -29,7 +29,7 @@ const MyHotels = () => {
           {hotels.map((hotel) => (
             <div
               data-testid="hotel-card"
-              className="flex flex-col justify-between rounded-lg p-3 md:p-8 gap-5 shadow-[0px_6px_20px_3px_#00000024]"
+              className="flex flex-col justify-between p-3 md:p-8 gap-5 text-md sm:text-lg custom-shadow-rounded animate-slideIn"
               key={hotel._id}>
               <h2 className="text-2xl font-bold">{hotel.name}</h2>
               <div className="whitespace-pre-line">{hotel.description}</div>
