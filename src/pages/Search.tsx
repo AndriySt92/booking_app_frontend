@@ -77,7 +77,7 @@ const Search = () => {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-5">
-      <div className="rounded-lg border border-slate-300 p-5 h-fit top-10 hidden lg:block">
+      <div className="custom-shadow-rounded p-5 h-fit top-10 hidden lg:block">
         <Filter
           selectedStars={selectedStars}
           handleStarsChange={handleStarsChange}

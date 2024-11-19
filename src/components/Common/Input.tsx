@@ -8,7 +8,7 @@ interface Props {
 
 const Input = ({name, type, errors, register, ...validations}: Props) => {
   return (
-    <label className="text-gray-700 text-sm font-bold flex-1">
+    <label className="text-gray-700 text-md sm:text-lg font-bold flex-1">
         {name}
         <input
           type="text"

@@ -27,7 +27,7 @@ const Filter = ({
 }: Props) => {
   return (
     <div className="space-y-5">
-      <h3 className="text-lg font-semibold border-b border-slate-300 pb-5">Filter by:</h3>
+      <h3 className="text-xl font-semibold border-b border-slate-300 pb-5">Filter by:</h3>
       <StarRatingFilter selectedStars={selectedStars} onChange={handleStarsChange} />
       <HotelTypesFilter selectedHotelTypes={selectedHotelTypes} onChange={handleHotelTypeChange} />
       <FacilitiesFilter selectedFacilities={selectedFacilities} onChange={handleFacilityChange} />

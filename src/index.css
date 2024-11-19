@@ -23,6 +23,12 @@ body {
   @apply max-h-screen opacity-100;
 }
 
+
+/* Box-shadow Styles */
+.custom-shadow-rounded {
+  @apply shadow-[0px_6px_20px_3px_#00000024] rounded-lg;
+}
+
 .booked {
   background-color: red !important;
   color: white !important;

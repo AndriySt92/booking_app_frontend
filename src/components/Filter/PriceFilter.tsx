@@ -6,7 +6,7 @@ interface Props {
   const PriceFilter = ({ selectedPrice, onChange }: Props) => {
     return (
       <div>
-        <h4 className="text-md font-semibold mb-2"> Max Price</h4>
+        <h4 className="text-xl font-semibold mb-2"> Max Price</h4>
         <select
           className="p-2 border rounded-md w-full"
           value={selectedPrice}

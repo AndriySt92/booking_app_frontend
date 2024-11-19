@@ -9,7 +9,7 @@ const MyBookings = () => {
   }
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-7">
       <h1 className="text-3xl font-bold">My Bookings</h1>
       {bookings && bookings.length === 0 && (
         <span className="text-3xl mx-8 block text-center mt-5">No bookings found</span>

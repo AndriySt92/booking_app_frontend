@@ -71,7 +71,7 @@ const GuestInfoForm = ({ adultCount, childCount, bookedDates, hotelId, pricePerN
 
   return (
     <div className="flex flex-col p-4 bg-blue-200 gap-4">
-      <h3 className="text-md font-bold">€{pricePerNight}</h3>
+      <h3 className="text-md sm:text-lg font-bold">€{pricePerNight}</h3>
       <form onSubmit={isLoggedIn ? handleSubmit(onSubmit) : handleSubmit(onSignInClick)}>
         <div className="grid grid-cols-1 gap-4 items-center">
           <div>
@@ -104,7 +104,7 @@ const GuestInfoForm = ({ adultCount, childCount, bookedDates, hotelId, pricePerN
                   minDate={minDate}
                   maxDate={maxDate}
                   placeholderText="Check-in Date"
-                  className="min-w-full bg-white p-2 focus:outline-none"
+                  className="text-md sm:text-lg  min-w-full bg-white p-2 focus:outline-none"
                   wrapperClassName="min-w-full"
                 />
               )}
@@ -140,7 +140,7 @@ const GuestInfoForm = ({ adultCount, childCount, bookedDates, hotelId, pricePerN
                   minDate={minDate}
                   maxDate={maxDate}
                   placeholderText="Check-out Date"
-                  className="min-w-full bg-white p-2 focus:outline-none"
+                  className="text-md sm:text-lg min-w-full bg-white p-2 focus:outline-none"
                   wrapperClassName="min-w-full"
                 />
               )}
@@ -153,7 +153,7 @@ const GuestInfoForm = ({ adultCount, childCount, bookedDates, hotelId, pricePerN
           </div>
           <div>
             <div className="flex bg-white px-2 py-1 gap-2">
-              <label className="items-center flex flex-1">
+              <label className="text-md sm:text-lg items-center flex flex-1">
                 Adults:
                 <input
                   className="w-full p-1 focus:outline-none font-bold"
@@ -174,7 +174,7 @@ const GuestInfoForm = ({ adultCount, childCount, bookedDates, hotelId, pricePerN
                   })}
                 />
               </label>
-              <label className="items-center flex flex-1">
+              <label className="text-md sm:text-lg items-center flex flex-1">
                 Children:
                 <input
                   className="w-full p-1 focus:outline-none font-bold"

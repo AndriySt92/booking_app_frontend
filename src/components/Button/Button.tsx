@@ -27,13 +27,13 @@ const Button = ({
           onClick={onClick}
           type={btnType}
           disabled={disabled}
-          className={`${classes} flex items-center rounded-sm py-2 px-4 font-bold text-md`}>
+          className={`${classes} flex items-center rounded-lg py-2 px-5 font-semibold text-md sm:text-lg`}>
           {children}
         </button>
       ) : (
         <Link
           to={to}
-          className={`${classes} flex items-center rounded-sm p-2 font-bold text-md`}>
+          className={`${classes} flex items-center rounded-lg p-2 px-5 font-semibold text-md sm:text-lg`}>
           {children}
         </Link>
       )}
