@@ -1,9 +1,9 @@
-import { BookingCard, Loader } from '../components'
+import { Loader, BookingItem } from '../components'
 import { useGetMyBooking } from '../hooks'
 
 const MyBookings = () => {
   const { data: bookings, isLoading, isError } = useGetMyBooking()
-  
+
   if (isLoading) {
     return <Loader />
   }
@@ -16,7 +16,7 @@ const MyBookings = () => {
       )}
       {bookings &&
         bookings.map(({ hotelId, checkIn, checkOut, adultCount, childCount }) => (
-          <BookingCard
+          <BookingItem
             key={adultCount}
             hotelId={hotelId}
             checkIn={checkIn}
