@@ -13,4 +13,5 @@ export { default as useDeleteMyHotel } from './useDeleteMyHotel';
 export { default as useUpdateMyHotel } from './useUpdateMyHotel';
 export { default as useGetPaymentIntendData } from './useGetPaymentIntendData';
 export { default as useCreateRoomBooking } from './useCreateRoomBooking';
+export { default as useModalManager } from './useModalManager';
 

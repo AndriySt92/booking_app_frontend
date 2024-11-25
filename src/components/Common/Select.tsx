@@ -13,6 +13,7 @@ interface Props {
   options: Option[]
   placeholder?: string
   error?: string
+  disabled?: boolean
   register: UseFormRegister<any>
   validation?: RegisterOptions
   selectClassNames?: string
@@ -26,6 +27,7 @@ const Select = ({
   options,
   placeholder = 'Select an option',
   error = '',
+  disabled,
   register,
   validation,
   selectClassNames = '',
@@ -45,8 +47,11 @@ const Select = ({
           selectClassNames,
           'p-2 border rounded-md w-full cursor-pointer focus:outline-none focus:ring focus:ring-blue-200',
         )}
+        disabled={disabled}
         {...register(name, validation)}>
-        <option value="" className="cursor-pointer">{placeholder}</option>
+        <option value="" className="cursor-pointer">
+          {placeholder}
+        </option>
         {options.map((option) => (
           <option className="cursor-pointer" key={option.value} value={option.value}>
             {option.label}
