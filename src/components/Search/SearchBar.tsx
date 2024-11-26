@@ -3,25 +3,26 @@ import { useForm, Controller } from 'react-hook-form'
 import { useSearchContext } from '../../contexts/SearchContext'
 import { MdTravelExplore } from 'react-icons/md'
 import DatePicker from 'react-datepicker'
-import Button from '../Button/Button'
 import { ISearchFormValues } from '../../types/hotelTypes'
+import { Input, Button } from '../'
 
 const SearchBar = () => {
   const navigate = useNavigate()
-  const search = useSearchContext()
+  const { destination, checkIn, checkOut, adultCount, childCount, saveSearchValues } =
+    useSearchContext()
 
   const { register, handleSubmit, control, reset, getValues } = useForm<ISearchFormValues>({
     defaultValues: {
-      destination: search.destination,
-      checkIn: search.checkIn,
-      checkOut: search.checkOut,
-      adultCount: search.adultCount,
-      childCount: search.childCount,
+      destination,
+      checkIn,
+      checkOut,
+      adultCount,
+      childCount,
     },
   })
 
   const onSubmit = (data: ISearchFormValues) => {
-    search.saveSearchValues(
+    saveSearchValues(
       data.destination,
       data.checkIn!,
       data.checkOut!,
@@ -39,36 +40,42 @@ const SearchBar = () => {
     <form
       onSubmit={handleSubmit(onSubmit)}
       className="bg-orange-400 rounded shadow-md grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-4 items-center gap-4 -mt-[117px] 2xl:-mt-8 xl:-mt-[60px] sm:-mt-[60px] p-3">
-      <div className="flex flex-row items-center flex-1 bg-white p-2">
+      <div className="flex flex-row items-center flex-1 bg-white px-2 py-1">
         <MdTravelExplore size={25} className="mr-2" />
-        <input
+        <Input
+          register={register}
           placeholder="Where are you going?"
-          className="text-md w-full focus:outline-none"
-          {...register('destination')}
+          name="destination"
+          inputClassNames="w-full !p-1 !text-lg focus:outline-none !border-none"
         />
       </div>
 
       <div className="flex bg-white px-2 py-1 gap-2">
-        <label className="flex items-center flex-1">
-          Adults:
-          <input
-            className="w-full p-1 focus:outline-none font-bold"
-            type="number"
-            {...register('adultCount')}
-            min={1}
-            max={100}
-          />
-        </label>
-        <label className="flex items-center flex-1">
-          Children:
-          <input
-            className="w-full p-1 focus:outline-none font-bold"
-            type="number"
-            {...register('childCount')}
-            min={0}
-            max={100}
-          />
-        </label>
+        <Input
+          register={register}
+          name="adultCount"
+          label="Adults:"
+          type="number"
+          min={1}
+          max={20}
+          validation={{ minLength: 1, valueAsNumber: true }}
+          inputClassNames="w-full !p-1 !text-lg !font-bold focus:outline-none !border-none"
+          wrapperClassNames="flex items-center flex-1"
+          labelClassNames="font-normal text-black !text-lg"
+        />
+
+        <Input
+          register={register}
+          name="childCount"
+          label="Children:"
+          type="number"
+          min={0}
+          max={20}
+          validation={{ valueAsNumber: true }}
+          inputClassNames="w-full !p-1 !text-lg !font-bold focus:outline-none !border-none"
+          wrapperClassNames="flex items-center flex-1"
+          labelClassNames="font-normal text-black !text-lg"
+        />
       </div>
 
       <div className="flex gap-2">
@@ -86,7 +93,7 @@ const SearchBar = () => {
                 endDate={getValues('checkOut') as Date}
                 minDate={minDate}
                 maxDate={maxDate}
-                className="w-full bg-white p-2 focus:outline-none"
+                className="w-full text-lg bg-white p-2 focus:outline-none"
                 wrapperClassName="w-full"
               />
             )}
@@ -107,7 +114,7 @@ const SearchBar = () => {
                 endDate={field.value as Date}
                 minDate={getValues('checkIn') as Date}
                 maxDate={maxDate}
-                className="w-full bg-white p-2 focus:outline-none"
+                className="w-full text-lg bg-white p-2 focus:outline-none"
                 wrapperClassName="w-full"
               />
             )}

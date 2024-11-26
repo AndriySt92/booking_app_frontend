@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import DatePicker from 'react-datepicker'
 import { useAppContext } from '../../contexts/AppContext'
 import { IBookedDates, IGuestInfoFormData } from '../../types/hotelTypes'
-import { Button } from '../../components'
+import { Button, Input } from '../../components'
 import { useBookingContext } from '../../contexts/BookingContext'
 import { transformBookedDates, validateDateRange } from '../../utils/dateUtils'
 
@@ -153,43 +153,48 @@ const GuestInfoForm = ({ adultCount, childCount, bookedDates, hotelId, pricePerN
           </div>
           <div>
             <div className="flex bg-white px-2 py-1 gap-2">
-              <label className="text-md sm:text-lg items-center flex flex-1">
-                Adults:
-                <input
-                  className="w-full p-1 focus:outline-none font-bold"
-                  type="number"
-                  min={1}
-                  max={adultCount}
-                  {...register('adultCount', {
-                    required: 'This field is required',
-                    min: {
-                      value: 1,
-                      message: 'There must be at least one adult',
-                    },
-                    max: {
-                      value: adultCount,
-                      message: `Maximum adult capacity of the hotel is ${adultCount} adults`,
-                    },
-                    valueAsNumber: true,
-                  })}
-                />
-              </label>
-              <label className="text-md sm:text-lg items-center flex flex-1">
-                Children:
-                <input
-                  className="w-full p-1 focus:outline-none font-bold"
-                  type="number"
-                  min={0}
-                  max={childCount}
-                  {...register('childCount', {
-                    valueAsNumber: true,
-                    max: {
-                      value: childCount,
-                      message: `Maximum child capacity of the hotel is ${childCount} children`,
-                    },
-                  })}
-                />
-              </label>
+              <Input
+                register={register}
+                name="adultCount"
+                label="Adults:"
+                type="number"
+                min={1}
+                max={adultCount}
+                validation={{
+                  required: 'This field is required',
+                  min: {
+                    value: 1,
+                    message: 'There must be at least one adult',
+                  },
+                  max: {
+                    value: adultCount,
+                    message: `Maximum adult capacity of the hotel is ${adultCount} adults`,
+                  },
+                  valueAsNumber: true,
+                }}
+                inputClassNames="w-full !p-1 !text-lg focus:outline-none !font-bold !border-none"
+                wrapperClassNames="flex items-center flex-1"
+                labelClassNames="font-normal text-black !text-lg"
+              />
+
+              <Input
+                register={register}
+                name="childCount"
+                label="Children:"
+                type="number"
+                min={0}
+                max={childCount}
+                validation={{
+                  valueAsNumber: true,
+                  max: {
+                    value: childCount,
+                    message: `Maximum child capacity of the hotel is ${childCount} children`,
+                  },
+                }}
+                inputClassNames="w-full !p-1 !text-lg focus:outline-none !font-bold !border-none"
+                wrapperClassNames="flex items-center flex-1"
+                labelClassNames="font-normal text-black !text-lg"
+              />
             </div>
             {(errors.adultCount || errors.childCount) && (
               <span className="text-red-500 font-semibold text-sm">
