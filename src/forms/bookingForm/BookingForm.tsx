@@ -5,7 +5,7 @@ import { StripeCardElement } from '@stripe/stripe-js'
 import { useBookingContext } from '../../contexts/BookingContext'
 import { IBooking, IPaymentIntentResponse } from '../../types/bookingTypes'
 import { IUser } from '../../types/userTypes'
-import { Button, LoadingButton } from '../../components'
+import { Button, Input, LoadingButton } from '../../components'
 import { useCreateRoomBooking } from '../../hooks'
 import { useAppContext } from '../../contexts/AppContext'
 
@@ -53,65 +53,58 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
       bookingRoom({ ...formData, paymentIntentId: result.paymentIntent.id })
     }
 
-    if(result.error) {
-      const message = result.error.message || "Confirm card payment error" 
+    if (result.error) {
+      const message = result.error.message || 'Confirm card payment error'
       showToast({ message: message, type: 'ERROR' })
     }
-   
   }
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="grid grid-cols-1 gap-5 rounded-lg border border-slate-300 p-5">
+      className="grid grid-cols-1 gap-5 custom-shadow-rounded p-5">
       <span className="text-3xl font-bold">Confirm Your Details</span>
       <div className="grid grid-cols-2 gap-6">
-        <label className="text-gray-700 text-md sm:text-lg font-bold flex-1">
-          First Name
-          <input
-            className="mt-1 border rounded w-full py-2 px-3 text-gray-700 bg-gray-200 font-normal"
-            type="text"
-            readOnly
-            disabled
-            {...register('firstName')}
-          />
-        </label>
-        <label className="text-gray-700 text-md sm:text-lg font-bold flex-1">
-          Last Name
-          <input
-            className="mt-1 border rounded w-full py-2 px-3 text-gray-700 bg-gray-200 font-normal"
-            type="text"
-            readOnly
-            disabled
-            {...register('lastName')}
-          />
-        </label>
-        <label className="text-gray-700 text-md sm:text-lg font-bold flex-1">
-          Email
-          <input
-            className="mt-1 border rounded w-full py-2 px-3 text-gray-700 bg-gray-200 font-normal"
-            type="text"
-            readOnly
-            disabled
-            {...register('email')}
-          />
-        </label>
+        <Input
+          label="First Name"
+          register={register}
+          name="firstName"
+          inputClassNames="text-gray-700 bg-gray-200"
+          readOnly
+          disabled
+        />
+        <Input
+          label="Last Name"
+          register={register}
+          name="lastName"
+          inputClassNames="text-gray-700 bg-gray-200"
+          readOnly
+          disabled
+        />
+        <Input
+          label="Email"
+          register={register}
+          name="email"
+          inputClassNames="text-gray-700 bg-gray-200 font-normal"
+          readOnly
+          disabled
+        />
       </div>
 
       <div className="space-y-2">
         <h2 className="text-xl font-semibold">Your Price Summary</h2>
 
         <div className="bg-blue-200 p-4 rounded-md">
-          <div className="font-semibold text-md sm:text-lg">
+          <div className="font-semibold text-lg">
             Total Cost: €{paymentIntent.totalCost.toFixed(2)}
           </div>
-          <div className="text-sm">Includes taxes and charges</div>
+          <div className="text-md sm:text-lg">Includes taxes and charges</div>
         </div>
       </div>
 
       <div className="space-y-2">
         <h3 className="text-xl font-semibold"> Payment Details</h3>
-        <CardElement id="payment-element" className="border rounded-md p-2 text-lg" />
+        <CardElement id="payment-element" className="border rounded-md py-2 px-3 text-lg" />
       </div>
 
       <div className="flex justify-end">

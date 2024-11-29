@@ -1,5 +1,6 @@
 import { useFormContext } from 'react-hook-form'
 import { IHotelFormData } from '../../types/hotelTypes'
+import { Error, Input } from '../../components'
 
 const ImagesSection = () => {
   const {
@@ -41,12 +42,13 @@ const ImagesSection = () => {
           </div>
         )}
 
-        <input
-          type="file"
+        <Input
+          register={register}
+          name="imageFiles"
           multiple
           accept="image/*"
-          className="w-full text-gray-700 font-normal"
-          {...register('imageFiles', {
+          type="file"
+          validation={{
             validate: (imageFiles) => {
               const totalLength = imageFiles.length + (existingImageUrls?.length || 0)
 
@@ -60,12 +62,11 @@ const ImagesSection = () => {
 
               return true
             },
-          })}
+          }}
+          inputClassNames="!border-none"
         />
       </div>
-      {errors.imageFiles && (
-        <span className="text-red-500 text-md sm:text-lg font-bold">{errors.imageFiles.message}</span>
-      )}
+      {errors.imageFiles && <Error message={errors.imageFiles.message as string} size="small" />}
     </div>
   )
 }

@@ -15,7 +15,7 @@ interface Props {
 }
 
 const ManageHotelForm = ({ onSave, isLoading, hotel }: Props) => {
-  const formMethods = useForm<IHotelFormData>()
+  const formMethods = useForm<IHotelFormData>({ mode: 'onBlur' })
   const { handleSubmit, reset } = formMethods
 
   useEffect(() => {
@@ -28,7 +28,7 @@ const ManageHotelForm = ({ onSave, isLoading, hotel }: Props) => {
     if (hotel) {
       formData.append('hotelId', hotel._id)
     }
-    
+
     formData.append('name', formDataJson.name)
     formData.append('city', formDataJson.city)
     formData.append('country', formDataJson.country)
@@ -70,9 +70,7 @@ const ManageHotelForm = ({ onSave, isLoading, hotel }: Props) => {
               Saving...
             </LoadingButton>
           ) : (
-            <Button
-              btnType="submit"
-              classes="bg-blue-600 text-white hover:bg-blue-500">
+            <Button btnType="submit" classes="bg-blue-600 text-white hover:bg-blue-500">
               Save
             </Button>
           )}

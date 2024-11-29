@@ -1,95 +1,138 @@
-import { useFormContext } from "react-hook-form";
-import { IHotelFormData } from "../../types/hotelTypes";
+import { useFormContext } from 'react-hook-form'
+import { IHotelFormData } from '../../types/hotelTypes'
+import { Input, Select, Textarea } from '../../components'
+import { hotelStarsSelectData } from '../../config/hotelConfigs'
 
 const DetailsSection = () => {
   const {
     register,
     formState: { errors },
-  } = useFormContext<IHotelFormData>();
+  } = useFormContext<IHotelFormData>()
 
   return (
     <div className="flex flex-col gap-4">
       <h1 className="text-3xl font-bold mb-3">Add Hotel</h1>
-      <label className="text-gray-700 text-md sm:text-lg font-bold flex-1">
-        Name
-        <input
-          type="text"
-          className="border rounded w-full py-1 px-2 font-normal"
-          {...register("name", { required: "This field is required" })}
-        ></input>
-        {errors.name && (
-          <span className="text-red-500">{errors.name.message}</span>
-        )}
-      </label>
+
+      <Input
+        register={register}
+        placeholder="Enter hotel name"
+        name="name"
+        label="Name"
+        error={errors.name?.message}
+        validation={{
+          required: 'This field is required',
+          minLength: {
+            value: 10,
+            message: 'Minimum number of symbols is 10',
+          },
+          maxLength: {
+            value: 100,
+            message: 'Maximum number of symbols is 100',
+          },
+        }}
+      />
 
       <div className="flex gap-4">
-        <label className="text-gray-700 text-md sm:text-lg font-bold flex-1">
-          City
-          <input
-            type="text"
-            className="border rounded w-full py-1 px-2 font-normal"
-            {...register("city", { required: "This field is required" })}
-          ></input>
-          {errors.city && (
-            <span className="text-red-500">{errors.city.message}</span>
-          )}
-        </label>
-        <label className="text-gray-700 text-md sm:text-lg font-bold flex-1">
-          Country
-          <input
-            type="text"
-            className="border rounded w-full py-1 px-2 font-normal"
-            {...register("country", { required: "This field is required" })}
-          ></input>
-          {errors.country && (
-            <span className="text-red-500">{errors.country.message}</span>
-          )}
-        </label>
-      </div>
-      <label className="text-gray-700 text-md sm:text-lg font-bold flex-1">
-        Description
-        <textarea
-          rows={10}
-          className="border rounded w-full py-1 px-2 font-normal"
-          {...register("description", { required: "This field is required" })}
-        ></textarea>
-        {errors.description && (
-          <span className="text-red-500">{errors.description.message}</span>
-        )}
-      </label>
-      <label className="text-gray-700 text-md sm:text-lg font-bold max-w-[50%]">
-        Price Per Night
-        <input
-          type="number"
-          min={1}
-          className="border rounded w-full py-1 px-2 font-normal"
-          {...register("pricePerNight", { required: "This field is required" })}
-        ></input>
-        {errors.pricePerNight && (
-          <span className="text-red-500">{errors.pricePerNight.message}</span>
-        )}
-      </label>
-      <label className="text-gray-700 text-md sm:text-lg font-bold max-w-[50%]">
-        Star Rating
-        <select
-          {...register("starRating", {
-            required: "This field is required",
-          })}
-          className="border rounded w-full p-2 text-gray-700 font-normal"
-        >
-          <option value="" className="text-sm font-bold">
-            Select as Rating
-          </option>
-          {[1, 2, 3, 4, 5].map((num) => (
-            <option value={num} key={num}>{num}</option>
-          ))}
-        </select>
-        {errors.starRating && (
-          <span className="text-red-500">{errors.starRating.message}</span>
-        )}
-      </label>
-    </div>
-  );
-};
+        <Input
+          register={register}
+          placeholder="Enter city"
+          name="city"
+          label="City"
+          error={errors.city?.message}
+          validation={{
+            required: 'This field is required',
+            minLength: {
+              value: 2,
+              message: 'Minimum number of symbols is 2',
+            },
+            maxLength: {
+              value: 100,
+              message: 'Maximum number of symbols is 100',
+            },
+          }}
+          wrapperClassNames="flex-1"
+        />
 
-export default DetailsSection;
+        <Input
+          register={register}
+          placeholder="Enter country"
+          name="country"
+          label="Country"
+          error={errors.country?.message}
+          validation={{
+            required: 'This field is required',
+            minLength: {
+              value: 2,
+              message: 'Minimum number of symbols is 2',
+            },
+            maxLength: {
+              value: 100,
+              message: 'Maximum number of symbols is 100',
+            },
+          }}
+          wrapperClassNames="flex-1"
+        />
+      </div>
+
+      <Textarea
+        register={register}
+        name="description"
+        label="Description"
+        error={errors.description?.message}
+        validation={{
+          required: 'This field is required',
+          minLength: {
+            value: 200,
+            message: 'Minimum number of symbols is 200',
+          },
+          maxLength: {
+            value: 2000,
+            message: 'Maximum number of symbols is 2000',
+          },
+        }}
+        rows={5}
+        maxLength={2000}
+        placeholder="Enter hotel description"
+      />
+
+      <div className="flex gap-4">
+        <Input
+          register={register}
+          name="pricePerNight"
+          label="Price Per Night"
+          type="number"
+          placeholder="Enter price per night (in euros)"
+          error={errors.pricePerNight?.message}
+          validation={{
+            required: 'This field is required',
+            min: {
+              value: 3,
+              message: 'Minimum price per night is 3 euro',
+            },
+            max: {
+              value: 50000,
+              message: 'Maximum price per night is 50000 euro',
+            },
+            valueAsNumber: true,
+          }}
+          wrapperClassNames="flex-1"
+        />
+
+        <Select
+          name="starRating"
+          label="Star Rating"
+          options={hotelStarsSelectData}
+          placeholder="Select star rating"
+          register={register}
+          error={errors.starRating?.message}
+          validation={{
+            required: 'This field is required',
+          }}
+          wrapperClassNames="flex-1"
+        />
+      </div>
+    </div>
+  )
+}
+
+export default DetailsSection
