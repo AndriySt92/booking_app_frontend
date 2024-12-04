@@ -14,9 +14,14 @@ export default {
             transform: 'translateY(0)', // End at the original position
           },
         },
+        flash: {
+          '0%': { opacity: '0.7' },
+          '100%': { opacity: '1' },
+        },
       },
       animation: {
         slideIn: 'slideIn 0.5s ease-out', // Use ease-out for a smoother end
+        flash: 'flash 1.5s ease-in-out',
       },
     },
     container: {
