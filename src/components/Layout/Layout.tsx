@@ -12,7 +12,10 @@ const Layout = ({ children }: Props) => {
       <div className="container mx-auto">
         <SearchBar />
       </div>
-      <div className="container mx-auto py-10 flex-1 h-full flex flex-col justify-center items-center">{children}</div>
+
+      <div className="container mx-auto py-10 sm:py-14 flex-1 h-full flex flex-col justify-center">
+        <div className="w-full">{children}</div>
+      </div>
       <Footer />
     </div>
   )

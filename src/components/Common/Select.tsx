@@ -35,9 +35,11 @@ const Select = ({
   wrapperClassNames = '',
 }: Props) => {
   return (
-    <div className={cn(wrapperClassNames, 'flex flex-col space-y-1')}>
+    <div className={cn(wrapperClassNames)}>
       {label && (
-        <label htmlFor={name} className={cn(labelClassNames, ' text-sm font-semibold')}>
+        <label
+          htmlFor={name}
+          className={cn(labelClassNames, 'text-gray-700 sm:text-lg font-bold flex-1')}>
           {label}
         </label>
       )}
@@ -45,11 +47,12 @@ const Select = ({
         id={name}
         className={cn(
           selectClassNames,
-          'p-2 border rounded-md w-full cursor-pointer focus:outline-none focus:ring focus:ring-blue-200',
+          'border rounded w-full py-2 px-3 font-normal focus:outline-none focus:ring focus:ring-blue-200',
+          error ? 'border-red-600 border-2' : '',
         )}
         disabled={disabled}
         {...register(name, validation)}>
-        <option value="" className="cursor-pointer">
+        <option value="" className="text-gray-700 cursor-pointer">
           {placeholder}
         </option>
         {options.map((option) => (
@@ -58,7 +61,7 @@ const Select = ({
           </option>
         ))}
       </select>
-      {error && <Error message={error} />}
+      {error && <Error message={error} size="small" />}
     </div>
   )
 }

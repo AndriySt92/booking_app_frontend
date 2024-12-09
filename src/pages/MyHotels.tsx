@@ -29,7 +29,7 @@ const MyHotels = () => {
           {hotels.map((hotel) => (
             <div
               data-testid="hotel-card"
-              className="flex flex-col justify-between p-3 md:p-8 gap-5 text-md sm:text-lg custom-shadow-rounded animate-slideIn"
+              className="flex flex-col justify-between p-3 md:p-8 gap-5 sm:text-lg custom-shadow-rounded animate-slideIn"
               key={hotel._id}>
               <h2 className="text-2xl font-bold">{hotel.name}</h2>
               <div className="whitespace-pre-line">{hotel.description}</div>

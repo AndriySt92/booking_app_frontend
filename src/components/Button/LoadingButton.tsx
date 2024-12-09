@@ -8,7 +8,7 @@ interface Props {
 
 const LoadingButton = ({ children, classes }: Props) => {
   return (
-    <Button disabled classes={classes}>
+    <Button classes={classes}>
       <svg
         aria-hidden="true"
         role="status"

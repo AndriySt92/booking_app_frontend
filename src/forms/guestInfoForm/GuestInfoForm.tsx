@@ -71,7 +71,7 @@ const GuestInfoForm = ({ adultCount, childCount, bookedDates, hotelId, pricePerN
 
   return (
     <div className="flex flex-col p-4 bg-blue-200 gap-4">
-      <h3 className="text-md sm:text-lg font-bold">€{pricePerNight}</h3>
+      <h3 className="sm:text-lg font-bold">€{pricePerNight}</h3>
       <form onSubmit={isLoggedIn ? handleSubmit(onSubmit) : handleSubmit(onSignInClick)}>
         <div className="grid grid-cols-1 gap-4 items-center">
           <div>
@@ -104,7 +104,7 @@ const GuestInfoForm = ({ adultCount, childCount, bookedDates, hotelId, pricePerN
                   minDate={minDate}
                   maxDate={maxDate}
                   placeholderText="Check-in Date"
-                  className="text-md sm:text-lg  min-w-full bg-white p-2 focus:outline-none"
+                  className="sm:text-lg  min-w-full bg-white p-2 focus:outline-none"
                   wrapperClassName="min-w-full"
                 />
               )}
@@ -140,7 +140,7 @@ const GuestInfoForm = ({ adultCount, childCount, bookedDates, hotelId, pricePerN
                   minDate={minDate}
                   maxDate={maxDate}
                   placeholderText="Check-out Date"
-                  className="text-md sm:text-lg min-w-full bg-white p-2 focus:outline-none"
+                  className="sm:text-lg min-w-full bg-white p-2 focus:outline-none"
                   wrapperClassName="min-w-full"
                 />
               )}
@@ -172,9 +172,9 @@ const GuestInfoForm = ({ adultCount, childCount, bookedDates, hotelId, pricePerN
                   },
                   valueAsNumber: true,
                 }}
-                inputClassNames="w-full !p-1 !text-lg focus:outline-none !font-bold !border-none"
+                inputClassNames="w-full !p-1 focus:outline-none !font-bold !border-none"
                 wrapperClassNames="flex items-center flex-1"
-                labelClassNames="font-normal text-black !text-lg"
+                labelClassNames="font-normal text-black !mb-0"
               />
 
               <Input
@@ -191,9 +191,9 @@ const GuestInfoForm = ({ adultCount, childCount, bookedDates, hotelId, pricePerN
                     message: `Maximum child capacity of the hotel is ${childCount} children`,
                   },
                 }}
-                inputClassNames="w-full !p-1 !text-lg focus:outline-none !font-bold !border-none"
+                inputClassNames="w-full !p-1 focus:outline-none !font-bold !border-none"
                 wrapperClassNames="flex items-center flex-1"
-                labelClassNames="font-normal text-black !text-lg"
+                labelClassNames="font-normal text-black !mb-0"
               />
             </div>
             {(errors.adultCount || errors.childCount) && (

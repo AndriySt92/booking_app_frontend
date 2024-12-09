@@ -32,7 +32,7 @@ const Textarea = ({
       {label && (
         <label
           htmlFor={name}
-          className={cn(labelClassNames, 'text-gray-700 text-md sm:text-lg font-bold flex-1')}>
+          className={cn(labelClassNames, 'text-gray-700 sm:text-lg font-bold flex-1')}>
           {label}
         </label>
       )}
@@ -40,7 +40,7 @@ const Textarea = ({
         id={name}
         className={cn(
           textareaClassNames,
-          'border rounded w-full py-2 px-3 mt-1 text-md font-normal focus:outline-none focus:ring focus:ring-blue-200',
+          'border rounded w-full py-2 px-3 mt-1  font-normal focus:outline-none focus:ring focus:ring-blue-200',
           error ? 'border-red-600 border-2' : '',
         )}
         {...register(name, validation)}

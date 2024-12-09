@@ -95,12 +95,14 @@ const DetailsSection = () => {
         placeholder="Enter hotel description"
       />
 
-      <div className="flex gap-4">
+      <div className="flex items-top gap-4">
         <Input
           register={register}
           name="pricePerNight"
           label="Price Per Night"
           type="number"
+          min={3}
+          max={50000}
           placeholder="Enter price per night (in euros)"
           error={errors.pricePerNight?.message}
           validation={{

@@ -46,7 +46,8 @@ const SearchBar = () => {
           register={register}
           placeholder="Where are you going?"
           name="destination"
-          inputClassNames="w-full !p-1 !text-lg focus:outline-none !border-none"
+          wrapperClassNames='w-full'
+          inputClassNames="border-none bg-white outline-none focus:ring-0 focus:outline-0"
         />
       </div>
 
@@ -57,11 +58,11 @@ const SearchBar = () => {
           label="Adults:"
           type="number"
           min={1}
-          max={20}
+          max={100}
           validation={{ minLength: 1, valueAsNumber: true }}
-          inputClassNames="w-full !p-1 !text-lg !font-bold focus:outline-none !border-none"
+          inputClassNames="w-full !p-1 !font-bold !bg-white border-none outline-none focus:ring-0 focus:outline-0"
           wrapperClassNames="flex items-center flex-1"
-          labelClassNames="font-normal text-black !text-lg"
+          labelClassNames="font-normal text-black !mb-0"
         />
 
         <Input
@@ -70,11 +71,11 @@ const SearchBar = () => {
           label="Children:"
           type="number"
           min={0}
-          max={20}
+          max={100}
           validation={{ valueAsNumber: true }}
-          inputClassNames="w-full !p-1 !text-lg !font-bold focus:outline-none !border-none"
+          inputClassNames="w-full !p-1 !font-bold !bg-white border-none outline-none focus:ring-0 focus:outline-0"
           wrapperClassNames="flex items-center flex-1"
-          labelClassNames="font-normal text-black !text-lg"
+          labelClassNames="font-normal text-black !mb-0"
         />
       </div>
 
@@ -93,7 +94,7 @@ const SearchBar = () => {
                 endDate={getValues('checkOut') as Date}
                 minDate={minDate}
                 maxDate={maxDate}
-                className="w-full text-lg bg-white p-2 focus:outline-none"
+                className="w-full sm:text-lg bg-white p-2 focus:outline-none"
                 wrapperClassName="w-full"
               />
             )}
@@ -114,7 +115,7 @@ const SearchBar = () => {
                 endDate={field.value as Date}
                 minDate={getValues('checkIn') as Date}
                 maxDate={maxDate}
-                className="w-full text-lg bg-white p-2 focus:outline-none"
+                className="w-full sm:text-lg bg-white p-2 focus:outline-none"
                 wrapperClassName="w-full"
               />
             )}

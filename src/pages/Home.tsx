@@ -25,7 +25,7 @@ const Home = () => {
   return (
     <div>
       <h2 className="text-3xl font-bold">Latest Destinations</h2>
-      <p className="text-md sm:text-lg mb-5">Most recent desinations added by our hosts</p>
+      <p className="sm:text-lg mb-5">Most recent desinations added by our hosts</p>
       <div className="grid">
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-3">
           {hotels.map((hotel) => (

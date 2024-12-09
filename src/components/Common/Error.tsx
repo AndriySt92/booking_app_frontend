@@ -4,7 +4,7 @@ interface Props {
 }
 
 const Error = ({ message, size }: Props) => {
-  const baseClasses = 'text-red-600 font-bold'
+  const baseClasses = 'text-red-600 font-semibold'
   const sizeClasses = size === 'small' ? 'text-sm' : 'text-2xl'
 
   return <div className={`${baseClasses} ${sizeClasses}`}>{message}</div>

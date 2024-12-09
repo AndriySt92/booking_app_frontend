@@ -3,7 +3,7 @@ import { Layout } from './components'
 import {
   AddHotel,
   Booking,
-  Detail,
+  HotelDetail,
   EditHotel,
   Home,
   MyBookings,
@@ -39,7 +39,7 @@ function App() {
         path="/detail/:hotelId"
         element={
           <Layout>
-            <Detail />
+            <HotelDetail />
           </Layout>
         }
       />

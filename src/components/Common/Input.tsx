@@ -61,7 +61,7 @@ const Input = ({
           {label && (
             <label
               htmlFor={name}
-              className={cn(labelClassNames, 'text-gray-700 text-md sm:text-lg font-bold mb-1')}>
+              className={cn(labelClassNames, 'text-gray-700 sm:text-lg font-bold mb-1')}>
               {label}
             </label>
           )}
@@ -71,7 +71,7 @@ const Input = ({
             className={cn(
               inputClassNames,
               error ? 'border-red-600 border-2 shadow-md focus:ring-0' : '',
-              'border rounded w-full py-2 px-3 text-md font-normal focus:outline-none focus:ring focus:ring-blue-200',
+              'border rounded w-full py-2 px-3 font-normal focus:outline-none focus:ring focus:ring-blue-200',
             )}
             {...register(name, validation)}
             {...(isTypeFile && { multiple: multiple, accept: accept })}
@@ -86,7 +86,7 @@ const Input = ({
               htmlFor={option}
               className={cn(
                 labelClassNames,
-                'text-md sm:text-lg flex items-center cursor-pointer',
+                'sm:text-lg flex items-center cursor-pointer',
                 isTypeCheckbox ? checkboxLabelClasses : radioLabelClasses,
                 isTypeRadio && radioSelectedLabelClasses,
               )}>

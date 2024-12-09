@@ -21,7 +21,7 @@ const SignIn = () => {
 
   return (
     <form
-      className="flex flex-col gap-5 max-w-lg w-full custom-shadow-rounded p-8"
+      className="flex flex-col m-auto gap-5 max-w-lg w-full custom-shadow-rounded p-8"
       onSubmit={onSubmit}>
       <h2 className="text-3xl font-bold">Sign In</h2>
 
@@ -57,7 +57,7 @@ const SignIn = () => {
         }}
       />
 
-      <div className="text-sm">
+      <div className="sm:text-lg">
         Not Registered?{' '}
         <Link className="underline" to="/sign-up">
           Create an account here

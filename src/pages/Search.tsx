@@ -71,7 +71,7 @@ const Search = () => {
   const isHotelAvailble = hotelData?.data && hotelData.data.length > 0
 
   return (
-    <div className="w-full mb-7">
+    <div className="mb-7">
       <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-5">
         <div className="custom-shadow-rounded p-5 h-fit top-10 hidden lg:block">
           <Filter

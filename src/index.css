@@ -23,7 +23,6 @@ body {
   @apply max-h-screen opacity-100;
 }
 
-
 /* Box-shadow Styles */
 .custom-shadow-rounded {
   @apply shadow-[0px_6px_20px_3px_#00000024] rounded-lg;
@@ -73,6 +72,13 @@ body {
   align-items: center;
   height: 100%;
   border: 1px solid grey;
+  padding: 30px;
+  cursor: default;
+}
+
+.datail__calender .react-datepicker__day:hover {
+  background-color: transparent;
+  border-radius: 0px;
 }
 
 .datail__calender .react-datepicker__month {
@@ -102,5 +108,12 @@ body {
   border-radius: 0px !important;
   font-weight: 500 !important;
   background-color: rgb(250, 78, 78) !important;
-  color: rgb(0, 0, 0)
+  color: rgb(0, 0, 0);
+}
+
+@media screen and (max-width: 640px) {
+  .datail__calender .react-datepicker__day {
+    padding: 8px 10px;
+    font-size: 16px;
+  }
 }

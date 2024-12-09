@@ -22,7 +22,7 @@ const Register = () => {
 
   return (
     <form
-      className="flex flex-col gap-5 max-w-lg w-full custom-shadow-rounded p-8"
+      className="flex flex-col m-auto gap-5 max-w-lg w-full custom-shadow-rounded p-8"
       onSubmit={onSubmit}>
       <h2 className="text-3xl font-bold">Create an Account</h2>
       <div className="flex flex-col md:flex-row gap-5">
@@ -103,7 +103,7 @@ const Register = () => {
           },
         }}
       />
-      <div className="text-sm">
+      <div className="sm:text-lg">
         Already have an account?{' '}
         <Link className="underline" to="/sign-in">
           Sign in here

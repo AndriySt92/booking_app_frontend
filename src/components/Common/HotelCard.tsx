@@ -27,7 +27,7 @@ const HotelCard = ({ hotel, checkIn, checkOut, adultCount, childCount, role }: P
                 <AiFillStar className="fill-yellow-400 h-5 w-5" key={index} />
               ))}
             </span>
-            <span className="ml-1 text-md sm:text-lg">{hotel.type}</span>
+            <span className="ml-1 sm:text-lg">{hotel.type}</span>
           </div>
           <Link to={`/detail/${hotel._id}`} className="text-2xl font-bold cursor-pointer">
             {hotel.name}
@@ -36,15 +36,15 @@ const HotelCard = ({ hotel, checkIn, checkOut, adultCount, childCount, role }: P
         {role === 'bookingCard' && (
           <div>
             <div>
-              <span className="text-md sm:text-lg font-bold mr-2">Dates: </span>
-              <span className="text-md sm:text-lg">
+              <span className="sm:text-lg font-bold mr-2">Dates: </span>
+              <span className="sm:text-lg">
                 {new Date(checkIn as Date).toDateString()} -{' '}
                 {new Date(checkOut as Date).toDateString()}
               </span>
             </div>
             <div>
-              <span className="text-md sm:text-lg font-bold mr-2">Guests:</span>
-              <span className="text-md sm:text-lg">
+              <span className="sm:text-lg font-bold mr-2">Guests:</span>
+              <span className="sm:text-lg">
                 {adultCount} adults, {childCount} children
               </span>
             </div>
@@ -52,7 +52,7 @@ const HotelCard = ({ hotel, checkIn, checkOut, adultCount, childCount, role }: P
         )}
 
         <div>
-          <div className="text-md sm:text-lg line-clamp-4">{hotel.description}</div>
+          <div className="sm:text-lg line-clamp-4">{hotel.description}</div>
         </div>
 
         {role === 'searchCard' ? (
