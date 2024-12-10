@@ -72,3 +72,15 @@ export const fetchHotelById = async (hotelId: string): Promise<IHotel> => {
   
     return response.json()
   };
+
+  export const fetchHotelsCountriesSummary = async (limit: number): Promise<IHotel> => {
+    const response = await fetch(`${API_BASE_URL}/api/hotels/countries-summary/?limit=${limit}`, {
+      credentials: 'include',
+    })
+    
+    if (!response.ok) {
+      throw new Error('Error fetching Hotels')
+    }
+  
+    return response.json()
+  }
