@@ -5,30 +5,42 @@ import { MdTravelExplore } from 'react-icons/md'
 import DatePicker from 'react-datepicker'
 import { ISearchFormValues } from '../../types/hotelTypes'
 import { Input, Button } from '../'
+import { useEffect } from 'react'
 
 const SearchBar = () => {
   const navigate = useNavigate()
   const { destination, checkIn, checkOut, adultCount, childCount, saveSearchValues } =
     useSearchContext()
 
-  const { register, handleSubmit, control, reset, getValues } = useForm<ISearchFormValues>({
-    defaultValues: {
-      destination,
-      checkIn,
-      checkOut,
-      adultCount,
-      childCount,
-    },
-  })
+  const { register, handleSubmit, control, reset, getValues, setValue } =
+    useForm<ISearchFormValues>({
+      defaultValues: {
+        destination,
+        checkIn,
+        checkOut,
+        adultCount,
+        childCount,
+      },
+    })
+
+  // Sync form values with context values
+  useEffect(() => {
+    setValue('destination', destination)
+    setValue('checkIn', checkIn)
+    setValue('checkOut', checkOut)
+    setValue('adultCount', adultCount)
+    setValue('childCount', childCount)
+  }, [destination, checkIn, checkOut, adultCount, childCount, setValue])
 
   const onSubmit = (data: ISearchFormValues) => {
-    saveSearchValues(
-      data.destination,
-      data.checkIn!,
-      data.checkOut!,
-      data.adultCount,
-      data.childCount,
-    )
+    const { destination, checkIn, checkOut, adultCount, childCount } = data
+    saveSearchValues({
+      destination,
+      checkIn: checkIn as Date,
+      checkOut: checkOut as Date,
+      adultCount,
+      childCount,
+    })
     navigate('/search')
   }
 
@@ -46,7 +58,7 @@ const SearchBar = () => {
           register={register}
           placeholder="Where are you going?"
           name="destination"
-          wrapperClassNames='w-full'
+          wrapperClassNames="w-full"
           inputClassNames="border-none bg-white outline-none focus:ring-0 focus:outline-0"
         />
       </div>

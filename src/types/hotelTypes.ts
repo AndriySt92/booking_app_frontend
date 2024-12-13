@@ -71,8 +71,23 @@ export interface IHotelSearchResponse {
 
 export interface ISearchFormValues {
   destination: string
-  checkIn: Date | null
-  checkOut: Date | null
+  checkIn: Date
+  checkOut: Date
   adultCount: number
   childCount: number
+}
+
+export interface SaveSearchValues {
+  destination: string;
+  checkIn?: Date;
+  checkOut?: Date;
+  adultCount?: number;
+  childCount?: number;
+  hotelId?: string;
+}
+
+export interface IHotelsCountriesSummary {
+  total: number
+  hotelImageUrl: string
+  country: string
 }
