@@ -1,4 +1,4 @@
-import { IFetchHotelResponse, IHotel, IHotelSearchResponse, ISearchParams } from '../types/hotelTypes'
+import { IFetchHotelResponse, IHotel, IHotelsCountriesSummary, IHotelSearchResponse, ISearchParams } from '../types/hotelTypes'
 
 const API_BASE_URL = 'http://localhost:3001'
 
@@ -73,7 +73,7 @@ export const fetchHotelById = async (hotelId: string): Promise<IHotel> => {
     return response.json()
   };
 
-  export const fetchHotelsCountriesSummary = async (limit: number): Promise<IHotel> => {
+  export const fetchHotelsCountriesSummary = async (limit: number): Promise<IHotelsCountriesSummary[]> => {
     const response = await fetch(`${API_BASE_URL}/api/hotels/countries-summary/?limit=${limit}`, {
       credentials: 'include',
     })

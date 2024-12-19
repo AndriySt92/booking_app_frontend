@@ -2,6 +2,8 @@ import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import 'react-datepicker/dist/react-datepicker.css'
 import 'react-photo-view/dist/react-photo-view.css'
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import './index.css'
 import { BrowserRouter } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'

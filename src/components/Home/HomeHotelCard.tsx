@@ -6,14 +6,15 @@ interface Props {
   hotel: IHotel
 }
 
-const HomeCard = ({ hotel }: Props) => {
+const HomeHotelCard = ({ hotel }: Props) => {
   const { _id, name, imageUrls, city, country, starRating } = hotel
 
   return (
-    <Link to={`/detail/${_id}`} className="relative cursor-pointer animate-slideIn">
-      <div className="h-[300px] custom-shadow-rounded">
+    <Link
+      to={`/detail/${_id}`}
+      className="relative cursor-pointer animate-slideIn group custom-shadow-rounded">
+      <div className="h-[300px] group-hover:animate-flash">
         <img src={imageUrls[0]} className="w-full rounded-lg h-full object-cover object-center" />
-        <div className="absolute bottom-0 left-0 right-0 top-0 flex justify-center items-center h-full w-full overflow-hidden bg-white bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-20"></div>
       </div>
       <div className="absolute bottom-0 flex justify-between px-2 py-1 bg-black bg-opacity-40 w-full rounded-b-md">
         <div className="flex flex-col">
@@ -32,4 +33,4 @@ const HomeCard = ({ hotel }: Props) => {
   )
 }
 
-export default HomeCard
+export default HomeHotelCard
