@@ -12,7 +12,7 @@ const HomeSliderCard = ({ hotelsCountriesSummaryItem }: Props) => {
   const navigate = useNavigate()
 
   const handleClick = () => {
-    saveSearchValues({destination: country})
+    saveSearchValues({ destination: country })
     navigate('/search')
   }
 
@@ -23,11 +23,10 @@ const HomeSliderCard = ({ hotelsCountriesSummaryItem }: Props) => {
       </div>
       <div className="absolute bottom-0 flex justify-between px-2 py-1 bg-black bg-opacity-40 w-full rounded-b-md">
         <div className="flex flex-col">
-          <span className="text-white font-bold tracking-tight">
-            {' '}
+          <span className="text-white font-bold tracking-tight"> {country}</span>
+          <span className="text-white  tracking-tight">
             {total} hotel{total > 1 ? 's' : ''} available
           </span>
-          <span className="text-white  tracking-tight">{country}</span>
         </div>
       </div>
     </div>
