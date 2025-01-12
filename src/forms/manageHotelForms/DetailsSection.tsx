@@ -22,8 +22,8 @@ const DetailsSection = () => {
         validation={{
           required: 'This field is required',
           minLength: {
-            value: 10,
-            message: 'Minimum number of symbols is 10',
+            value: 3,
+            message: 'Minimum number of symbols is 3',
           },
           maxLength: {
             value: 100,
@@ -42,7 +42,7 @@ const DetailsSection = () => {
           validation={{
             required: 'This field is required',
             minLength: {
-              value: 2,
+              value: 3,
               message: 'Minimum number of symbols is 2',
             },
             maxLength: {
