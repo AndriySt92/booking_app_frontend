@@ -1,3 +1,4 @@
+import cn from 'classnames'
 import { useForm } from 'react-hook-form'
 import { Button, CheckboxFilter, LoadingButton, Select } from '../'
 import { IFilterHotels } from '../../types/hotelTypes'
@@ -66,7 +67,13 @@ const Filter = ({ handleFilterApply, handleClearFilters, isLoading }: Props) => 
 
       <div className="flex justify-end gap-3">
         {!isLoading ? (
-          <Button disabled={!isDirty} btnType="submit" classes="lg:w-2/3 bg-blue-600 text-white hover:bg-blue-500">
+          <Button
+            disabled={!isDirty}
+            btnType="submit"
+            classes={cn('lg:w-2/3 px-2 py-1 sm:px-3 sm:py-2 font-semibold rounded text-white', {
+              'bg-blue-600 hover:bg-blue-500': isDirty, // Active state
+              'bg-blue-400': !isDirty, // Disabled state
+            })}>
             Apply
           </Button>
         ) : (
@@ -76,8 +83,12 @@ const Filter = ({ handleFilterApply, handleClearFilters, isLoading }: Props) => 
         )}
         <Button
           btnType="button"
-          classes="lg:w-1/3 bg-red-600 text-white hover:bg-red-500"
-          onClick={clearAllFilters}>
+          onClick={clearAllFilters}
+          disabled={!isDirty || isLoading}
+          classes={cn('lg:w-1/3 px-2 py-1 sm:px-3 sm:py-2 font-semibold text-white rounded', {
+            'bg-red-600 hover:bg-red-500': isDirty && !isLoading, // Active state
+            'bg-red-400': !isDirty || isLoading, // Disabled state
+          })}>
           Clear
         </Button>
       </div>
