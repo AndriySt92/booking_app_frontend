@@ -5,25 +5,32 @@ import { MdTravelExplore } from 'react-icons/md'
 import DatePicker from 'react-datepicker'
 import { ISearchFormValues } from '../../types/hotelTypes'
 import { Input, Button } from '../'
-import { useEffect } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 
 const SearchBar = () => {
   const navigate = useNavigate()
   const { destination, checkIn, checkOut, adultCount, childCount, saveSearchValues } =
     useSearchContext()
 
-  const { register, handleSubmit, control, reset, getValues, setValue } =
-    useForm<ISearchFormValues>({
-      defaultValues: {
-        destination,
-        checkIn,
-        checkOut,
-        adultCount,
-        childCount,
-      },
-    })
+  const {
+    register,
+    handleSubmit,
+    control,
+    reset,
+    getValues,
+    setValue,
+    formState: { isDirty },
+  } = useForm<ISearchFormValues>({
+    defaultValues: {
+      destination,
+      checkIn,
+      checkOut,
+      adultCount,
+      childCount,
+    },
+  })
 
-  // Sync form values with context values
+  // Sync the form values with SearchContext values
   useEffect(() => {
     setValue('destination', destination)
     setValue('checkIn', checkIn)
@@ -33,26 +40,42 @@ const SearchBar = () => {
   }, [destination, checkIn, checkOut, adultCount, childCount, setValue])
 
   const onSubmit = (data: ISearchFormValues) => {
-    const { destination, checkIn, checkOut, adultCount, childCount } = data
     saveSearchValues({
-      destination,
-      checkIn: checkIn as Date,
-      checkOut: checkOut as Date,
-      adultCount,
-      childCount,
+      ...data,
+      checkIn: data.checkIn as Date,
+      checkOut: data.checkOut as Date,
     })
+
     navigate('/search')
   }
 
-  const minDate = new Date()
-  const maxDate = new Date()
-  maxDate.setFullYear(maxDate.getFullYear() + 1)
+  const handleClear = useCallback(() => {
+    reset()
+
+    const today = new Date()
+    saveSearchValues({
+      destination: '',
+      checkIn: today,
+      checkOut: today,
+      adultCount: 1,
+      childCount: 0,
+    })
+  }, [])
+
+  const { minDate, maxDate } = useMemo(() => {
+    const today = new Date()
+
+    return {
+      minDate: today,
+      maxDate: new Date(today.getFullYear() + 1, today.getMonth(), today.getDate()),
+    }
+  }, [])
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="bg-orange-400 rounded shadow-md grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-4 items-center gap-4 -mt-[117px] 2xl:-mt-8 xl:-mt-[60px] sm:-mt-[60px] p-3">
-      <div className="flex flex-row items-center flex-1 bg-white px-2 py-1">
+      className="bg-orange-400 rounded shadow-md grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-4 items-center gap-2 lg:gap-3 -mt-[100px] sm:-mt-[56px] lg:-mt-[63px] 2xl:-mt-[33.6px] p-2 lg:p-3">
+      <div className="flex flex-row items-center flex-1 bg-white px-2 sm:py-0.5">
         <MdTravelExplore size={25} className="mr-2" />
         <Input
           register={register}
@@ -63,7 +86,7 @@ const SearchBar = () => {
         />
       </div>
 
-      <div className="flex bg-white px-2 py-1 gap-2">
+      <div className="flex bg-white px-3 p-1 sm:py-1.5 gap-2">
         <Input
           register={register}
           name="adultCount"
@@ -137,14 +160,15 @@ const SearchBar = () => {
 
       <div className="flex gap-1">
         <Button
-          classes="w-2/3 flex justify-center bg-blue-600 text-white text-center hover:bg-blue-500"
+          className="w-2/3 flex justify-center bg-blue-600 text-white text-center hover:bg-blue-500 py-1.5 text-lg"
           btnType="submit">
           Search
         </Button>
         <Button
-          classes="w-1/3 flex justify-center bg-red-600 text-white hover:bg-red-500"
+          onClick={handleClear}
+          className="w-1/3 flex justify-center bg-red-600 text-white hover:bg-red-500 py-1.5 text-lg"
           btnType="button"
-          onClick={() => reset()}>
+          disabled={!isDirty && !destination}>
           Clear
         </Button>
       </div>
