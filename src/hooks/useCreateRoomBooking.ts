@@ -1,4 +1,4 @@
-import { useMutation } from 'react-query'
+import { useMutation, useQueryClient } from 'react-query'
 import { useAppContext } from '../contexts/AppContext'
 import { useBookingContext } from '../contexts/BookingContext'
 import { createRoomBooking } from '../services/bookingApi'
@@ -8,10 +8,14 @@ const useCreateRoomBooking = () => {
   const { showToast } = useAppContext()
   const { saveBookingValues } = useBookingContext()
   const navigate = useNavigate()
+  const queryClient = useQueryClient()
 
   return useMutation(createRoomBooking, {
     onSuccess: async () => {
       showToast({ message: 'Booking saved!', type: 'SUCCESS' })
+
+      // Invalidate the "fetchMyBookings" query to trigger a refetch
+      await queryClient.invalidateQueries('fetchMyBookings')
 
       const date = new Date()
       saveBookingValues('', date, date, 1, 1)
