@@ -3,12 +3,12 @@ import Button from './Button'
 
 interface Props {
   children: React.ReactNode
-  classes: string
+  className: string
 }
 
-const LoadingButton = ({ children, classes }: Props) => {
+const LoadingButton = ({ children, className }: Props) => {
   return (
-    <Button classes={classes}>
+    <Button className={className}>
       <svg
         aria-hidden="true"
         role="status"

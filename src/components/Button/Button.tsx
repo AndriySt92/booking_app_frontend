@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 type ButtonProps = {
   children: React.ReactNode
   className?: string
-  btnType?: 'submit' | 'button'
+  type?: 'submit' | 'button'
   disabled?: boolean
   onClick?: () => void
 }
@@ -25,7 +25,7 @@ type Props = ButtonProps & (LinkProps | ButtonOnlyProps)
 const Button = React.memo(
   ({
     children,
-    btnType = 'button',
+    type = 'button',
     className,
     disabled = false,
     onClick,
@@ -40,7 +40,7 @@ const Button = React.memo(
     return (
       <>
         {role === 'button' ? (
-          <button onClick={onClick} type={btnType} disabled={disabled} className={classNames}>
+          <button onClick={onClick} type={type} disabled={disabled} className={classNames}>
             {children}
           </button>
         ) : (

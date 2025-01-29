@@ -161,13 +161,13 @@ const SearchBar = () => {
       <div className="flex gap-1">
         <Button
           className="w-2/3 flex justify-center bg-blue-600 text-white text-center hover:bg-blue-500 py-1.5 text-lg"
-          btnType="submit">
+          type="submit">
           Search
         </Button>
         <Button
           onClick={handleClear}
           className="w-1/3 flex justify-center bg-red-600 text-white hover:bg-red-500 py-1.5 text-lg"
-          btnType="button"
+          type="button"
           disabled={!isDirty && !destination}>
           Clear
         </Button>

@@ -52,12 +52,12 @@ const ImagesSection = () => {
             validate: (imageFiles) => {
               const totalLength = imageFiles.length + (existingImageUrls?.length || 0)
 
-              if (totalLength === 0) {
-                return 'At least one image should be added'
+              if (totalLength === 5) {
+                return 'At least five images should be added'
               }
 
-              if (totalLength > 6) {
-                return 'Total number of images cannot be more than 6'
+              if (totalLength > 20) {
+                return 'Total number of images cannot be more than 20'
               }
 
               return true

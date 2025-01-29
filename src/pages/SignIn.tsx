@@ -67,12 +67,12 @@ const SignIn = () => {
       <div>
         {!isLoading ? (
           <Button
-            btnType="submit"
-            classes="w-full justify-center bg-blue-600 text-white hover:bg-blue-500">
+            type="submit"
+            className="w-full justify-center bg-blue-600 text-white hover:bg-blue-500">
             Sign In
           </Button>
         ) : (
-          <LoadingButton classes="w-full justify-center bg-blue-600 text-white hover:bg-blue-500">
+          <LoadingButton className="w-full justify-center bg-blue-600 text-white hover:bg-blue-500">
             Loading...
           </LoadingButton>
         )}

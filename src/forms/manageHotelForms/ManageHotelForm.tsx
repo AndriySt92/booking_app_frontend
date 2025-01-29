@@ -66,11 +66,11 @@ const ManageHotelForm = ({ onSave, isLoading, hotel }: Props) => {
         <ImagesSection />
         <span className="flex justify-end">
           {isLoading ? (
-            <LoadingButton classes="bg-blue-600 text-white p-2 font-bold hover:bg-blue-500">
+            <LoadingButton className="bg-blue-600 text-white p-2 font-bold hover:bg-blue-500">
               Saving...
             </LoadingButton>
           ) : (
-            <Button btnType="submit" classes="bg-blue-600 text-white hover:bg-blue-500">
+            <Button type="submit" className="bg-blue-600 text-white hover:bg-blue-500">
               Save
             </Button>
           )}

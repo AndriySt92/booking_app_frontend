@@ -112,11 +112,11 @@ const Register = () => {
       {error && <Error message={error.message} size="small" />}
       <div>
         {!isLoading ? (
-          <Button btnType="submit" classes="bg-blue-600 text-white hover:bg-blue-500">
+          <Button type="submit" className="bg-blue-600 text-white hover:bg-blue-500">
             Create Account
           </Button>
         ) : (
-          <LoadingButton classes="bg-blue-600 text-white hover:bg-blue-500">
+          <LoadingButton className="bg-blue-600 text-white hover:bg-blue-500">
             Loading...
           </LoadingButton>
         )}

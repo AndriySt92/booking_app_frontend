@@ -123,7 +123,7 @@ const Search = () => {
               <div className="flex justify-between w-full lg:w-auto">
                 <div className="lg:hidden flex justify-end">
                   <Button
-                    classes="bg-blue-600 text-white hover:bg-blue-500"
+                    className="bg-blue-600 text-white hover:bg-blue-500"
                     onClick={() => openModal('filterModal')}>
                     Filter
                   </Button>

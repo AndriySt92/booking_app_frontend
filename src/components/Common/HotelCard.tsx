@@ -73,7 +73,7 @@ const HotelCard = ({ hotel, checkIn, checkOut, adultCount, childCount, role }: P
             <div className="flex flex-row items-center justify-between 2xl:flex-col 2xl:items-end gap-1">
               <span className="font-bold">€{hotel.pricePerNight} per night</span>
               <Button
-                classes="bg-blue-600 text-white hover:bg-blue-500"
+                className="bg-blue-600 text-white hover:bg-blue-500"
                 role="link"
                 to={`/detail/${hotel._id}`}>
                 View More

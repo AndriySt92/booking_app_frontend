@@ -19,7 +19,7 @@ const MyHotels = () => {
     <div className="space-y-7">
       <span className="flex justify-between">
         <h1 className="text-3xl font-bold">My Hotels</h1>
-        <Button role="link" to="/add-hotel" classes="bg-blue-600 text-white hover:bg-blue-500">
+        <Button role="link" to="/add-hotel" className="bg-blue-600 text-white hover:bg-blue-500">
           Add Hotel
         </Button>
       </span>
@@ -57,13 +57,13 @@ const MyHotels = () => {
               <div className="flex  justify-between sm:justify-end gap-4">
                 <Button
                   onClick={!isDeleting ? () => handleDelete(hotel._id) : undefined}
-                  classes="bg-blue-600 text-white hover:bg-blue-500">
+                  className="bg-blue-600 text-white hover:bg-blue-500">
                   Delete
                 </Button>
                 <Button
                   role="link"
                   to={`/edit-hotel/${hotel._id}`}
-                  classes="bg-blue-600 text-white hover:bg-blue-500">
+                  className="bg-blue-600 text-white hover:bg-blue-500">
                   View Details
                 </Button>
               </div>

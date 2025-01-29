@@ -21,22 +21,22 @@ const Header = () => {
       <div className={`${isLoggedIn ? 'hidden' : 'flex'} md:flex justify-center items-center space-x-2`}>
         {isLoggedIn ? (
           <>
-            <Button role="link" to="/my-bookings" classes="text-white hover:bg-blue-600">
+            <Button role="link" to="/my-bookings" className="text-white hover:bg-blue-600">
               My Bookings
             </Button>
-            <Button role="link" to="/my-hotels" classes="text-white hover:bg-blue-600">
+            <Button role="link" to="/my-hotels" className="text-white hover:bg-blue-600">
               My Hotels
             </Button>
             <SignOutButton />
           </>
         ) : (
-          <Button role="link" to="/sign-in" classes="text-blue-600 bg-white hover:bg-gray-100">
+          <Button role="link" to="/sign-in" className="text-blue-600 bg-white hover:bg-gray-100">
             Sign In
           </Button>
         )}
       </div>
       <div className={`${isLoggedIn ? 'md:hidden' : 'hidden'} flex items-center`}>
-        <Button onClick={toggleMenu} classes="text-white focus:outline-none">
+        <Button onClick={toggleMenu} className="text-white focus:outline-none">
           {isMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
         </Button>
       </div>
@@ -49,13 +49,13 @@ const Header = () => {
               <Button
                 role="link"
                 to="/my-bookings"
-                classes="text-white hover:bg-blue-600 text-center">
+                className="text-white hover:bg-blue-600 text-center">
                 My Bookings
               </Button>
               <Button
                 role="link"
                 to="/my-hotels"
-                classes="text-white hover:bg-blue-600 text-center">
+                className="text-white hover:bg-blue-600 text-center">
                 My Hotels
               </Button>
               <SignOutButton />

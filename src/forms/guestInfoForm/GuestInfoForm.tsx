@@ -204,14 +204,14 @@ const GuestInfoForm = ({ adultCount, childCount, bookedDates, hotelId, pricePerN
           </div>
           {isLoggedIn ? (
             <Button
-              btnType="submit"
-              classes="flex justify-center bg-blue-600 text-white hover:bg-blue-500">
+              type="submit"
+              className="flex justify-center bg-blue-600 text-white hover:bg-blue-500">
               Book Now
             </Button>
           ) : (
             <Button
-              btnType="submit"
-              classes="flex justify-center bg-blue-600 text-white text-center hover:bg-blue-500">
+              type="submit"
+              className="flex justify-center bg-blue-600 text-white text-center hover:bg-blue-500">
               Sign in to Book
             </Button>
           )}

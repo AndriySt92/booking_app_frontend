@@ -31,7 +31,7 @@ const Modal = ({ children, onClose }: Props) => {
           isVisible ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0'
         }`}>
         <Button
-          classes="absolute -top-1 right-3 text-red !text-4xl w-10 h-10"
+          className="absolute -top-1 right-3 text-red !text-4xl w-10 h-10"
           onClick={handleClose}>
           &times;
         </Button>

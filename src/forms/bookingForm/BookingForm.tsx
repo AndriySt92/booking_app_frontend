@@ -111,12 +111,12 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
         {!isLoading ? (
           <Button
             disabled={isLoading}
-            btnType="submit"
-            classes="bg-blue-600 text-white hover:bg-blue-500 disabled:bg-gray-500">
+            type="submit"
+            className="bg-blue-600 text-white hover:bg-blue-500 disabled:bg-gray-500">
             Confirm Booking
           </Button>
         ) : (
-          <LoadingButton classes="bg-blue-600 text-white hover:bg-blue-500">
+          <LoadingButton className="bg-blue-600 text-white hover:bg-blue-500">
             Saving...
           </LoadingButton>
         )}
