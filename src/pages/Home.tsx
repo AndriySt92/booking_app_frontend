@@ -34,26 +34,31 @@ const Home = () => {
   const isLoading = isFetchingHotels || isFetchingSlider || isFetchingNextPage
   const isError = isErrorHotels || isErrorSlider
 
+  const isSliderDataAvailible = hotelsCountriesSummary && hotelsCountriesSummary.length > 0
+  const isHotelsDataAvailible = hotels && hotels.length > 0
+  const isHotelsDataEmpty = hotels && hotels.length === 0
+
   return (
     <div className="space-y-7">
-      {hotelsCountriesSummary?.length && (
-        <HomeSlider hotelsCountriesSummary={hotelsCountriesSummary} />
-      )}
-      {hotels?.length && <HomeHotels hotels={hotels} />}
+      {/* Slider section */}
+      {isSliderDataAvailible && <HomeSlider hotelsCountriesSummary={hotelsCountriesSummary} />}
 
-      {isLoading && <Loader />}
+      {/* Hotels section */}
+      {isHotelsDataAvailible && <HomeHotels hotels={hotels} />}
 
-      {isError && (
-        <div className="text-center">
-          <Error message="An error occurred while fetching the data." />
-        </div>
-      )}
-
-      {!hotels?.length && !hotelsCountriesSummary?.length && (
+      {/* No data available */}
+      {isHotelsDataEmpty && !isLoading && (
         <div className="text-center text-2xl">No data available</div>
       )}
 
-      {hotels.length && <div ref={ref}></div>}
+      {/* Loader */}
+      {isLoading && <Loader />}
+
+      {/* Error */}
+      {isError && <Error message="An error occurred while fetching the data." center />}
+
+      {/* Load more trigger (infinite scroll) */}
+      {isHotelsDataAvailible && <div ref={ref}></div>}
     </div>
   )
 }
