@@ -57,7 +57,7 @@ const HotelCard = ({ hotel, checkIn, checkOut, adultCount, childCount, role }: P
 
         {role === 'searchCard' ? (
           <div className="grid grid-rows-2 grid-cols-1 gap-4 2xl:gap-0 2xl:grid-rows-1 2xl:grid-cols-2 items-end whitespace-nowrap">
-            <div className="flex gap-1 items-center">
+            <div className="flex flex-wrap gap-1 items-center">
               {hotel.facilities.slice(0, 3).map((facility) => (
                 <span
                   className="bg-slate-300 px-2 py-1 rounded-lg font-semibold text-xs sm:text-sm whitespace-nowrap"
