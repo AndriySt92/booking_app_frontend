@@ -113,17 +113,21 @@ const Search = () => {
           </div>
 
           <div className="flex flex-col gap-5 mt-1">
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between">
-              {!isError && isSuccess && (
-                <div className="text-xl font-bold mb-5 lg:mb-0">
-                  {hotelData?.pagination.total} Hotels found
-                  {destination ? ` in ${destination}` : ''}
-                </div>
-              )}
-              <div className="flex justify-between w-full lg:w-auto">
-                <div className="lg:hidden flex justify-end">
+            <div className="flex flex-col lg:flex-row   lg:items-center justify-between">
+              <div className="mb-5 lg:mb-0">
+                {!isError && isSuccess && (
+                  <div className="text-xl font-bold ">
+                    {hotelData?.pagination.total} Hotels found
+                    {destination ? ` in ${destination}` : ''}
+                  </div>
+                )}
+              </div>
+
+              <div className="flex justify-between lg:justify-end gap-2 w-full lg:w-auto">
+                {/* Mobile filter button */}
+                <div className="lg:hidden">
                   <Button
-                    className="bg-blue-600 text-white hover:bg-blue-500"
+                    className="bg-blue-600 text-white hover:bg-blue-500 px-6 text-lg"
                     onClick={() => openModal('filterModal')}>
                     Filter
                   </Button>
@@ -138,6 +142,7 @@ const Search = () => {
                 />
               </div>
             </div>
+
             {/* Loading State */}
             {isLoading && <Loader />}
 
