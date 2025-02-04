@@ -33,7 +33,7 @@ const Button = React.memo(
     to = '',
   }: Props) => {
     const classNames = cn(
-      'flex items-center justify-center rounded-lg py-1 px-3 sm:py-2 sm:px-4 font-semibold sm:text-lg cursor-pointer',
+      'flex items-center justify-center rounded-lg py-2 px-4 font-semibold sm:text-lg cursor-pointer',
       className,
     )
 
