@@ -4,7 +4,7 @@ import {
   Pagination,
   Modal,
   Button,
-  Loader,
+  SkeletonHotelCard,
   Filter,
   HotelCard,
   Select,
@@ -113,7 +113,7 @@ const Search = () => {
           </div>
 
           <div className="flex flex-col gap-5 mt-1">
-            <div className="flex flex-col lg:flex-row   lg:items-center justify-between">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between">
               <div className="mb-5 lg:mb-0">
                 {!isError && isSuccess && (
                   <div className="text-xl font-bold ">
@@ -143,14 +143,20 @@ const Search = () => {
               </div>
             </div>
 
-            {/* Loading State */}
-            {isLoading && <Loader />}
-
-            {/* Error State */}
-            {isError && (
-              <div className="text-center">
-                <Error message="Unable to fetch hotels." size="large" />
+            {/* Loading Skeleton & HotelCards */}
+            {isLoading ? (
+              <div className="flex flex-col gap-5">
+                {[...Array(5)].map((_, index) => (
+                  <SkeletonHotelCard key={index} role={'searchCard'} />
+                ))}
               </div>
+            ) : (
+              <>
+                {areHotelsAvailable &&
+                  hotelData?.data.map((hotel) => (
+                    <HotelCard role="searchCard" hotel={hotel} key={hotel._id} />
+                  ))}
+              </>
             )}
 
             {/* No Hotels Found */}
@@ -158,11 +164,8 @@ const Search = () => {
               <NotFoundData title="No hotels match your criteria" />
             )}
 
-            {/* Hotels List */}
-            {areHotelsAvailable &&
-              hotelData?.data.map((hotel) => (
-                <HotelCard role="searchCard" hotel={hotel} key={hotel._id} />
-              ))}
+            {/* Error */}
+            {isError && <Error message="Unable to fetch hotels." size="large" center />}
 
             {/* Pagination */}
             {areHotelsAvailable && (
