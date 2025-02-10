@@ -1,19 +1,18 @@
-import { Loader, BookingItem } from '../components'
+import { BookingItem, NotFoundData, Error, SkeletonMyBookings } from '../components'
 import { useGetMyBooking } from '../hooks'
 
 const MyBookings = () => {
   const { data: bookings, isLoading, isError } = useGetMyBooking()
 
   if (isLoading) {
-    return <Loader />
+    return <SkeletonMyBookings />
   }
 
   return (
     <div className="space-y-7">
       <h1 className="text-3xl font-bold">My Bookings</h1>
-      {bookings && bookings.length === 0 && (
-        <span className="text-3xl mx-8 block text-center mt-5">No bookings found</span>
-      )}
+
+      {/* My booking list  */}
       {bookings &&
         bookings.map(({ hotelId, checkIn, checkOut, adultCount, childCount }) => (
           <BookingItem
@@ -25,10 +24,18 @@ const MyBookings = () => {
             adultCount={adultCount}
           />
         ))}
+
+      {/* My booking data is empty */}
+      {bookings?.length === 0 && !isError && (
+        <NotFoundData
+          title="Your booking history is empty"
+          description="Ready for your next adventure? Browse hotels to plan your perfect stay."
+        />
+      )}
+
+      {/* Error */}
       {isError && (
-        <span className="text-3xl text-red-600 mx-8 block text-center mt-5">
-          Occured some error with fetching bookings
-        </span>
+        <Error message="An error occurred while fetching the data." size="large" center />
       )}
     </div>
   )
