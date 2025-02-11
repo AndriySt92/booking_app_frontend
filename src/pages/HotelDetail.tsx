@@ -3,20 +3,34 @@ import GuestInfoForm from '../forms/guestInfoForm/GuestInfoForm'
 import DatePicker from 'react-datepicker'
 import { transformBookedDates } from '../utils/dateUtils'
 import { useGetBookedDates, useGetHotel } from '../hooks'
-import { StarRating } from '../components'
-import Gallery from '../components/Common/Gallery'
+import { StarRating, Gallery, SkeletonHotelDetailsPage, Error } from '../components'
 
 const HotelDetail = () => {
   const { hotelId } = useParams()
-  const { data: hotel } = useGetHotel((hotelId as string) || '')
-  const { data: bookedDates } = useGetBookedDates((hotelId as string) || '')
+  const {
+    data: hotel,
+    isFetching: isFetchingDetail,
+    isError: isErrorFetchingDetail,
+  } = useGetHotel((hotelId as string) || '')
+  const {
+    data: bookedDates,
+    isFetching: isFetchingDates,
+    isError: isErrorFetchingDates,
+  } = useGetBookedDates((hotelId as string) || '')
+
+  const isLoading = isFetchingDetail || isFetchingDates
+  const isError = isErrorFetchingDetail || isErrorFetchingDates
+
+  if (isLoading) {
+    return <SkeletonHotelDetailsPage />
+  }
 
   if (!hotel || !bookedDates) {
     return null
   }
 
   return (
-    <div className="space-y-6 detail">
+    <div className="space-y-7 detail">
       <div>
         <h1 className="text-3xl font-bold">{hotel.name}</h1>
         <div className="flex mt-2">
@@ -59,6 +73,11 @@ const HotelDetail = () => {
           />
         </div>
       </div>
+
+      {/* Error */}
+      {isError && (
+        <Error message="An error occurred while fetching the data." size="large" center />
+      )}
     </div>
   )
 }
