@@ -40,11 +40,18 @@ const MyHotels = () => {
         </div>
       )}
 
-      {/* No data available */}
-      {hotels?.length && !isError && <NotFoundData title="You haven't added any hotels yet." />}
+      {/* My hotels data is empty */}
+      {hotels?.length && !isError && (
+        <NotFoundData
+          title="You haven’t added any hotels yet"
+          description="Showcase your properties and start attracting guests. Add your first hotel now!"
+        />
+      )}
 
       {/* Error */}
-      {!isError && <Error message="An error occurred while fetching the data." center />}
+      {isError && (
+        <Error message="An error occurred while fetching the data." size="large" center />
+      )}
     </div>
   )
 }
