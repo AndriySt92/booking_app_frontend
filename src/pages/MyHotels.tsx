@@ -27,7 +27,7 @@ const MyHotels = () => {
       </div>
 
       {/* My hotels list */}
-      {hotels && (
+      {hotels && hotels?.length > 0 && (
         <div className="grid grid-cols-1 gap-8">
           {hotels.map((hotel) => (
             <MyHotelCard
@@ -41,7 +41,7 @@ const MyHotels = () => {
       )}
 
       {/* My hotels data is empty */}
-      {hotels?.length && !isError && (
+      {hotels?.length === 0 && !isError && (
         <NotFoundData
           title="You haven’t added any hotels yet"
           description="Showcase your properties and start attracting guests. Add your first hotel now!"
