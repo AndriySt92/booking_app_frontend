@@ -1,14 +1,14 @@
 import cn from 'classnames'
-import { UseFormRegister, RegisterOptions } from 'react-hook-form'
+import { UseFormRegister, RegisterOptions, FieldValues, Path } from 'react-hook-form'
 import { Error } from '../'
 
-interface Props {
-  name: string
+interface Props<T extends FieldValues> {
+  name: Path<T>
   label?: string
   type?: string
   placeholder?: string
-  error?: string | undefined
-  register: UseFormRegister<any>
+  error?: string
+  register: UseFormRegister<T>
   validation?: RegisterOptions
   inputClassNames?: string
   labelClassNames?: string
@@ -23,7 +23,7 @@ interface Props {
   disabled?: boolean
 }
 
-const Input = ({
+const Input = <T extends FieldValues>({
   name,
   label,
   type = 'text',
@@ -38,7 +38,7 @@ const Input = ({
   multiple,
   accept,
   ...rest
-}: Props) => {
+}: Props<T>) => {
   const isTypeCheckbox = type === 'checkbox'
   const isTypeRadio = type === 'radio'
   const isTypeFile = type === 'file'

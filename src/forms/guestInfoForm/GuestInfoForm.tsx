@@ -1,10 +1,9 @@
 import { Controller, useForm } from 'react-hook-form'
 import { useLocation, useNavigate } from 'react-router-dom'
 import DatePicker from 'react-datepicker'
-import { useAppContext } from '../../contexts/AppContext'
 import { IBookedDates, IGuestInfoFormData } from '../../types/hotelTypes'
 import { Button, Input } from '../../components'
-import { useBookingContext } from '../../contexts/BookingContext'
+import { useBookingContext, useAppContext } from '../../hooks'
 import { transformBookedDates, validateDateRange } from '../../utils/dateUtils'
 
 interface Props {

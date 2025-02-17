@@ -1,13 +1,13 @@
 import cn from 'classnames'
-import type { UseFormRegister, RegisterOptions } from 'react-hook-form'
+import type { UseFormRegister, RegisterOptions, FieldValues, Path } from 'react-hook-form'
 import { Error } from '..'
 
-interface Props {
-  name: string
+interface Props<T extends FieldValues> {
+  name: Path<T>
   label?: string
   placeholder?: string
-  error?: string | undefined
-  register: UseFormRegister<any>
+  error?: string
+  register: UseFormRegister<T>
   validation?: RegisterOptions
   textareaClassNames?: string
   labelClassNames?: string
@@ -16,7 +16,7 @@ interface Props {
   maxLength: number
 }
 
-const Textarea = ({
+const Textarea = <T extends FieldValues>({
   name,
   label,
   error,
@@ -26,7 +26,7 @@ const Textarea = ({
   labelClassNames,
   wrapperClassNames,
   ...rest
-}: Props) => {
+}: Props<T>) => {
   return (
     <div className={wrapperClassNames}>
       {label && (

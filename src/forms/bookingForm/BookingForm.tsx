@@ -2,12 +2,10 @@ import { useParams } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import { StripeCardElement } from '@stripe/stripe-js'
-import { useBookingContext } from '../../contexts/BookingContext'
 import { IBooking, IPaymentIntentResponse } from '../../types/bookingTypes'
 import { IUser } from '../../types/userTypes'
 import { Button, Input, LoadingButton } from '../../components'
-import { useCreateRoomBooking } from '../../hooks'
-import { useAppContext } from '../../contexts/AppContext'
+import { useCreateRoomBooking, useBookingContext, useAppContext } from '../../hooks'
 
 interface Props {
   currentUser: IUser

@@ -1,4 +1,4 @@
-import { UseFormRegister, RegisterOptions } from 'react-hook-form'
+import { UseFormRegister, RegisterOptions, FieldValues, Path } from 'react-hook-form'
 import cn from 'classnames'
 import { Error } from '../'
 
@@ -7,21 +7,21 @@ interface Option {
   value: string | number
 }
 
-interface Props {
-  name: string
+interface Props<T extends FieldValues> {
+  name: Path<T>
   label?: string
   options: Option[]
   placeholder?: string
   error?: string
   disabled?: boolean
-  register: UseFormRegister<any>
+  register: UseFormRegister<T>
   validation?: RegisterOptions
   selectClassNames?: string
   labelClassNames?: string
   wrapperClassNames?: string
 }
 
-const Select = ({
+const Select = <T extends FieldValues>({
   name,
   label,
   options,
@@ -33,7 +33,7 @@ const Select = ({
   selectClassNames = '',
   labelClassNames = '',
   wrapperClassNames = '',
-}: Props) => {
+}: Props<T>) => {
   return (
     <div className={cn(wrapperClassNames)}>
       {label && (
