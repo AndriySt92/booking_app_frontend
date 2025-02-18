@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query'
-import { useAppContext } from '../contexts/AppContext'
+import { useAppContext } from '../hooks'
 import { searchHotels } from '../services/hotelApi'
 import { ISearchParams } from '../types/hotelTypes'
 

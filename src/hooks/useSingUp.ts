@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from 'react-query'
 import { useNavigate } from 'react-router-dom'
-import { useAppContext } from '../contexts/AppContext'
+import { useAppContext } from '../hooks'
 import { signUp } from '../services/authApi'
 
 const useSignUp = () => {

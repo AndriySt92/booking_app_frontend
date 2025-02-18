@@ -12,7 +12,7 @@ import {
   SignIn,
   SignUp,
 } from './pages'
-import { useAppContext } from './contexts/AppContext'
+import { useAppContext } from './hooks'
 
 function App() {
   const { isLoggedIn } = useAppContext()

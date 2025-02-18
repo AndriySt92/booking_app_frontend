@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 
 interface IBookingContext {
   checkIn: Date
@@ -24,36 +24,31 @@ export const BookingContextProvider = ({ children }: { children: React.ReactNode
   const [childCount, setChildCount] = useState<number>(1)
   const [hotelId, setHotelId] = useState<string>('')
 
-  const saveBookingValues = (
-    hotelId: string,
-    checkIn: Date,
-    checkOut: Date,
-    adultCount: number,
-    childCount: number,
-  ) => {
-    setCheckIn(checkIn)
-    setCheckOut(checkOut)
-    setAdultCount(adultCount)
-    setChildCount(childCount)
-    setHotelId(hotelId)
-  }
-
-  return (
-    <BookingContext.Provider
-      value={{
-        checkIn,
-        checkOut,
-        adultCount,
-        childCount,
-        hotelId,
-        saveBookingValues,
-      }}>
-      {children}
-    </BookingContext.Provider>
+  const saveBookingValues = useCallback(
+    (hotelId: string, checkIn: Date, checkOut: Date, adultCount: number, childCount: number) => {
+      setCheckIn(checkIn)
+      setCheckOut(checkOut)
+      setAdultCount(adultCount)
+      setChildCount(childCount)
+      setHotelId(hotelId)
+    },
+    [],
   )
+
+  // Memoize context value to prevent unnecessary re-renders
+  const contextValue = useMemo(
+    () => ({
+      checkIn,
+      checkOut,
+      adultCount,
+      childCount,
+      hotelId,
+      saveBookingValues,
+    }),
+    [checkIn, checkOut, adultCount, childCount, hotelId, saveBookingValues],
+  )
+
+  return <BookingContext.Provider value={contextValue}>{children}</BookingContext.Provider>
 }
 
-export const useBookingContext = () => {
-  const context = useContext(BookingContext)
-  return context as IBookingContext
-}
+export default BookingContext

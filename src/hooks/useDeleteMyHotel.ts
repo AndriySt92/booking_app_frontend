@@ -1,6 +1,6 @@
-import { useAppContext } from '../contexts/AppContext'
-import { deleteMyHotel } from '../services/my-hotelApi'
 import { useMutation, useQueryClient } from 'react-query'
+import { useAppContext } from '../hooks'
+import { deleteMyHotel } from '../services/my-hotelApi'
 
 const useDeleteMyHotel = () => {
   const queryClient = useQueryClient()

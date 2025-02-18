@@ -1,11 +1,11 @@
+import { useCallback, useEffect, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useForm, Controller } from 'react-hook-form'
-import { useSearchContext } from '../../contexts/SearchContext'
-import { MdTravelExplore } from 'react-icons/md'
 import DatePicker from 'react-datepicker'
+import { useSearchContext } from '../../hooks'
+import { MdTravelExplore } from 'react-icons/md'
 import { ISearchFormValues } from '../../types/hotelTypes'
 import { Input, Button } from '../'
-import { useCallback, useEffect, useMemo } from 'react'
 
 const SearchBar = () => {
   const navigate = useNavigate()
@@ -60,7 +60,7 @@ const SearchBar = () => {
       adultCount: 1,
       childCount: 0,
     })
-  }, [])
+  }, [reset, saveSearchValues])
 
   const { minDate, maxDate } = useMemo(() => {
     const today = new Date()

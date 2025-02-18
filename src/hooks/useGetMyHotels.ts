@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query'
 import { fetchMyHotels } from '../services/my-hotelApi'
-import { useAppContext } from '../contexts/AppContext'
+import { useAppContext } from '../hooks'
 
 const useGetMyHotels = () => {
   const { showToast } = useAppContext()

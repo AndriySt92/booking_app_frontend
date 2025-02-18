@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { getSessionValue, setSessionValue } from '../utils/sessionStorageUtils'
 import { SaveSearchValues } from '../types/hotelTypes'
 
@@ -74,7 +74,4 @@ export const SearchContextProvider = ({ children }: { children: React.ReactNode 
   return <SearchContext.Provider value={contextValue}>{children}</SearchContext.Provider>
 }
 
-export const useSearchContext = () => {
-  const context = useContext(SearchContext)
-  return context as ISearchContext
-}
+export default SearchContext

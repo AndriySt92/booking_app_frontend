@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "react-query"
-import { useAppContext } from "../contexts/AppContext"
+import { useAppContext } from "../hooks"
 import { addMyHotel } from "../services/my-hotelApi"
 
 const useCreateHotel = () => {

@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Elements } from '@stripe/react-stripe-js'
-import { useAppContext } from '../contexts/AppContext'
-import { useBookingContext } from '../contexts/BookingContext'
 import BookingForm from '../forms/bookingForm/BookingForm'
 import { BookingDetailsSummary } from '../components'
-import { useGetCurrentUser, useGetHotel, useGetPaymentIntendData } from '../hooks'
+import {
+  useGetCurrentUser,
+  useGetHotel,
+  useGetPaymentIntendData,
+  useBookingContext,
+  useAppContext,
+} from '../hooks'
 
 const Booking = () => {
   const [numberOfNights, setNumberOfNights] = useState<number>(0)
@@ -14,9 +18,9 @@ const Booking = () => {
   const booking = useBookingContext()
 
   const { data: currentUser } = useGetCurrentUser()
-  const { data: hotel } = useGetHotel(hotelId as string || '')
+  const { data: hotel } = useGetHotel((hotelId as string) || '')
   const { data: paymentIntentData } = useGetPaymentIntendData({
-    hotelId: hotelId as string || '',
+    hotelId: (hotelId as string) || '',
     numberOfNights,
   })
 

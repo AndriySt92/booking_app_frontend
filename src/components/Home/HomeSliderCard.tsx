@@ -1,4 +1,4 @@
-import { useSearchContext } from '../../contexts/SearchContext'
+import { useSearchContext } from '../../hooks'
 import { IHotelsCountriesSummary } from '../../types/hotelTypes'
 import { useNavigate } from 'react-router-dom'
 

@@ -9,27 +9,25 @@ const SkeletonHotelDetailsPage = () => {
 
       {/* Gallery */}
       <div className="grid min-h-[350px] sm:min-h-[400px] lg:min-h-[700px] gap-2 sm:grid-cols-12 sm:grid-rows-5 sm:gap-4 grid-cols-10 grid-rows-5">
-        {[...Array(9)].map((image, index) => (
+        {[...Array(9)].map((_, i) => (
           <div
-            key={image}
+            key={i}
             className={`group 
-            ${index === 0 ? 'sm:col-span-8 sm:row-span-4 col-span-10 row-span-4' : ''} 
+            ${i === 0 ? 'sm:col-span-8 sm:row-span-4 col-span-10 row-span-4' : ''} 
+            ${i === 1 ? 'sm:col-span-4 sm:row-span-2 sm:col-start-9 col-span-2 row-start-5' : ''} 
             ${
-              index === 1 ? 'sm:col-span-4 sm:row-span-2 sm:col-start-9 col-span-2 row-start-5' : ''
-            } 
-            ${
-              index === 2
+              i === 2
                 ? 'sm:col-span-4 sm:row-span-2 sm:col-start-9 sm:row-start-3 col-span-2 col-start-3 row-start-5'
                 : ''
             } 
-            ${index > 2 ? 'sm:col-span-2 sm:row-start-5 sm:col-start-auto col-span-2' : ''} 
+            ${i > 2 ? 'sm:col-span-2 sm:row-start-5 sm:col-start-auto col-span-2' : ''} 
             ${
-              index > 5
+              i > 5
                 ? 'hidden sm:block sm:col-span-2 sm:row-start-5' /* Hide images after the 6th for screens under `sm` */
                 : ''
             } 
             ${
-              index > 8
+              i > 8
                 ? 'block sm:hidden sm:col-span-2 sm:row-start-5' /* Hide images after the 9th for screens above `sm` */
                 : ''
             } 

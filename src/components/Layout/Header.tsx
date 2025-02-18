@@ -1,8 +1,9 @@
-import { Link, useLocation } from 'react-router-dom'
-import { useAppContext } from '../../contexts/AppContext'
-import { Button, SignOutButton } from '../'
 import { useEffect, useState } from 'react'
 import { FaBars, FaTimes } from 'react-icons/fa'
+import { Link, useLocation } from 'react-router-dom'
+import { useAppContext } from '../../hooks'
+import { Button, SignOutButton } from '../'
+
 
 interface HeaderProps {
   scrollToContent: React.RefObject<HTMLDivElement>
@@ -27,7 +28,7 @@ const Header = ({ scrollToContent }: HeaderProps) => {
     }
 
     window.scrollTo({ top: 0 })
-  }, [location.pathname])
+  }, [location.pathname, scrollToContent])
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)

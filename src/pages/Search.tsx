@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState, useRef } from 'react'
-import { useSearchContext } from '../contexts/SearchContext'
+import { useForm } from 'react-hook-form'
+import { useSearchContext } from '../hooks'
 import {
   Pagination,
   Modal,
@@ -14,7 +15,6 @@ import {
 import { initialFilterValue, sortOptions } from '../config/hotelConfigs'
 import { useGetSearchHotels, useModalManager } from '../hooks'
 import { IFilterHotels } from '../types/hotelTypes'
-import { useForm } from 'react-hook-form'
 
 const Search = () => {
   const [page, setPage] = useState<number>(1)
@@ -88,7 +88,7 @@ const Search = () => {
     if (sortOption) {
       reset({ sortOption: '' })
     }
-  }, [destination, checkIn, checkOut, childCount, adultCount, filter])
+  }, [destination, checkIn, checkOut, childCount, adultCount, filter, sortOption, reset])
 
   useEffect(() => {
     handlePageChange(1)

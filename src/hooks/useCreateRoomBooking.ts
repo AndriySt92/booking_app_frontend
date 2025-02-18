@@ -1,8 +1,7 @@
-import { useMutation, useQueryClient } from 'react-query'
-import { useAppContext } from '../contexts/AppContext'
-import { useBookingContext } from '../contexts/BookingContext'
-import { createRoomBooking } from '../services/bookingApi'
 import { useNavigate } from 'react-router-dom'
+import { useMutation, useQueryClient } from 'react-query'
+import { useBookingContext, useAppContext } from '.'
+import { createRoomBooking } from '../services/bookingApi'
 
 const useCreateRoomBooking = () => {
   const { showToast } = useAppContext()
