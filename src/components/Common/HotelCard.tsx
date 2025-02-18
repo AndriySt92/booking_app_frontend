@@ -1,6 +1,6 @@
 import { AiFillStar } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
-import Button from '../Button/Button'
+import {Button} from '../'
 import { IHotel } from '../../types/hotelTypes'
 
 interface Props {
@@ -56,7 +56,7 @@ const HotelCard = ({ hotel, checkIn, checkOut, adultCount, childCount, role }: P
         </div>
 
         {role === 'searchCard' ? (
-          <div className="grid grid-rows-2 grid-cols-1 gap-4 2xl:gap-0 2xl:grid-rows-1 2xl:grid-cols-2 items-end whitespace-nowrap">
+          <div className="grid grid-rows-2 grid-cols-1 gap-4 2xl:gap-0 2xl:grid-rows-1 2xl:grid-cols-[80%_20%] items-end whitespace-nowrap">
             <div className="flex flex-wrap gap-1 items-center">
               {hotel.facilities.slice(0, 3).map((facility) => (
                 <span
