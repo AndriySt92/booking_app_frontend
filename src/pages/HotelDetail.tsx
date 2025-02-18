@@ -41,7 +41,12 @@ const HotelDetail = () => {
       <Gallery images={hotel.imageUrls} />
 
       <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-6">
-        <div className="whitespace-pre-line sm:text-lg">{hotel.description}</div>
+        <div>
+          <div className="text-lg sm:text-xl font-semibold">
+            {hotel.city}, {hotel.country}
+          </div>
+          <div className="whitespace-pre-line sm:text-lg">{hotel.description}</div>
+        </div>
         <div className="h-fit">
           <GuestInfoForm
             bookedDates={bookedDates}
