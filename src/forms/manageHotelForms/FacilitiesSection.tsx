@@ -12,7 +12,7 @@ const FacilitiesSection = () => {
   return (
     <fieldset>
       <legend className="text-2xl font-bold mb-3">Facilities</legend>
-      <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
         {hotelFacilities.map((facility) => (
           <Input
             key={facility}

@@ -15,7 +15,7 @@ const TypeSection = () => {
   return (
     <fieldset>
       <legend className="text-2xl font-bold mb-3">Type</legend>
-      <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
         {hotelTypes.map((type) => (
           <Input
             key={type}

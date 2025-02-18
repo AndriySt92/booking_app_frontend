@@ -55,7 +55,7 @@ const MyHotelCard = ({ hotel, onDelete, isDeleting }: Props) => {
           role="link"
           to={`/edit-hotel/${hotel._id}`}
           className="bg-blue-600 text-white hover:bg-blue-500">
-          Edit Hotel
+          Edit
         </Button>
       </div>
     </div>
