@@ -9,22 +9,18 @@ import {
   hotelTypes,
   initialFilterValue,
 } from '../../config/hotelConfigs'
-import { useCallback } from 'react'
+import { useCallback, useMemo } from 'react'
 
 interface Props {
+  filter: IFilterHotels
   handleFilterApply: (filter: IFilterHotels) => void
   handleClearFilters: () => void
   isLoading: boolean
 }
 
-const Filter = ({ handleFilterApply, handleClearFilters, isLoading }: Props) => {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { isDirty },
-  } = useForm<IFilterHotels>({
-    defaultValues: initialFilterValue,
+const Filter = ({ filter, handleFilterApply, handleClearFilters, isLoading }: Props) => {
+  const { register, handleSubmit, reset, watch } = useForm<IFilterHotels>({
+    values: filter,
   })
 
   const onSubmit = (data: IFilterHotels) => {
@@ -35,6 +31,16 @@ const Filter = ({ handleFilterApply, handleClearFilters, isLoading }: Props) => 
     reset(initialFilterValue)
     handleClearFilters()
   }, [handleClearFilters, reset])
+
+  const currentValues = watch() // Get current form values
+
+  // Ensures consistent button states across desktop/mobile views
+  const hasChanges = useMemo(() => {
+    return (
+      JSON.stringify(initialFilterValue) !== JSON.stringify(currentValues) ||
+      JSON.stringify(initialFilterValue) !== JSON.stringify(filter)
+    )
+  }, [currentValues, filter])
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
@@ -68,11 +74,11 @@ const Filter = ({ handleFilterApply, handleClearFilters, isLoading }: Props) => 
       <div className="flex justify-end gap-3">
         {!isLoading ? (
           <Button
-            disabled={!isDirty}
+            disabled={!hasChanges}
             type="submit"
             className={cn('lg:w-2/3 px-2 py-1 sm:px-3 sm:py-2 font-semibold rounded text-white', {
-              'bg-blue-600 hover:bg-blue-500': isDirty, // Active state
-              'bg-blue-400': !isDirty, // Disabled state
+              'bg-blue-600 hover:bg-blue-500 cursor-pointer': hasChanges,
+              'bg-blue-400 cursor-not-allowed': !hasChanges,
             })}>
             Apply
           </Button>
@@ -84,10 +90,10 @@ const Filter = ({ handleFilterApply, handleClearFilters, isLoading }: Props) => 
         <Button
           type="button"
           onClick={clearAllFilters}
-          disabled={!isDirty || isLoading}
+          disabled={!hasChanges || isLoading}
           className={cn('lg:w-1/3 px-2 py-1 sm:px-3 sm:py-2 font-semibold text-white rounded', {
-            'bg-red-600 hover:bg-red-500': isDirty && !isLoading, // Active state
-            'bg-red-400': !isDirty || isLoading, // Disabled state
+            'bg-red-600 hover:bg-red-500 cursor-pointer': hasChanges && !isLoading,
+            'bg-red-400 cursor-not-allowed': !hasChanges || isLoading,
           })}>
           Clear
         </Button>

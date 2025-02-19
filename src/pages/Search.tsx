@@ -85,14 +85,12 @@ const Search = () => {
   }, [])
 
   useEffect(() => {
-    if (sortOption) {
-      reset({ sortOption: '' })
-    }
-  }, [destination, checkIn, checkOut, childCount, adultCount, filter, sortOption, reset])
+    reset({ sortOption: '' })
+  }, [destination, checkIn, checkOut, childCount, adultCount, filter, reset])
 
   useEffect(() => {
     handlePageChange(1)
-  }, [sortOption, filter, handlePageChange])
+  }, [filter, handlePageChange])
 
   const areHotelsAvailable = useMemo(
     () => hotelData?.data && hotelData.data.length > 0,
@@ -106,6 +104,7 @@ const Search = () => {
         <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-5">
           <div className="custom-shadow-rounded p-5 h-fit top-10 hidden lg:block">
             <Filter
+              filter={filter}
               handleFilterApply={handleFilterApply}
               handleClearFilters={handleClearFilters}
               isLoading={isLoading}
@@ -183,6 +182,7 @@ const Search = () => {
       {currentModal === 'filterModal' && (
         <Modal onClose={closeModal}>
           <Filter
+            filter={filter}
             handleFilterApply={handleFilterApply}
             handleClearFilters={handleClearFilters}
             isLoading={isLoading}
