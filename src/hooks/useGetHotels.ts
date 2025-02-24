@@ -7,9 +7,9 @@ const useGetHotels = (limit: number) => {
     ({ pageParam = 1 }) => fetchHotels(pageParam, limit),
     {
       getNextPageParam: (lastPage, allPages) => {
-        const morePagesExist = lastPage.hotels.length === limit
-        if (!morePagesExist) return undefined
-        return allPages.length + 1 // return the next page number
+       const totalFetched = allPages.length * limit
+        const hasMore = totalFetched < lastPage.total
+        return hasMore ? allPages.length + 1 : undefined
       },
       staleTime: 5000,
     },
