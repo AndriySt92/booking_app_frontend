@@ -13,8 +13,11 @@ const HomeHotelCard = ({ hotel }: Props) => {
     <Link
       to={`/detail/${_id}`}
       className="relative cursor-pointer animate-slideIn group custom-shadow-rounded">
-      <div className="h-[300px] group-hover:animate-flash">
-        <img src={imageUrls[0]} className="w-full rounded-lg h-full object-cover object-center" />
+      <div className="h-[300px] group-hover:animate-flash shadow-lg rounded-xl overflow-hidden">
+        <img
+          src={imageUrls[0]}
+          className="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-300"
+        />
       </div>
       <div className="absolute bottom-0 flex justify-between px-2 py-1 bg-black bg-opacity-40 w-full rounded-b-md">
         <div className="flex flex-col">
