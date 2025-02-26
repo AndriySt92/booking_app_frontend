@@ -18,10 +18,13 @@ const HomeSliderCard = ({ hotelsCountriesSummaryItem }: Props) => {
 
   return (
     <div className="relative cursor-pointer animate-slideIn mx-[6px] group" onClick={handleClick}>
-      <div className="h-[300px] group-hover:animate-flash">
-        <img src={hotelImageUrl} className="w-full rounded-lg h-full object-cover object-center" />
+      <div className="h-[300px] group-hover:animate-flash shadow-lg rounded-xl overflow-hidden">
+        <img
+          src={hotelImageUrl}
+          className="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-300"
+        />
       </div>
-      <div className="absolute bottom-0 flex justify-between px-2 py-1 bg-black bg-opacity-40 w-full rounded-b-md">
+      <div className="absolute bottom-0 flex justify-between px-2 py-1 bg-black bg-opacity-40 w-full rounded-b-xl">
         <div className="flex flex-col">
           <span className="text-white font-bold tracking-tight"> {country}</span>
           <span className="text-white  tracking-tight">
