@@ -1,57 +1,73 @@
-import { useEffect, useState } from 'react'
-import { FaBars, FaTimes } from 'react-icons/fa'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useAppContext } from '../../hooks'
 import { Button, SignOutButton } from '../'
+import NavButton from '../Buttons/NavButton'
+import ToggleMenuButton from '../Buttons/ToggleMenuButton'
 
-
-interface HeaderProps {
+interface Props {
   scrollToContent: React.RefObject<HTMLDivElement>
 }
 
-const Header = ({ scrollToContent }: HeaderProps) => {
+const NAV_ITEMS = [
+  { path: '/my-bookings', label: 'My Bookings' },
+  { path: '/my-hotels', label: 'My Hotels' },
+  { path: '/favorites', label: 'Favorites' },
+]
+
+const Header = ({ scrollToContent }: Props) => {
   const { isLoggedIn } = useAppContext()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const location = useLocation()
+  const currentPath = location.pathname
+
+  // Memoize scrollable paths
+  const scrollPaths = useMemo(() => NAV_ITEMS.map((item) => item.path), [])
 
   // Scroll when route changes and close menu
   useEffect(() => {
-    if (location.pathname === '/my-bookings' || location.pathname === '/my-hotels') {
-      setTimeout(() => {
-        scrollToContent?.current?.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start',
-        })
-      }, 100)
+    let timer: any
+    if (scrollPaths.includes(currentPath)) {
+      const scrollBehavior = () => {
+        if (scrollToContent.current) {
+          scrollToContent.current.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+          })
+        }
+      }
 
-      setIsMenuOpen(false)
+      timer = setTimeout(scrollBehavior, 150)
     }
-
+    setIsMenuOpen(false)
     window.scrollTo({ top: 0 })
-  }, [location.pathname, scrollToContent])
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen)
-  }
+    return () => {
+      if (timer) clearTimeout(timer)
+    }
+  }, [currentPath, scrollToContent, scrollPaths])
+
+  const toggleMenu = useCallback(() => {
+    setIsMenuOpen((prev) => !prev)
+  }, [])
 
   return (
     <div className="bg-blue-800 py-6 border-b-2 border-white md:border-b-0">
       <div className="container mx-auto flex justify-between items-center">
-        <span className="text-3xl text-white font-bold tracking-tight">
+        <div className="text-3xl text-white font-bold mb-2">
           <Link to="/">Booking.com</Link>
-        </span>
+        </div>
+
+        {/* Desktop Navigation */}
         <div
           className={`${
             isLoggedIn ? 'hidden' : 'flex'
-          } md:flex justify-center items-center space-x-2`}>
+          } md:flex justify-center items-center space-x-1 lg:space-x-2`}>
           {isLoggedIn ? (
             <>
-              <Button role="link" to="/my-bookings" className="text-white hover:bg-blue-600">
-                My Bookings
-              </Button>
-              <Button role="link" to="/my-hotels" className="text-white hover:bg-blue-600">
-                My Hotels
-              </Button>
+              {NAV_ITEMS.map((item) => (
+                <NavButton key={item.path} {...item} currentPath={currentPath} />
+              ))}
               <SignOutButton />
             </>
           ) : (
@@ -60,12 +76,14 @@ const Header = ({ scrollToContent }: HeaderProps) => {
             </Button>
           )}
         </div>
+
+        {/* Mobile Toggle */}
         <div className={`${isLoggedIn ? 'md:hidden' : 'hidden'} flex items-center`}>
-          <Button onClick={toggleMenu} className="text-white focus:outline-none">
-            {isMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
-          </Button>
+          <ToggleMenuButton isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
         </div>
       </div>
+
+      {/* Mobile Navigation */}
       <div
         className={`${
           isLoggedIn ? 'md:hidden' : 'hidden'
@@ -74,18 +92,9 @@ const Header = ({ scrollToContent }: HeaderProps) => {
           <div className="flex flex-col items-center justify-center space-y-2 py-2">
             {isLoggedIn && (
               <>
-                <Button
-                  role="link"
-                  to="/my-bookings"
-                  className="text-white hover:bg-blue-600 text-center">
-                  My Bookings
-                </Button>
-                <Button
-                  role="link"
-                  to="/my-hotels"
-                  className="text-white hover:bg-blue-600 text-center">
-                  My Hotels
-                </Button>
+                {NAV_ITEMS.map((item) => (
+                  <NavButton key={item.path} {...item} currentPath={currentPath} />
+                ))}
                 <SignOutButton />
               </>
             )}
