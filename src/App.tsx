@@ -11,6 +11,7 @@ import {
   Search,
   SignIn,
   SignUp,
+  Favorites,
 } from './pages'
 import { useAppContext } from './hooks'
 
@@ -98,6 +99,14 @@ function App() {
             element={
               <Layout>
                 <MyBookings />
+              </Layout>
+            }
+          />
+          <Route
+            path="/favorites"
+            element={
+              <Layout>
+                <Favorites />
               </Layout>
             }
           />

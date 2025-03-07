@@ -1,6 +1,6 @@
-import { SkeletonHotelCard } from '../'
+import { SkeletonHotelCard } from '..'
 
-const SkeletonMyBookings = () => {
+const SkeletonHotelList = () => {
   return (
     <div className="space-y-7">
       {/* Title */}
@@ -14,4 +14,4 @@ const SkeletonMyBookings = () => {
   )
 }
 
-export default SkeletonMyBookings
+export default SkeletonHotelList
