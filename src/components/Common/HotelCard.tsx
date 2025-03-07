@@ -1,24 +1,36 @@
 import { AiFillStar } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
-import {Button} from '../'
+import { Button, HotelImage } from '../'
 import { IHotel } from '../../types/hotelTypes'
 
-interface Props {
+interface CommonProps {
   hotel: IHotel
-  checkIn?: Date
-  checkOut?: Date
-  adultCount?: number
-  childCount?: number
-  role: 'searchCard' | 'bookingCard'
+  isFavorite: boolean
 }
 
-const HotelCard = ({ hotel, checkIn, checkOut, adultCount, childCount, role }: Props) => {
+interface SearchOrFavoritesProps extends CommonProps {
+  role: 'searchCard' | 'favoritesCard'
+}
+
+interface BookingProps extends CommonProps {
+  role: 'bookingCard'
+  checkIn: Date
+  checkOut: Date
+  adultCount: number
+  childCount: number
+}
+
+type Props = SearchOrFavoritesProps | BookingProps
+
+const HotelCard = (props: Props) => {
+  const { hotel, isFavorite, role } = props
+
   return (
     <div className="grid grid-cols-1 xl:grid-cols-[2fr_3fr] custom-shadow-rounded animate-slideIn p-3 md:p-8 gap-4 xl:gap-8">
-      <div className="w-full h-[240px] sm:h-[300px]">
-        <img src={hotel.imageUrls[0]} className="w-full h-full object-cover object-center" />
-      </div>
+      {/* Hotel Image */}
+      <HotelImage imageUrl={hotel.imageUrls[0]} isFavorite={isFavorite} hotelId={hotel._id} />
 
+      {/* Hotel Name and Rating */}
       <div className="flex flex-col justify-between gap-4 xl:gap-0 h-full">
         <div>
           <div className="flex items-center">
@@ -33,29 +45,32 @@ const HotelCard = ({ hotel, checkIn, checkOut, adultCount, childCount, role }: P
             {hotel.name}
           </Link>
         </div>
+
+        {/* Booking Info (only for `bookingCard`) */}
         {role === 'bookingCard' && (
           <div>
             <div>
               <span className="sm:text-lg font-bold mr-2">Dates: </span>
               <span className="sm:text-lg">
-                {new Date(checkIn as Date).toDateString()} -{' '}
-                {new Date(checkOut as Date).toDateString()}
+                {new Date(props.checkIn).toDateString()} - {new Date(props.checkOut).toDateString()}
               </span>
             </div>
             <div>
               <span className="sm:text-lg font-bold mr-2">Guests:</span>
               <span className="sm:text-lg">
-                {adultCount} adults, {childCount} children
+                {props.adultCount} adults, {props.childCount} children
               </span>
             </div>
           </div>
         )}
 
+        {/* Hotel Description */}
         <div>
           <div className="sm:text-lg line-clamp-4">{hotel.description}</div>
         </div>
 
-        {role === 'searchCard' ? (
+        {/* Common Section for Search & Favorites */}
+        {role !== 'bookingCard' && (
           <div className="grid grid-rows-2 grid-cols-1 gap-4 2xl:gap-0 2xl:grid-rows-1 2xl:grid-cols-[80%_20%] items-end whitespace-nowrap">
             <div className="flex flex-wrap gap-1 items-center">
               {hotel.facilities.slice(0, 3).map((facility) => (
@@ -78,21 +93,6 @@ const HotelCard = ({ hotel, checkIn, checkOut, adultCount, childCount, role }: P
                 to={`/detail/${hotel._id}`}>
                 View More
               </Button>
-            </div>
-          </div>
-        ) : (
-          <div>
-            <div className="flex gap-1 items-center">
-              {hotel.facilities.slice(0, 3).map((facility) => (
-                <span
-                  className="bg-slate-300 px-2 py-1 rounded-lg font-semibold text-xs sm:text-sm whitespace-nowrap"
-                  key={facility}>
-                  {facility}
-                </span>
-              ))}
-              <span className="text-xs sm:text-sm">
-                {hotel.facilities.length > 3 && `+${hotel.facilities.length - 3} more`}
-              </span>
             </div>
           </div>
         )}

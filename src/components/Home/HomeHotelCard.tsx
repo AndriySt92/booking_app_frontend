@@ -1,24 +1,27 @@
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { IHotel } from '../../types/hotelTypes'
 import { AiFillStar } from 'react-icons/ai'
+import { HotelImage } from '../'
 
 interface Props {
   hotel: IHotel
+  isFavorite: boolean
 }
 
-const HomeHotelCard = ({ hotel }: Props) => {
+const HomeHotelCard = ({ hotel, isFavorite }: Props) => {
   const { _id, name, imageUrls, city, country, starRating } = hotel
+  const navigate = useNavigate()
+
+  const handleClick = () => {
+    navigate(`/detail/${_id}`)
+  }
 
   return (
-    <Link
-      to={`/detail/${_id}`}
+    <div
+      onClick={handleClick}
       className="relative cursor-pointer animate-slideIn group custom-shadow-rounded">
-      <div className="h-[300px] group-hover:animate-flash shadow-lg rounded-xl overflow-hidden">
-        <img
-          src={imageUrls[0]}
-          className="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-300"
-        />
-      </div>
+      <HotelImage imageUrl={imageUrls[0]} isFavorite={isFavorite} hotelId={hotel._id} />
+
       <div className="absolute bottom-0 flex justify-between px-2 py-1 bg-black bg-opacity-40 w-full rounded-b-xl">
         <div className="flex flex-col">
           <span className="text-white font-bold tracking-tight">{name}</span>
@@ -32,7 +35,7 @@ const HomeHotelCard = ({ hotel }: Props) => {
           ))}
         </div>
       </div>
-    </Link>
+    </div>
   )
 }
 

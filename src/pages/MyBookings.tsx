@@ -1,11 +1,12 @@
-import { BookingItem, NotFoundData, Error, SkeletonMyBookings } from '../components'
-import { useGetMyBooking } from '../hooks'
+import { BookingItem, NotFoundData, Error, SkeletonHotelList } from '../components'
+import { useFavoritesContext, useGetMyBooking } from '../hooks'
 
 const MyBookings = () => {
   const { data: bookings, isLoading, isError } = useGetMyBooking()
+  const { favoritesIds } = useFavoritesContext()
 
   if (isLoading) {
-    return <SkeletonMyBookings />
+    return <SkeletonHotelList />
   }
 
   return (
@@ -22,6 +23,7 @@ const MyBookings = () => {
             checkOut={checkOut}
             childCount={childCount}
             adultCount={adultCount}
+            isFavorite={favoritesIds.includes(hotelId)}
           />
         ))}
 

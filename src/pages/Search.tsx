@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useMemo, useState, useRef } from 'react'
 import { useForm } from 'react-hook-form'
-import { useSearchContext } from '../hooks'
 import {
   Pagination,
   Modal,
@@ -13,7 +12,12 @@ import {
   Error,
 } from '../components'
 import { initialFilterValue, sortOptions } from '../config/hotelConfigs'
-import { useGetSearchHotels, useModalManager } from '../hooks'
+import {
+  useGetSearchHotels,
+  useModalManager,
+  useFavoritesContext,
+  useSearchContext,
+} from '../hooks'
 import { IFilterHotels } from '../types/hotelTypes'
 
 const Search = () => {
@@ -21,7 +25,9 @@ const Search = () => {
   const [filter, setFilter] = useState<IFilterHotels>(initialFilterValue)
 
   const { closeModal, currentModal, openModal } = useModalManager()
+  const { favoritesIds } = useFavoritesContext()
   const { destination, checkIn, checkOut, childCount, adultCount } = useSearchContext()
+
   const { register, watch, reset } = useForm<{ sortOption: string }>({
     defaultValues: {
       sortOption: '',
@@ -153,7 +159,12 @@ const Search = () => {
               <>
                 {areHotelsAvailable &&
                   hotelData?.data.map((hotel) => (
-                    <HotelCard role="searchCard" hotel={hotel} key={hotel._id} />
+                    <HotelCard
+                      role="searchCard"
+                      hotel={hotel}
+                      key={hotel._id}
+                      isFavorite={favoritesIds.includes(hotel._id)}
+                    />
                   ))}
               </>
             )}

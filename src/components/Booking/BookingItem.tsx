@@ -3,14 +3,22 @@ import { useGetHotel } from '../../hooks'
 import { HotelCard } from '../'
 
 interface Props {
-  hotelId?: string
-  checkIn?: Date
-  checkOut?: Date
-  adultCount?: number
-  childCount?: number
+  hotelId: string
+  checkIn: Date
+  checkOut: Date
+  adultCount: number
+  childCount: number
+  isFavorite: boolean
 }
 
-const BookingItem: React.FC<Props> = ({ hotelId, checkIn, checkOut, adultCount, childCount }) => {
+const BookingItem: React.FC<Props> = ({
+  hotelId,
+  checkIn,
+  checkOut,
+  adultCount,
+  childCount,
+  isFavorite,
+}) => {
   const { data: hotel } = useGetHotel((hotelId as string) || '')
 
   if (!hotel) {
@@ -25,6 +33,7 @@ const BookingItem: React.FC<Props> = ({ hotelId, checkIn, checkOut, adultCount, 
       checkOut={checkOut}
       adultCount={adultCount}
       childCount={childCount}
+      isFavorite={isFavorite}
     />
   )
 }
