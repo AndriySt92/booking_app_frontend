@@ -1,8 +1,6 @@
 import { useCallback } from 'react'
-import { BsBuilding, BsMap } from 'react-icons/bs'
-import { BiHotel, BiMoney, BiStar } from 'react-icons/bi'
 import { IHotel } from '../../types/hotelTypes'
-import { HotelInfoBox, Button, LoadingButton } from '..'
+import { Button, LoadingButton, HotelInfoList } from '../'
 
 interface Props {
   hotel: IHotel
@@ -11,18 +9,8 @@ interface Props {
 }
 
 const MyHotelCard = ({ hotel, onDelete, isDeleting }: Props) => {
-  const {
-    _id,
-    name,
-    description,
-    city,
-    country,
-    type,
-    pricePerNight,
-    childCount,
-    adultCount,
-    starRating,
-  } = hotel
+  const { _id, name, description, city, type, pricePerNight, childCount, adultCount, starRating } =
+    hotel
 
   const handleDelete = useCallback(() => {
     onDelete(_id)
@@ -30,20 +18,25 @@ const MyHotelCard = ({ hotel, onDelete, isDeleting }: Props) => {
 
   return (
     <div className="flex flex-col justify-between p-3 md:p-8 gap-5 sm:text-lg custom-shadow-rounded animate-slideIn">
-      <h2 className="text-2xl font-bold">{name}</h2>
-      <div className="sm:text-lg line-clamp-4">{description}</div>
+      <div className="space-y-5">
+        <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-800 to-blue-500 bg-clip-text text-transparent">
+          {name}
+        </h2>
+        <div className="sm:text-lg line-clamp-4">{description}</div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-2">
-        <HotelInfoBox icon={<BsMap />} text={`${city}, ${country}`} />
-        <HotelInfoBox icon={<BsBuilding />} text={type} />
-        <HotelInfoBox icon={<BiMoney />} text={`${pricePerNight}€ per night`} />
-        <HotelInfoBox icon={<BiHotel />} text={`${adultCount + childCount} persons`} />
-        <HotelInfoBox icon={<BiStar />} text={`${starRating} star rating`} />
+        <HotelInfoList
+          city={city}
+          type={type}
+          pricePerNight={pricePerNight}
+          childCount={childCount}
+          adultCount={adultCount}
+          starRating={starRating}
+        />
       </div>
 
       <div className="flex justify-between sm:justify-end gap-4">
         {!isDeleting ? (
-          <Button onClick={handleDelete} className="bg-blue-600 text-white hover:bg-blue-500">
+          <Button onClick={handleDelete} className="bg-red-600 text-white hover:bg-red-500">
             Delete
           </Button>
         ) : (
@@ -55,7 +48,7 @@ const MyHotelCard = ({ hotel, onDelete, isDeleting }: Props) => {
           role="link"
           to={`/edit-hotel/${hotel._id}`}
           className="bg-blue-600 text-white hover:bg-blue-500">
-          Edit
+          Edit Hotel
         </Button>
       </div>
     </div>
