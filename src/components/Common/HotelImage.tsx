@@ -1,6 +1,7 @@
 import { FaRegHeart, FaHeart } from 'react-icons/fa'
 import { ImSpinner8 } from 'react-icons/im'
 import { useAddFavorite, useRemoveFavorite } from '../../hooks'
+import cn from 'classnames'
 
 interface Props {
   imageUrl: string
@@ -9,7 +10,7 @@ interface Props {
   className?: string
 }
 
-const HotelImage = ({ imageUrl, isFavorite, hotelId }: Props) => {
+const HotelImage = ({ imageUrl, isFavorite, hotelId, className }: Props) => {
   const { mutate: addFavorite, isLoading: isAdding } = useAddFavorite(hotelId)
   const { mutate: removeFavorite, isLoading: isRemoving } = useRemoveFavorite(hotelId)
 
@@ -21,7 +22,11 @@ const HotelImage = ({ imageUrl, isFavorite, hotelId }: Props) => {
   const isLoading = isAdding || isRemoving
 
   return (
-    <div className="relative h-[300px] shadow-lg rounded overflow-hidden cursor-pointer group group-hover:animate-flash duration-300">
+    <div
+      className={cn(
+        className,
+        'relative h-[300px] shadow-lg rounded overflow-hidden cursor-pointer group group-hover:animate-flash duration-300',
+      )}>
       <img
         src={imageUrl}
         className="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-300"
