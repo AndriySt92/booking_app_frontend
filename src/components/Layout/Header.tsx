@@ -18,6 +18,7 @@ const NAV_ITEMS = [
 const Header = ({ scrollToContent }: Props) => {
   const { isLoggedIn } = useAppContext()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [hasScrolled, setHasScrolled] = useState(false)
   const location = useLocation()
   const currentPath = location.pathname
 
@@ -47,12 +48,24 @@ const Header = ({ scrollToContent }: Props) => {
     }
   }, [currentPath, scrollToContent, scrollPaths])
 
+  // Scroll detection
+  useEffect(() => {
+    const handleScroll = () => {
+      setHasScrolled(window.scrollY > 50)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   const toggleMenu = useCallback(() => {
     setIsMenuOpen((prev) => !prev)
   }, [])
 
   return (
-    <div className="bg-blue-800 py-6 border-b-2 border-white md:border-b-0">
+    <header
+      className={`sticky top-0 z-50 bg-blue-800 py-2 lg:py-4 backdrop-blur transition-all duration-50 ${
+        hasScrolled ? 'shadow-xl' : 'border-b-2 border-white'
+      }`}>
       <div className="container mx-auto flex justify-between items-center">
         <div className="text-3xl text-white font-bold mb-2">
           <Link to="/">Booking.com</Link>
@@ -101,7 +114,7 @@ const Header = ({ scrollToContent }: Props) => {
           </div>
         </div>
       </div>
-    </div>
+    </header>
   )
 }
 
