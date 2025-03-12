@@ -1,7 +1,7 @@
 import Slider from 'react-slick'
 import { IHotelsCountriesSummary } from '../../types/hotelTypes'
 import { sliderSettings } from '../../config/sliderConfig'
-import { HomeSliderCard } from '../'
+import { HomeSliderCard, Text, Title } from '../'
 
 interface Props {
   hotelsCountriesSummary: IHotelsCountriesSummary[]
@@ -10,11 +10,11 @@ interface Props {
 const HomeSlider = ({ hotelsCountriesSummary }: Props) => {
   return (
     <div>
-      <h2 className="text-3xl font-bold">Explore Popular Destinations</h2>
-      <div className="sm:text-lg mb-5">
+      <Title className="text-center sm:text-left">Explore Popular Destinations</Title>
+      <Text className="text-center sm:text-left !font-normal !text-gray-800" size="lg">
         Discover the most popular countries and their unique stays, handpicked for you.
-      </div>
-      <div className="-mx-[6px]">
+      </Text>
+      <div className="-mx-[6px] mt-2 sm:mt-4">
         <Slider {...sliderSettings}>
           {hotelsCountriesSummary.map((item) => (
             <HomeSliderCard key={item.hotelImageUrl} hotelsCountriesSummaryItem={item} />

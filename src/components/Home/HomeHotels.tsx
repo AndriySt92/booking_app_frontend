@@ -1,5 +1,5 @@
 import { IHotel } from '../../types/hotelTypes'
-import { HomeHotelCard } from '../'
+import { HomeHotelCard, Text, Title } from '../'
 import { useFavoritesContext } from '../../hooks'
 
 interface Props {
@@ -11,9 +11,11 @@ const HomeHotels = ({ hotels }: Props) => {
 
   return (
     <div>
-      <h2 className="text-3xl font-bold">Latest Destinations</h2>
-      <div className="sm:text-lg mb-5">Most recent desinations added by our hosts</div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-3">
+      <Title className="text-center sm:text-left">Latest Destinations</Title>
+      <Text className="text-center sm:text-left !font-normal" size="lg">
+        Most recent desinations added by our hosts
+      </Text>
+      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-3 mt-2 sm:mt-4">
         {hotels.map((hotel) => (
           <HomeHotelCard
             hotel={hotel}
