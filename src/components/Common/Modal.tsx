@@ -25,7 +25,7 @@ const Modal = ({ children, onClose }: Props) => {
   }
 
   return (
-    <div className="fixed lg:hidden inset-0 flex items-center justify-start sm:justify-center bg-black bg-opacity-50">
+    <div className="fixed lg:hidden inset-0 flex items-center justify-start sm:justify-center bg-black bg-opacity-50 z-50">
       <div
         className={`bg-white p-7 sm:rounded shadow-lg w-[80%] h-full sm:max-h-[90vh] sm:mx-2 overflow-y-auto transform transition-all duration-300 ${
           isVisible ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0'
