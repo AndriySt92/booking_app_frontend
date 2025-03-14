@@ -121,16 +121,19 @@ const SearchBar = () => {
             control={control}
             render={({ field }) => (
               <DatePicker
-                placeholderText="Check-in Date"
-                onChange={(date) => field.onChange(date)}
+                placeholderText="Check-in"
+                onChange={field.onChange}
                 selected={field.value}
                 selectsStart
                 startDate={field.value as Date}
                 endDate={getValues('checkOut') as Date}
                 minDate={minDate}
                 maxDate={maxDate}
-                className="w-full sm:text-lg bg-white p-2 focus:outline-none"
+                className="w-full p-2 bg-gray-50 rounded-md border 
+                       border-gray-200 focus:border-orange-400 focus:ring-1 
+                       focus:ring-orange-200 hover:cursor-pointer"
                 wrapperClassName="w-full"
+                dateFormat="MMM d, yyyy"
               />
             )}
           />
@@ -142,16 +145,19 @@ const SearchBar = () => {
             control={control}
             render={({ field }) => (
               <DatePicker
-                placeholderText="Check-out Date"
-                onChange={(date) => field.onChange(date)}
+                placeholderText="Check-out"
+                onChange={field.onChange}
                 selected={field.value}
                 selectsEnd
                 startDate={getValues('checkIn') as Date}
                 endDate={field.value as Date}
                 minDate={getValues('checkIn') as Date}
                 maxDate={maxDate}
-                className="w-full sm:text-lg bg-white p-2 focus:outline-none"
+                className="w-full p-2 bg-gray-50 rounded-md border 
+                       border-gray-200 focus:border-orange-400 focus:ring-1 
+                       focus:ring-orange-200 hover:cursor-pointer"
                 wrapperClassName="w-full"
+                dateFormat="MMM d, yyyy"
               />
             )}
           />

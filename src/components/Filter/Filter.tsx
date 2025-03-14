@@ -1,6 +1,6 @@
 import cn from 'classnames'
 import { useForm } from 'react-hook-form'
-import { Button, CheckboxFilter, LoadingButton, Select } from '../'
+import { Button, CheckboxFilter, LoadingButton, Select, Title } from '../'
 import { IFilterHotels } from '../../types/hotelTypes'
 import {
   hotelFacilities,
@@ -44,7 +44,9 @@ const Filter = ({ filter, handleFilterApply, handleClearFilters, isLoading }: Pr
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-      <h3 className="text-xl font-semibold border-b border-slate-300 pb-5">Filter by:</h3>
+      <Title className="border-b border-slate-300 pb-5" color="gray" size="md" as="h3">
+        Filter by:
+      </Title>
 
       <CheckboxFilter
         title="Property stars"

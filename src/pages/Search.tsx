@@ -10,6 +10,7 @@ import {
   Select,
   NotFoundData,
   Error,
+  Title,
 } from '../components'
 import { initialFilterValue, sortOptions } from '../config/hotelConfigs'
 import {
@@ -106,7 +107,7 @@ const Search = () => {
   return (
     <>
       {/* Main Content */}
-      <div className="mb-7" ref={topDivRef}>
+      <div className="mb-7 scroll-mt-[60px] sm:scroll-mt-[90px]" ref={topDivRef}>
         <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-5">
           <div className="custom-shadow-rounded p-5 h-fit top-10 hidden lg:block">
             <Filter
@@ -121,10 +122,10 @@ const Search = () => {
             <div className="flex flex-col lg:flex-row lg:items-center justify-between">
               <div className="mb-5 lg:mb-0">
                 {!isError && isSuccess && (
-                  <div className="text-xl font-bold ">
+                  <Title as="h3" size="sm" color="gray">
                     {hotelData?.pagination.total} Hotels found
                     {destination ? ` in ${destination}` : ''}
-                  </div>
+                  </Title>
                 )}
               </div>
 
