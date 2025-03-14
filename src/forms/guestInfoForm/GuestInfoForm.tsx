@@ -2,7 +2,7 @@ import { Controller, useForm } from 'react-hook-form'
 import { useLocation, useNavigate } from 'react-router-dom'
 import DatePicker from 'react-datepicker'
 import { IBookedDates, IGuestInfoFormData } from '../../types/hotelTypes'
-import { Button, Input } from '../../components'
+import { Button, Input, Title } from '../../components'
 import { useBookingContext, useAppContext } from '../../hooks'
 import { transformBookedDates, validateDateRange } from '../../utils/dateUtils'
 
@@ -70,7 +70,9 @@ const GuestInfoForm = ({ adultCount, childCount, bookedDates, hotelId, pricePerN
 
   return (
     <div className="flex flex-col p-4 bg-blue-200 gap-4">
-      <h3 className="sm:text-lg font-bold">€{pricePerNight}</h3>
+      <Title as="h4" size="sm" color="gray">
+        €{pricePerNight} / night
+      </Title>
       <form onSubmit={isLoggedIn ? handleSubmit(onSubmit) : handleSubmit(onSignInClick)}>
         <div className="grid grid-cols-1 gap-4 items-center">
           <div>
@@ -93,7 +95,6 @@ const GuestInfoForm = ({ adultCount, childCount, bookedDates, hotelId, pricePerN
               render={({ field }) => (
                 <DatePicker
                   required
-                  showIcon
                   selected={field.value}
                   onChange={(date) => field.onChange(date)}
                   selectsStart
@@ -105,6 +106,7 @@ const GuestInfoForm = ({ adultCount, childCount, bookedDates, hotelId, pricePerN
                   placeholderText="Check-in Date"
                   className="sm:text-lg  min-w-full bg-white p-2 focus:outline-none"
                   wrapperClassName="min-w-full"
+                  dateFormat="MMM d, yyyy"
                 />
               )}
             />
@@ -129,7 +131,6 @@ const GuestInfoForm = ({ adultCount, childCount, bookedDates, hotelId, pricePerN
               render={({ field }) => (
                 <DatePicker
                   required
-                  showIcon
                   selected={field.value}
                   onChange={(date) => field.onChange(date)}
                   selectsEnd
@@ -141,6 +142,7 @@ const GuestInfoForm = ({ adultCount, childCount, bookedDates, hotelId, pricePerN
                   placeholderText="Check-out Date"
                   className="sm:text-lg min-w-full bg-white p-2 focus:outline-none"
                   wrapperClassName="min-w-full"
+                  dateFormat="MMM d, yyyy"
                 />
               )}
             />
@@ -201,19 +203,11 @@ const GuestInfoForm = ({ adultCount, childCount, bookedDates, hotelId, pricePerN
               </span>
             )}
           </div>
-          {isLoggedIn ? (
-            <Button
-              type="submit"
-              className="flex justify-center bg-blue-600 text-white hover:bg-blue-500">
-              Book Now
-            </Button>
-          ) : (
-            <Button
-              type="submit"
-              className="flex justify-center bg-blue-600 text-white text-center hover:bg-blue-500">
-              Sign in to Book
-            </Button>
-          )}
+          <Button
+            type="submit"
+            className="flex justify-center bg-blue-600 text-white text-center hover:bg-blue-500">
+            {isLoggedIn ? 'Reserve Now' : 'Sign in to Book'}
+          </Button>
         </div>
       </form>
     </div>
