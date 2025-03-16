@@ -1,12 +1,17 @@
 import { ReactNode, useEffect, useState } from 'react'
+import ReactDOM from 'react-dom'
+import cn from 'classnames'
+import { IoCloseOutline } from 'react-icons/io5'
 import { Button } from '../'
 
 interface Props {
   children: ReactNode
   onClose: () => void
+  variant: 'delete' | 'filter'
 }
 
-const Modal = ({ children, onClose }: Props) => {
+const Modal = ({ children, onClose, variant }: Props) => {
+  const modalRoot = document.getElementById('modal-root') as HTMLElement
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
@@ -24,20 +29,40 @@ const Modal = ({ children, onClose }: Props) => {
     setIsVisible(false)
   }
 
-  return (
-    <div className="fixed lg:hidden inset-0 flex items-center justify-start sm:justify-center bg-black bg-opacity-50 z-50">
+  const modalConfig = {
+    filter: {
+      container: 'items-center justify-start sm:justify-center lg:hidden',
+      content: `w-[80%] h-full sm:max-h-[90vh] overflow-y-auto ${
+        isVisible ? 'translate-x-0' : '-translate-x-full'
+      }`,
+      closeButton: 'top-1 right-2',
+    },
+    delete: {
+      container: 'justify-center items-center',
+      content: `w-full max-w-md mx-4 p-6 rounded-lg ${
+        isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-30'
+      }`,
+      closeButton: 'hidden',
+    },
+  }
+
+  const currentConfig = modalConfig[variant]
+
+  return ReactDOM.createPortal(
+    <div className={cn('fixed inset-0 flex bg-black bg-opacity-50 z-50', currentConfig.container)}>
       <div
-        className={`bg-white p-7 sm:rounded shadow-lg w-[80%] h-full sm:max-h-[90vh] sm:mx-2 overflow-y-auto transform transition-all duration-300 ${
-          isVisible ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0'
-        }`}>
-        <Button
-          className="absolute -top-1 right-3 text-red !text-4xl w-10 h-10"
-          onClick={handleClose}>
-          &times;
+        className={cn(
+          'bg-white p-7 sm:rounded-lg shadow-lg sm:mx-2 transform transition-all duration-300',
+          currentConfig.content,
+        )}>
+        <Button onClick={handleClose}>
+          <IoCloseOutline className={cn('absolute', currentConfig.closeButton)} size={28} />
         </Button>
+
         {children}
       </div>
-    </div>
+    </div>,
+    modalRoot,
   )
 }
 

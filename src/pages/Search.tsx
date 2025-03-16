@@ -192,7 +192,7 @@ const Search = () => {
 
       {/* Filter Modal for tablets and mobiles */}
       {currentModal === 'filterModal' && (
-        <Modal onClose={closeModal}>
+        <Modal onClose={closeModal} variant="filter">
           <Filter
             filter={filter}
             handleFilterApply={handleFilterApply}
