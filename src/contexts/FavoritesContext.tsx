@@ -19,12 +19,9 @@ export const FavoritesContextProvider = ({ children }: { children: React.ReactNo
     }
   }, [data])
 
-  const addFavoritesIds = useCallback(
-    (hotelId: string) => {
-      setFavoritesIds((hotelsIds) => [...hotelsIds, hotelId])
-    },
-    [favoritesIds],
-  )
+  const addFavoritesIds = useCallback((hotelId: string) => {
+    setFavoritesIds((hotelsIds) => [...hotelsIds, hotelId])
+  }, [])
 
   const removeFavoritesIds = useCallback(
     (hotelId: string) => {

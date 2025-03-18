@@ -27,7 +27,7 @@ const Header = ({ scrollToContent }: Props) => {
 
   // Scroll when route changes and close menu
   useEffect(() => {
-    let timer: any
+    let timer: ReturnType<typeof setTimeout> | undefined
     if (scrollPaths.includes(currentPath)) {
       const scrollBehavior = () => {
         if (scrollToContent.current) {
