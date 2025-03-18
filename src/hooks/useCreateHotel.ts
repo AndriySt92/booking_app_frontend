@@ -15,7 +15,7 @@ const useCreateHotel = () => {
       queryClient.invalidateQueries('fetchMyHotels')
       queryClient.invalidateQueries('fetchHotels')
 
-      navigate('/my-bookings')
+      navigate('/my-hotels')
     },
     onError: (error: Error) => {
       const message = error.message || 'Error saving hotel'
