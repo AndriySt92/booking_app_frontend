@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import { IHotel } from '../../types/hotelTypes'
-import { Button, LoadingButton, HotelInfoList } from '../'
+import { Button, HotelInfoList, Title, Text, LoadingButton } from '../'
 
 interface Props {
   hotel: IHotel
@@ -18,11 +18,13 @@ const MyHotelCard = ({ hotel, onDelete, isDeleting }: Props) => {
 
   return (
     <div className="flex flex-col justify-between p-3 md:p-8 gap-5 sm:text-lg custom-shadow-rounded animate-slideIn">
-      <div className="space-y-5">
-        <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-800 to-blue-500 bg-clip-text text-transparent">
+      <div className="space-y-4">
+        <Title color="gradient" size="md" as="h3">
           {name}
-        </h2>
-        <div className="sm:text-lg line-clamp-4">{description}</div>
+        </Title>
+        <Text className="line-clamp-4" size="md">
+          {description}
+        </Text>
 
         <HotelInfoList
           city={city}
@@ -36,13 +38,14 @@ const MyHotelCard = ({ hotel, onDelete, isDeleting }: Props) => {
 
       <div className="flex justify-between sm:justify-end gap-4">
         {!isDeleting ? (
-          <Button onClick={handleDelete} className="bg-red-600 text-white hover:bg-red-500">
+          <Button
+            onClick={handleDelete}
+            className="bg-red-600 text-white hover:bg-red-500"
+            disabled={isDeleting}>
             Delete
           </Button>
         ) : (
-          <LoadingButton className="bg-blue-600 text-white hover:bg-blue-500">
-            Deleting...
-          </LoadingButton>
+          <LoadingButton className="bg-red-600 text-white">Deleting...</LoadingButton>
         )}
         <Button
           role="link"

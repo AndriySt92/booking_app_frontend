@@ -1,17 +1,40 @@
-import { useCallback } from 'react'
-import { Button, Error, NotFoundData, SkeletonMyHotels, MyHotelCard } from '../components'
-import { useDeleteMyHotel, useGetMyHotels } from '../hooks'
+import { useCallback, useEffect } from 'react'
+import {
+  Button,
+  Error,
+  NotFoundData,
+  SkeletonMyHotels,
+  MyHotelCard,
+  Title,
+  DeleteModal,
+} from '../components'
+import { useDeleteMyHotel, useGetMyHotels, useModalManager } from '../hooks'
 
 const MyHotels = () => {
-  const { data: hotels, isLoading, isError } = useGetMyHotels()
-  const { mutate, isLoading: isDeleting } = useDeleteMyHotel()
+  const { closeModal, currentModal, openModal, entityId } = useModalManager()
 
-  const onDelete = useCallback(
+  const { data: hotels, isLoading, isError } = useGetMyHotels()
+  const { mutate, isLoading: isDeleting } = useDeleteMyHotel(closeModal)
+
+  const handleDeleteRequest = useCallback(
     (hotelId: string) => {
-      mutate(hotelId)
+      openModal('deleteModal', hotelId)
     },
-    [mutate],
+    [openModal],
   )
+
+  const handleConfirmDelete = useCallback(() => {
+    if (entityId) {
+      mutate(entityId)
+    }
+  }, [entityId, mutate, closeModal])
+
+  const handleCancelDelete = useCallback(() => {
+    closeModal()
+  }, [closeModal])
+
+  // Cleanup effect
+  useEffect(() => () => closeModal(), [closeModal])
 
   if (isLoading) {
     return <SkeletonMyHotels />
@@ -20,7 +43,8 @@ const MyHotels = () => {
   return (
     <div className="space-y-7">
       <div className="flex justify-between">
-        <h1 className="text-3xl font-bold">My Hotels</h1>
+        <Title as="h1">My Hotels</Title>
+
         <Button role="link" to="/add-hotel" className="bg-blue-600 text-white hover:bg-blue-500">
           Add Hotel
         </Button>
@@ -31,10 +55,10 @@ const MyHotels = () => {
         <div className="grid grid-cols-1 gap-8">
           {hotels.map((hotel) => (
             <MyHotelCard
-              hotel={hotel}
-              onDelete={onDelete}
-              isDeleting={isDeleting}
               key={hotel._id}
+              isDeleting={isDeleting}
+              hotel={hotel}
+              onDelete={handleDeleteRequest}
             />
           ))}
         </div>
@@ -51,6 +75,15 @@ const MyHotels = () => {
       {/* Error */}
       {isError && (
         <Error message="An error occurred while fetching the data." size="large" center />
+      )}
+
+      {currentModal === 'deleteModal' && entityId && (
+        <DeleteModal
+          onConfirm={handleConfirmDelete}
+          onClose={handleCancelDelete}
+          isDeleting={isDeleting}
+          entityName={hotels?.find((h) => h._id === entityId)?.name as string}
+        />
       )}
     </div>
   )

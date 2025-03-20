@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from 'react'
+import { ReactNode, useEffect, useMemo, useState } from 'react'
 import ReactDOM from 'react-dom'
 import cn from 'classnames'
 import { IoCloseOutline } from 'react-icons/io5'
@@ -11,7 +11,7 @@ interface Props {
 }
 
 const Modal = ({ children, onClose, variant }: Props) => {
-  const modalRoot = document.getElementById('modal-root') as HTMLElement
+  const modalRoot = useMemo(() => document.getElementById('modal-root')!, [])
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
@@ -39,8 +39,8 @@ const Modal = ({ children, onClose, variant }: Props) => {
     },
     delete: {
       container: 'justify-center items-center',
-      content: `w-full max-w-md mx-4 p-6 rounded-lg ${
-        isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-30'
+      content: `w-full max-w-md mx-4 rounded-lg ${
+        isVisible ? 'translate-y-0 opacity-100' : '-translate-y-40 opacity-0'
       }`,
       closeButton: 'hidden',
     },
@@ -52,7 +52,7 @@ const Modal = ({ children, onClose, variant }: Props) => {
     <div className={cn('fixed inset-0 flex bg-black bg-opacity-50 z-50', currentConfig.container)}>
       <div
         className={cn(
-          'bg-white p-7 sm:rounded-lg shadow-lg sm:mx-2 transform transition-all duration-300',
+          'bg-white p-4 sm:p-6 sm:rounded-lg shadow-lg sm:mx-2 transform transition-all duration-300',
           currentConfig.content,
         )}>
         <Button onClick={handleClose}>

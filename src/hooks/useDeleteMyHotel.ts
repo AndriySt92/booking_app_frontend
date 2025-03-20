@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from 'react-query'
 import { useAppContext } from '../hooks'
 import { deleteMyHotel } from '../services/my-hotelApi'
 
-const useDeleteMyHotel = () => {
+const useDeleteMyHotel = (closeModal: () => void) => {
   const queryClient = useQueryClient()
   const { showToast } = useAppContext()
 
@@ -10,12 +10,15 @@ const useDeleteMyHotel = () => {
     onSuccess: async () => {
       showToast({ message: 'Hotel deleted successfully', type: 'SUCCESS' })
 
-      queryClient.invalidateQueries('fetchMyHotels')  
-      queryClient.invalidateQueries('fetchHotels') 
+      queryClient.invalidateQueries('fetchMyHotels')
+      queryClient.invalidateQueries('fetchHotels')
     },
     onError: (error: Error) => {
       const message = error.message || 'Error deleting hotel'
       showToast({ message, type: 'ERROR' })
+    },
+    onSettled: () => {
+      closeModal()
     },
   })
 }
