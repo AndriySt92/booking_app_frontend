@@ -2,7 +2,7 @@ import { FormProvider, useForm } from 'react-hook-form'
 import DetailsSection from './DetailsSection'
 import { IHotel, IHotelFormData } from '../../types/hotelTypes'
 import { useEffect } from 'react'
-import { Button, LoadingButton } from '../../components'
+import { Button, LoadingButton, Title } from '../../components'
 import TypeSection from './TypeSection'
 import FacilitiesSection from './FacilitiesSection'
 import GuestsSection from './GuestsSection'
@@ -12,9 +12,10 @@ interface Props {
   hotel?: IHotel
   onSave: (hotelFormData: FormData) => void
   isLoading: boolean
+  title: 'add' | 'edit'
 }
 
-const ManageHotelForm = ({ onSave, isLoading, hotel }: Props) => {
+const ManageHotelForm = ({ onSave, isLoading, hotel, title }: Props) => {
   const formMethods = useForm<IHotelFormData>({ mode: 'onBlur' })
   const { handleSubmit, reset } = formMethods
 
@@ -57,26 +58,32 @@ const ManageHotelForm = ({ onSave, isLoading, hotel }: Props) => {
   })
 
   return (
-    <FormProvider {...formMethods}>
-      <form className="flex flex-col w-full gap-10" onSubmit={onSubmit}>
-        <DetailsSection />
-        <TypeSection />
-        <FacilitiesSection />
-        <GuestsSection />
-        <ImagesSection />
-        <span className="flex justify-end">
-          {isLoading ? (
-            <LoadingButton className="bg-blue-600 text-white p-2 font-bold hover:bg-blue-500">
-              Saving...
-            </LoadingButton>
-          ) : (
-            <Button type="submit" className="bg-blue-600 text-white hover:bg-blue-500">
-              Save
-            </Button>
-          )}
-        </span>
-      </form>
-    </FormProvider>
+    <div>
+      <Title className="mb-3 capitalize" as="h1" color="gray">
+        {title} hotel
+      </Title>
+
+      <FormProvider {...formMethods}>
+        <form className="flex flex-col w-full gap-10" onSubmit={onSubmit}>
+          <DetailsSection />
+          <TypeSection />
+          <FacilitiesSection />
+          <GuestsSection />
+          <ImagesSection />
+          <span className="flex justify-end">
+            {isLoading ? (
+              <LoadingButton className="bg-blue-600 text-white p-2 font-bold hover:bg-blue-500">
+                Saving...
+              </LoadingButton>
+            ) : (
+              <Button type="submit" className="bg-blue-600 text-white hover:bg-blue-500">
+                Save
+              </Button>
+            )}
+          </span>
+        </form>
+      </FormProvider>
+    </div>
   )
 }
 
