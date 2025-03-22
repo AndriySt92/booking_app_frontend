@@ -1,0 +1,5 @@
+export { default as SkeletonHotelCard } from './SkeletonHotelCard'
+export { default as SkeletonHomePage } from './SkeletonHomePage'
+export { default as SkeletonMyHotels } from './SkeletonMyHotels'
+export { default as SkeletonHotelList } from './SkeletonHotelList'
+export { default as SkeletonHotelDetailsPage } from './SkeletonHotelDetailsPage'
