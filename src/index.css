@@ -2,118 +2,108 @@
 @tailwind components;
 @tailwind utilities;
 
-/* * {
-    outline: 1px solid red;
-  } */
+/* Base Styles */
+@layer base {
+  html {
+    scrollbar-gutter: stable;
+  }
 
-body {
-  overflow-x: hidden;
+  body {
+    @apply overflow-x-hidden;
+  }
 }
 
-/* Header Styles */
-.menu-container {
-  @apply overflow-hidden transition-all duration-500 ease-in-out;
+/* Component Classes */
+@layer components {
+  .menu-container {
+    @apply overflow-hidden transition-all duration-500 ease-in-out;
+  }
+
+  .menu-content {
+    @apply max-h-0 opacity-0 transition-all duration-500 ease-in-out;
+
+    &.open {
+      @apply max-h-screen opacity-100;
+    }
+  }
+
+  .custom-shadow-rounded {
+    @apply shadow-[0px_6px_20px_3px_#00000024] rounded-lg;
+  }
+
+  .booked {
+    @apply bg-red-600 text-white;
+  }
+
+  /* Datepicker styles */
+  .detail__calender {
+    .react-datepicker {
+      @apply border-none;
+
+      & .react-datepicker__month-container {
+        @apply flex flex-col w-full h-full overflow-hidden;
+      }
+
+      & .react-datepicker__header {
+        @apply bg-blue-200 border-b-2 border-gray-500;
+      }
+
+      & .react-datepicker__current-month {
+        @apply text-2xl;
+      }
+
+      & .react-datepicker__week {
+        @apply flex justify-center items-center border-l-2 border-gray-500 h-[calc(100%/5)];
+      }
+
+      & .react-datepicker__day-name,
+      & .react-datepicker__day {
+        @apply text-xl flex-1 m-0;
+      }
+
+      & .react-datepicker__day {
+        @apply relative flex justify-center items-center h-full cursor-default border-r-2 border-b-2 border-gray-500;
+
+        &:hover {
+          @apply bg-transparent rounded-none;
+        }
+      }
+
+      & .react-datepicker__month {
+        @apply flex-1 m-0;
+      }
+
+      & .react-datepicker__day-names {
+        @apply flex mt-2.5;
+      }
+
+      & .react-datepicker__navigation-icon::before {
+        @apply border-black h-3 w-3;
+      }
+
+      & .react-datepicker__day--keyboard-selected {
+        @apply rounded-none font-normal bg-transparent;
+      }
+
+      & .react-datepicker__day--excluded {
+        @apply bg-red-400 text-black;
+      }
+
+      & .react-datepicker__day--excluded:hover {
+        @apply bg-red-400;
+      }
+    }
+  }
+
+  @media (max-width: 640px) {
+    .detail__calender .react-datepicker__day {
+      @apply p-0.5 text-base;
+    }
+  }
 }
 
-.menu-content {
-  @apply max-h-0 opacity-0 transition-all duration-500 ease-in-out;
-}
-
-.menu-content.open {
-  @apply max-h-screen opacity-100;
-}
-
-/* Box-shadow Styles */
-.custom-shadow-rounded {
-  @apply shadow-[0px_6px_20px_3px_#00000024] rounded-lg;
-}
-
-.booked {
-  background-color: red !important;
-  color: white !important;
-}
-
-/* Datepicker styles */
-.datail__calender .react-datepicker__month-container {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-.datail__calender .react-datepicker__header {
-  background-color: rgb(191 219 254 / 0.8) !important;
-}
-
-.datail__calender h2.react-datepicker__current-month {
-  font-size: 23px !important;
-}
-
-.datail__calender .react-datepicker__week {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-left: 1px solid grey;
-  height: calc(100% / 5) !important;
-  cursor: default !important;
-}
-
-.datail__calender .react-datepicker__day-name,
-.datail__calender .react-datepicker__day {
-  font-size: 20px;
-  flex: 1;
-  margin: 0px !important;
-}
-
-.datail__calender .react-datepicker__day {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  border: 1px solid grey;
-  padding: 30px;
-  cursor: default;
-}
-
-.datail__calender .react-datepicker__day:hover {
-  background-color: transparent;
-  border-radius: 0px;
-}
-
-.datail__calender .react-datepicker__month {
-  flex: 1;
-  margin: 0px !important;
-}
-
-.datail__calender .react-datepicker__day-names {
-  display: flex;
-  margin-bottom: -1px !important;
-  margin-top: 10px;
-}
-
-.datail__calender .react-datepicker__navigation-icon::before {
-  border-color: black !important;
-  height: 12px !important;
-  width: 12px !important;
-}
-
-.datail__calender .react-datepicker__day--keyboard-selected {
-  border-radius: 0px !important;
-  font-weight: 400 !important;
-  background-color: transparent !important;
-}
-
-.datail__calender .react-datepicker__day--excluded {
-  border-radius: 0px !important;
-  font-weight: 500 !important;
-  background-color: rgb(250, 78, 78) !important;
-  color: rgb(0, 0, 0);
-}
-
-@media screen and (max-width: 640px) {
-  .datail__calender .react-datepicker__day {
-    padding: 8px 10px;
-    font-size: 16px;
+@layer utilities {
+  .backdrop-blur-sm {
+    @apply backdrop-blur-[4px];
   }
 }

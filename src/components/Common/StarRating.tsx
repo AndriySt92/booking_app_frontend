@@ -12,7 +12,7 @@ const StarRating = ({ starRating, className }: Props) => {
       {Array.from({ length: starRating }).map((_, i) => (
         <AiFillStar
           key={i}
-          className="star-animation transition-transform duration-300 text-yellow-500"
+          className="animate-twinkle transition-transform duration-300 text-yellow-500"
           style={{ animationDelay: `${i * 0.3}s` }}
           size={20}
         />

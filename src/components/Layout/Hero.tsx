@@ -3,7 +3,7 @@ import cn from 'classnames'
 
 const ANIMATION_CONFIG = {
   elementCount: 10,
-  animationDelay: 0.2,
+  animationDelay: 0.5,
   elementColor: 'bg-white/10',
   sizeVariants: [
     'w-8 h-8',
@@ -25,7 +25,7 @@ const Hero = memo(() => {
         top: Math.random() * 100,
         delay: i * animationDelay,
       })),
-    [],
+    [elementCount, animationDelay, sizeVariants],
   )
 
   return (
@@ -48,11 +48,11 @@ const Hero = memo(() => {
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-2xl text-center mx-auto">
-          <h1 className="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-100 mb-1 lg:mb-6 animate-slide-up">
+          <h1 className="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-100 mb-1 lg:mb-6 animate-slideUp">
             Find Your Next Adventure
           </h1>
 
-          <p className="text-xl md:text-2xl text-blue-100 mb-8 animate-fade-in delay-100">
+          <p className="text-xl md:text-2xl text-blue-100 mb-8 animate-fadeIn delay-100">
             Discover perfect stays at unbeatable prices
           </p>
         </div>
