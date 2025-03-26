@@ -1,25 +1,24 @@
+import { lazy, Suspense } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { Layout } from './components'
-import {
-  AddHotel,
-  Booking,
-  HotelDetail,
-  EditHotel,
-  Home,
-  MyBookings,
-  MyHotels,
-  Search,
-  SignIn,
-  SignUp,
-  Favorites,
-} from './pages'
+import { Layout, Loader, SkeletonHotelList, SkeletonMyHotels } from './components'
 import { useAppContext } from './hooks'
+import { HotelDetails, Home, Search, SignIn } from './pages'
+
+// Lazy-loaded components
+const AddHotel = lazy(() => import('./pages/AddHotel'))
+const Booking = lazy(() => import('./pages/Booking'))
+const EditHotel = lazy(() => import('./pages/EditHotel'))
+const MyBookings = lazy(() => import('./pages/MyBookings'))
+const MyHotels = lazy(() => import('./pages/MyHotels'))
+const SignUp = lazy(() => import('./pages/SignUp'))
+const Favorites = lazy(() => import('./pages/Favorites'))
 
 function App() {
   const { isLoggedIn } = useAppContext()
 
   return (
     <Routes>
+      {/* Public routes */}
       <Route
         path="/"
         element={
@@ -40,15 +39,7 @@ function App() {
         path="/detail/:hotelId"
         element={
           <Layout>
-            <HotelDetail />
-          </Layout>
-        }
-      />
-      <Route
-        path="/sign-up"
-        element={
-          <Layout>
-            <SignUp />
+            <HotelDetails />
           </Layout>
         }
       />
@@ -60,13 +51,27 @@ function App() {
           </Layout>
         }
       />
+      <Route
+        path="/sign-up"
+        element={
+          <Layout>
+            <Suspense fallback={<Loader />}>
+              <SignUp />
+            </Suspense>
+          </Layout>
+        }
+      />
+
+      {/* Protected routes */}
       {isLoggedIn && (
         <>
           <Route
             path="/hotel/:hotelId/booking"
             element={
               <Layout>
-                <Booking />
+                <Suspense fallback={<Loader />}>
+                  <Booking />
+                </Suspense>
               </Layout>
             }
           />
@@ -74,7 +79,9 @@ function App() {
             path="/add-hotel"
             element={
               <Layout>
-                <AddHotel />
+                <Suspense fallback={<Loader />}>
+                  <AddHotel />
+                </Suspense>
               </Layout>
             }
           />
@@ -82,7 +89,9 @@ function App() {
             path="/edit-hotel/:hotelId"
             element={
               <Layout>
-                <EditHotel />
+                <Suspense fallback={<Loader />}>
+                  <EditHotel />
+                </Suspense>
               </Layout>
             }
           />
@@ -90,7 +99,9 @@ function App() {
             path="/my-hotels"
             element={
               <Layout>
-                <MyHotels />
+                <Suspense fallback={<SkeletonMyHotels />}>
+                  <MyHotels />
+                </Suspense>
               </Layout>
             }
           />
@@ -98,7 +109,9 @@ function App() {
             path="/my-bookings"
             element={
               <Layout>
-                <MyBookings />
+                <Suspense fallback={<SkeletonHotelList />}>
+                  <MyBookings />
+                </Suspense>
               </Layout>
             }
           />
@@ -106,7 +119,9 @@ function App() {
             path="/favorites"
             element={
               <Layout>
-                <Favorites />
+                <Suspense fallback={<SkeletonHotelList />}>
+                  <Favorites />
+                </Suspense>
               </Layout>
             }
           />
