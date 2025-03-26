@@ -1,7 +1,7 @@
 export { default as Home } from './Home';
 export { default as AddHotel } from './AddHotel';
 export { default as Booking } from './Booking';
-export { default as HotelDetail } from './HotelDetail';
+export { default as HotelDetails } from './HotelDetails';
 export { default as EditHotel } from './EditHotel';
 export { default as MyBookings } from './MyBookings';
 export { default as MyHotels } from './MyHotels';
