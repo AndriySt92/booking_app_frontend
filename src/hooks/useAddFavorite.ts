@@ -1,11 +1,11 @@
 import { useMutation, useQueryClient } from 'react-query'
-import { useAppContext, useFavoritesContext } from '../hooks'
+import { useAppContext, useFavoritesActionsContext } from '../hooks'
 import { addFavorites } from '../services/favoritesApi'
 
 const useAddFavorites = (hotelId: string) => {
   const queryClient = useQueryClient()
   const { showToast } = useAppContext()
-  const { addFavoritesIds } = useFavoritesContext()
+  const { addFavoritesIds } = useFavoritesActionsContext()
 
   return useMutation(() => addFavorites(hotelId), {
     onSuccess: async () => {

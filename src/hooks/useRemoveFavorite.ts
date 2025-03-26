@@ -1,10 +1,10 @@
 import { useMutation, useQueryClient } from 'react-query'
-import { useAppContext, useFavoritesContext } from '../hooks'
+import { useAppContext, useFavoritesActionsContext } from '../hooks'
 import { removeFavorites } from '../services/favoritesApi'
 
 const useRemoveFavorite = (hotelId: string) => {
   const { showToast } = useAppContext()
-  const { removeFavoritesIds } = useFavoritesContext()
+  const { removeFavoritesIds } = useFavoritesActionsContext()
   const queryClient = useQueryClient()
 
   return useMutation(() => removeFavorites(hotelId), {
