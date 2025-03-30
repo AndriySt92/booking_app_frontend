@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState, useRef } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import {
   Pagination,
@@ -18,14 +18,15 @@ import {
   useModalManager,
   useFavoritesContext,
   useSearchContext,
+  usePagination,
 } from '../hooks'
 import { IFilterHotels } from '../types/hotelTypes'
 
 const Search = () => {
-  const [page, setPage] = useState<number>(1)
+  const { page, handlePageChange, scrollRef } = usePagination()
+  const { closeModal, currentModal, openModal } = useModalManager()
   const [filter, setFilter] = useState<IFilterHotels>(initialFilterValue)
 
-  const { closeModal, currentModal, openModal } = useModalManager()
   const { favoritesIds } = useFavoritesContext()
   const { destination, checkIn, checkOut, childCount, adultCount } = useSearchContext()
 
@@ -35,9 +36,6 @@ const Search = () => {
     },
   })
   const sortOption = watch('sortOption')
-
-  // Ref for scrolling
-  const topDivRef = useRef<HTMLDivElement>(null)
 
   const searchParams = useMemo(
     () => ({
@@ -53,13 +51,7 @@ const Search = () => {
     [filter, sortOption, destination, checkIn, checkOut, childCount, adultCount, page],
   )
 
-  const {
-    data: hotelData,
-    isLoading,
-    isError,
-    isSuccess,
-    refetch,
-  } = useGetSearchHotels(searchParams)
+  const { data, isLoading, isError, isSuccess, refetch } = useGetSearchHotels(searchParams)
 
   const handleFilterApply = useCallback(
     ({ stars, types, facilities, maxPrice }: IFilterHotels) => {
@@ -79,18 +71,6 @@ const Search = () => {
     refetch()
   }, [refetch])
 
-  const handlePageChange = useCallback((newPage: number) => {
-    setPage(newPage)
-
-    // Scroll to the referenced div
-    if (topDivRef.current) {
-      topDivRef.current.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      })
-    }
-  }, [])
-
   useEffect(() => {
     reset({ sortOption: '' })
   }, [destination, checkIn, checkOut, childCount, adultCount, filter, reset])
@@ -99,15 +79,14 @@ const Search = () => {
     handlePageChange(1)
   }, [filter, handlePageChange])
 
-  const areHotelsAvailable = useMemo(
-    () => hotelData?.data && hotelData.data.length > 0,
-    [hotelData],
-  )
+  const pages = data?.pagination?.pages
+  const hotels = data?.data
+  const hasHotels = Boolean(hotels?.length)
 
   return (
     <>
       {/* Main Content */}
-      <div className="mb-7 scroll-mt-[60px] sm:scroll-mt-[90px]" ref={topDivRef}>
+      <div className="mb-7 scroll-mt-[60px] sm:scroll-mt-[90px]" ref={scrollRef}>
         <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-5">
           <div className="custom-shadow-rounded p-5 h-fit top-10 hidden lg:block">
             <Filter
@@ -123,7 +102,7 @@ const Search = () => {
               <div className="mb-5 lg:mb-0">
                 {!isError && isSuccess && (
                   <Title as="h3" size="sm" color="gray">
-                    {hotelData?.pagination.total} Hotels found
+                    {data?.pagination.total} Hotels found
                     {destination ? ` in ${destination}` : ''}
                   </Title>
                 )}
@@ -144,7 +123,7 @@ const Search = () => {
                   options={sortOptions}
                   placeholder="Sort by"
                   register={register}
-                  disabled={!areHotelsAvailable}
+                  disabled={!hasHotels}
                 />
               </div>
             </div>
@@ -158,8 +137,8 @@ const Search = () => {
               </div>
             ) : (
               <>
-                {areHotelsAvailable &&
-                  hotelData?.data.map((hotel) => (
+                {hasHotels &&
+                  hotels?.map((hotel) => (
                     <HotelCard
                       role="searchCard"
                       hotel={hotel}
@@ -171,20 +150,14 @@ const Search = () => {
             )}
 
             {/* No Hotels Found */}
-            {isSuccess && !areHotelsAvailable && (
-              <NotFoundData title="No hotels match your criteria" />
-            )}
+            {!hasHotels && isSuccess && <NotFoundData title="No hotels match your criteria" />}
 
             {/* Error */}
             {isError && <Error message="Unable to fetch hotels." size="large" center />}
 
             {/* Pagination */}
-            {areHotelsAvailable && (
-              <Pagination
-                page={page}
-                pages={hotelData?.pagination.pages || 1}
-                onPageChange={handlePageChange}
-              />
+            {hasHotels && (
+              <Pagination page={page} pages={pages || 1} onPageChange={handlePageChange} />
             )}
           </div>
         </div>
