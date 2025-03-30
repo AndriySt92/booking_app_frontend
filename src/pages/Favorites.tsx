@@ -1,21 +1,37 @@
-import { NotFoundData, Error, SkeletonHotelList, HotelCard } from '../components'
-import { useGetFavorites, useFavoritesContext } from '../hooks'
+import { useEffect } from 'react'
+import { NotFoundData, Error, SkeletonHotelList, HotelCard, Title, Pagination } from '../components'
+import { useGetFavorites, useFavoritesContext, usePagination } from '../hooks'
+
+const LIMIT = 5
 
 const Favorites = () => {
-  const { data: favorites, isLoading: isLoading, isError: isError } = useGetFavorites()
+  const { page, handlePageChange, scrollRef } = usePagination()
+
   const { favoritesIds } = useFavoritesContext()
+  const { data, isLoading, isError, isSuccess } = useGetFavorites({ page, limit: LIMIT })
+
+  const hotels = data?.data
+  const hasHotels = Boolean(hotels?.length)
+  const pages = data?.pagination?.pages
+
+  // Ensure page correction in case removing last item on page
+  useEffect(() => {
+    if (pages && page > pages) {
+      handlePageChange(pages)
+    }
+  }, [pages, page, handlePageChange])
 
   if (isLoading) {
     return <SkeletonHotelList />
   }
 
   return (
-    <div className="space-y-7">
-      <h1 className="text-3xl font-bold">My Favorite Hotels</h1>
+    <div className="space-y-7 scroll-m-20 sm:scroll-m-24" ref={scrollRef}>
+      <Title as="h1">My Favorite Hotels</Title>
 
       {/* Favorite hotels list  */}
-      {favorites &&
-        favorites.map((hotel) => (
+      {hasHotels &&
+        hotels?.map((hotel) => (
           <HotelCard
             key={hotel._id}
             role="searchCard"
@@ -25,7 +41,7 @@ const Favorites = () => {
         ))}
 
       {/* Favorite hotels data is empty */}
-      {favorites?.length === 0 && (
+      {!hasHotels && isSuccess && (
         <NotFoundData
           title="You haven't added favorite hotels yet"
           description="Ready for your next adventure? Browse hotels to plan your perfect stay."
@@ -36,6 +52,9 @@ const Favorites = () => {
       {isError && (
         <Error message="An error occurred while fetching the data." size="large" center />
       )}
+
+      {/* Pagination */}
+      {hasHotels && <Pagination page={page} pages={pages || 1} onPageChange={handlePageChange} />}
     </div>
   )
 }

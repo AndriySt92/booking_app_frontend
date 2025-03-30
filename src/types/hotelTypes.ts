@@ -60,15 +60,6 @@ export interface IFilterHotels {
   maxPrice: string | null
 }
 
-export interface IHotelSearchResponse {
-  data: IHotel[]
-  pagination: {
-    total: number
-    page: number
-    pages: number
-  }
-}
-
 export interface ISearchFormValues {
   destination: string
   checkIn: Date
@@ -78,12 +69,12 @@ export interface ISearchFormValues {
 }
 
 export interface SaveSearchValues {
-  destination: string;
-  checkIn?: Date;
-  checkOut?: Date;
-  adultCount?: number;
-  childCount?: number;
-  hotelId?: string;
+  destination: string
+  checkIn?: Date
+  checkOut?: Date
+  adultCount?: number
+  childCount?: number
+  hotelId?: string
 }
 
 export interface IHotelsCountriesSummary {

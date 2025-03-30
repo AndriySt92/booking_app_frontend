@@ -1,23 +1,37 @@
-import { BookingItem, NotFoundData, Error, SkeletonHotelList } from '../components'
-import { useFavoritesContext, useGetMyBooking } from '../hooks'
+import {
+  BookingItem,
+  NotFoundData,
+  Error,
+  SkeletonHotelList,
+  Title,
+  Pagination,
+} from '../components'
+import { useFavoritesContext, useGetMyBooking, usePagination } from '../hooks'
+
+const LIMIT = 5
 
 const MyBookings = () => {
-  const { data: bookings, isLoading, isError } = useGetMyBooking()
+  const { page, handlePageChange, scrollRef } = usePagination()
+
+  const { data, isLoading, isError, isSuccess } = useGetMyBooking({ page, limit: LIMIT })
   const { favoritesIds } = useFavoritesContext()
 
   if (isLoading) {
     return <SkeletonHotelList />
   }
 
+  const bookings = data?.data
+  const hasBookings = Boolean(bookings?.length)
+
   return (
-    <div className="space-y-7">
-      <h1 className="text-3xl font-bold">My Bookings</h1>
+    <div className="space-y-7 scroll-m-20 sm:scroll-m-24" ref={scrollRef}>
+      <Title as="h1">My Bookings</Title>
 
       {/* My booking list  */}
-      {bookings &&
-        bookings.map(({ hotelId, checkIn, checkOut, adultCount, childCount }) => (
+      {hasBookings &&
+        bookings?.map(({ hotelId, checkIn, checkOut, adultCount, childCount }, i) => (
           <BookingItem
-            key={adultCount}
+            key={`${hotelId}_${i}`}
             hotelId={hotelId}
             checkIn={checkIn}
             checkOut={checkOut}
@@ -28,7 +42,7 @@ const MyBookings = () => {
         ))}
 
       {/* My booking data is empty */}
-      {bookings?.length === 0 && !isError && (
+      {!hasBookings && isSuccess && (
         <NotFoundData
           title="Your booking history is empty"
           description="Ready for your next adventure? Browse hotels to plan your perfect stay."
@@ -38,6 +52,15 @@ const MyBookings = () => {
       {/* Error */}
       {isError && (
         <Error message="An error occurred while fetching the data." size="large" center />
+      )}
+
+      {/* Pagination */}
+      {hasBookings && (
+        <Pagination
+          page={page}
+          pages={data?.pagination.pages || 1}
+          onPageChange={handlePageChange}
+        />
       )}
     </div>
   )

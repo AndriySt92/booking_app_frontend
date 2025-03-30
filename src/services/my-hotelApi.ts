@@ -1,3 +1,4 @@
+import { IPaginatedResponse, IPaginationParams } from '../types/commonTypes'
 import { IHotel } from '../types/hotelTypes'
 
 const API_BASE_URL = 'http://localhost:3001'
@@ -16,8 +17,15 @@ export const addMyHotel = async (hotelFormData: FormData) => {
   return response.json()
 }
 
-export const fetchMyHotels = async (): Promise<IHotel[]> => {
-  const response = await fetch(`${API_BASE_URL}/api/my-hotels`, {
+export const fetchMyHotels = async (
+  params: IPaginationParams,
+): Promise<IPaginatedResponse<IHotel>> => {
+  const queryParams = new URLSearchParams()
+
+  if (params.page !== undefined) queryParams.append('page', params.page.toString())
+  if (params.limit !== undefined) queryParams.append('limit', params.limit.toString())
+
+  const response = await fetch(`${API_BASE_URL}/api/my-hotels?${queryParams}`, {
     credentials: 'include',
   })
 

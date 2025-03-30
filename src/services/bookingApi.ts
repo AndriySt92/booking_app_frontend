@@ -1,4 +1,5 @@
 import { IBooking, IPaymentIntentResponse } from '../types/bookingTypes'
+import { IPaginatedResponse, IPaginationParams } from '../types/commonTypes'
 
 const API_BASE_URL = 'http://localhost:3001'
 
@@ -6,23 +7,20 @@ export const createPaymentIntent = async (
   hotelId: string,
   numberOfNights: string,
 ): Promise<IPaymentIntentResponse> => {
-  const response = await fetch(
-    `${API_BASE_URL}/api/hotels/${hotelId}/bookings/payment-intent`,
-    {
-      credentials: "include",
-      method: "POST",
-      body: JSON.stringify({ numberOfNights }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
+  const response = await fetch(`${API_BASE_URL}/api/hotels/${hotelId}/bookings/payment-intent`, {
+    credentials: 'include',
+    method: 'POST',
+    body: JSON.stringify({ numberOfNights }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
 
   if (!response.ok) {
-    throw new Error("Error fetching payment intent");
+    throw new Error('Error fetching payment intent')
   }
 
-  return response.json();
+  return response.json()
 }
 
 export const createRoomBooking = async (formData: IBooking) => {
@@ -40,14 +38,21 @@ export const createRoomBooking = async (formData: IBooking) => {
   }
 }
 
-export const fetchMyBookings = async (): Promise<IBooking[]> => {
-  const response = await fetch(`${API_BASE_URL}/api/bookings`, {
-    credentials: "include",
-  });
- 
+export const fetchMyBookings = async (
+  params: IPaginationParams,
+): Promise<IPaginatedResponse<IBooking>> => {
+  const queryParams = new URLSearchParams()
+
+  if (params.page !== undefined) queryParams.append('page', params.page.toString())
+  if (params.limit !== undefined) queryParams.append('limit', params.limit.toString())
+
+  const response = await fetch(`${API_BASE_URL}/api/bookings?${queryParams}`, {
+    credentials: 'include',
+  })
+
   if (!response.ok) {
-    throw new Error("Unable to fetch bookings");
+    throw new Error('Unable to fetch bookings')
   }
 
-  return response.json();
-};
+  return response.json()
+}
