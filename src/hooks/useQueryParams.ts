@@ -1,65 +1,50 @@
-// import { useCallback } from 'react'
-// import { useSearchParams } from 'react-router-dom'
-
-// const useQueryParams = () => {
-//   const [searchParams, setSearchParams] = useSearchParams()
-
-//   const updateQueryParams = useCallback(
-//     (params: Record<string, unknown>) => {
-//       const newParams = new URLSearchParams(searchParams)
-//       Object.entries(params).forEach(([key, value]) => {
-//         if (Array.isArray(value)) {
-//           if (value.length > 0) {
-//             // Join array values into a comma-separated string
-//             newParams.set(key, value.join(','))
-//           } else {
-//             newParams.delete(key)
-//           }
-//         } else if (value === undefined || value === null || value === '') {
-//           newParams.delete(key)
-//         } else {
-//           newParams.set(key, String(value))
-//         }
-//       })
-//       setSearchParams(newParams)
-//     },
-//     [searchParams, setSearchParams],
-//   )
-
-//   return { searchParams, updateQueryParams }
-// }
-
-// export default useQueryParams
-
 import { useCallback, useMemo } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
 const useQueryParams = () => {
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const params = useMemo(() => Object.fromEntries(searchParams.entries()), [searchParams])
+  // Convert URLSearchParams to a plain object with decoded values.
+  const params = useMemo(() => {
+    const decodedEntries = Array.from(searchParams.entries()).map(([key, value]) => [
+      key,
+      decodeURIComponent(value),
+    ])
+    return Object.fromEntries(decodedEntries)
+  }, [searchParams])
 
+  // Update query parameters with new values.
   const updateQueryParams = useCallback(
     (newParams: Record<string, unknown>) => {
       const updatedParams = new URLSearchParams(searchParams)
 
       Object.entries(newParams).forEach(([key, value]) => {
-        if (Array.isArray(value)) {
+        // Remove the key from the query, if value is falsy or an empty array
+        if (!value || (Array.isArray(value) && value.length === 0)) {
           updatedParams.delete(key)
-          value.forEach((v) => updatedParams.append(key, v))
-        } else if (value === null || value === undefined || value === '') {
-          updatedParams.delete(key)
-        } else {
-          updatedParams.set(key, String(value))
+          return
         }
-      })
 
+        // Set the query parameter
+        updatedParams.set(
+          key,
+          Array.isArray(value)
+            ? encodeURIComponent(value.join(','))
+            : encodeURIComponent(String(value)),
+        )
+      })
       setSearchParams(updatedParams, { replace: true })
     },
     [searchParams, setSearchParams],
   )
 
-  return { params, updateQueryParams }
+  // Retrieve a query parameter as an array of strings.
+  const getArrayParam = useCallback((value: string): string[] => {
+    if (!value) return []
+    return value.split(',').map(decodeURIComponent)
+  }, [])
+
+  return { params, updateQueryParams, getArrayParam }
 }
 
 export default useQueryParams

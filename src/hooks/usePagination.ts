@@ -4,8 +4,8 @@ import useQueryParams from './useQueryParams'
 const usePagination = () => {
   const { params, updateQueryParams } = useQueryParams()
   const [page, setPage] = useState<number>(() => {
-    const pageParam = params.page
-    return pageParam && !isNaN(Number(pageParam)) ? Math.max(1, Number(pageParam)) : 1
+    const pageParam = Number(params.page)
+    return pageParam && !isNaN(pageParam) ? pageParam : 1
   })
 
   const scrollRef = useRef<HTMLDivElement>(null)
