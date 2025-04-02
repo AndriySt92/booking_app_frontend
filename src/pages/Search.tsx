@@ -19,13 +19,23 @@ import {
   useFavoritesContext,
   useSearchContext,
   usePagination,
+  useQueryParams,
 } from '../hooks'
 import { IFilterHotels } from '../types/hotelTypes'
 
 const Search = () => {
   const { page, handlePageChange, scrollRef } = usePagination()
   const { closeModal, currentModal, openModal } = useModalManager()
-  const [filter, setFilter] = useState<IFilterHotels>(initialFilterValue)
+  const { params, updateQueryParams, getArrayParam } = useQueryParams()
+  const { stars, types, facilities, maxPrice } = params
+
+  // Initialize state from URL params
+  const [filter, setFilter] = useState<IFilterHotels>({
+    stars: getArrayParam(stars),
+    types: getArrayParam(types),
+    facilities: getArrayParam(facilities),
+    maxPrice: maxPrice || null,
+  })
 
   const { favoritesIds } = useFavoritesContext()
   const { destination, checkIn, checkOut, childCount, adultCount } = useSearchContext()
@@ -37,21 +47,29 @@ const Search = () => {
   })
   const sortOption = watch('sortOption')
 
-  const searchParams = useMemo(
+  const queryObj = useMemo(
     () => ({
       destination,
       checkIn: checkIn.toISOString(),
       checkOut: checkOut.toISOString(),
       adultCount: adultCount.toString(),
       childCount: childCount.toString(),
-      page: page.toString(),
       sortOption,
       ...filter,
     }),
-    [filter, sortOption, destination, checkIn, checkOut, childCount, adultCount, page],
+    [filter, sortOption, destination, checkIn, checkOut, childCount, adultCount],
   )
 
-  const { data, isLoading, isError, isSuccess, refetch } = useGetSearchHotels(searchParams)
+  // Update the URL query params when the search state changes
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      updateQueryParams(queryObj)
+    }, 300)
+
+    return () => clearTimeout(handler)
+  }, [queryObj, updateQueryParams])
+
+  const { data, isLoading, isError, isSuccess, refetch } = useGetSearchHotels(queryObj)
 
   const handleFilterApply = useCallback(
     ({ stars, types, facilities, maxPrice }: IFilterHotels) => {
