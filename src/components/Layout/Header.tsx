@@ -1,9 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useAppContext } from '../../hooks'
-import { Button, SignOutButton } from '../'
-import NavButton from '../Buttons/NavButton'
-import ToggleMenuButton from '../Buttons/ToggleMenuButton'
+import { Button, SignOutButton, NavButton, ToggleMenuButton } from '../'
 
 interface Props {
   scrollToContent: React.RefObject<HTMLDivElement>
