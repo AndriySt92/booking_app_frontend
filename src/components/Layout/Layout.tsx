@@ -7,7 +7,7 @@ interface Props {
 
 const Layout = ({ children }: Props) => {
   const contentRef = useRef<HTMLDivElement>(null)
-  console.log('Layout')
+
   return (
     <div className="flex flex-col min-h-screen">
       <Header scrollToContent={contentRef} />
