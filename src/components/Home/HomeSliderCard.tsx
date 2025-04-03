@@ -1,7 +1,7 @@
 import { useSearchContext } from '../../hooks'
 import { IHotelsCountriesSummary } from '../../types/hotelTypes'
 import { useNavigate } from 'react-router-dom'
-import Text from '../Common/Text'
+import { Text } from '../'
 
 interface Props {
   hotelsCountriesSummaryItem: IHotelsCountriesSummary

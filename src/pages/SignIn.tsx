@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
-import { Button, Input, LoadingButton } from '../components'
+import { Button, Input, LoadingButton, Text, Title } from '../components'
 import { ISignInData } from '../types/userTypes'
 import { useSignIn } from '../hooks'
 
@@ -23,7 +23,7 @@ const SignIn = () => {
     <form
       className="flex flex-col m-auto gap-5 max-w-lg w-full custom-shadow-rounded p-8"
       onSubmit={onSubmit}>
-      <h2 className="text-3xl font-bold">Sign In</h2>
+      <Title color="gradient">Welcome Back</Title>
 
       <Input
         register={register}
@@ -58,12 +58,16 @@ const SignIn = () => {
       />
 
       <div className="sm:text-lg">
-        Not Registered?{' '}
+        <Text as="span" size="md">
+          Not Registered?{' '}
+        </Text>
         <Link className="underline" to="/sign-up">
-          Create an account here
+          <Text as="span" size="md">
+            Create an account here
+          </Text>
         </Link>
       </div>
-      
+
       <div>
         {!isLoading ? (
           <Button

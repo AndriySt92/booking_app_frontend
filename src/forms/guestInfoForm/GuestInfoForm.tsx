@@ -2,7 +2,7 @@ import { Controller, useForm } from 'react-hook-form'
 import { useLocation, useNavigate } from 'react-router-dom'
 import DatePicker from 'react-datepicker'
 import { IBookedDates, IGuestInfoFormData } from '../../types/hotelTypes'
-import { Button, Input, Title } from '../../components'
+import { Button, Error, Input, Title } from '../../components'
 import { useBookingContext, useAppContext } from '../../hooks'
 import { transformBookedDates, validateDateRange } from '../../utils/dateUtils'
 
@@ -140,16 +140,14 @@ const GuestInfoForm = ({ adultCount, childCount, bookedDates, hotelId, pricePerN
                   minDate={minDate}
                   maxDate={maxDate}
                   placeholderText="Check-out Date"
-                  className="sm:text-lg min-w-full bg-white p-2 focus:outline-none"
+                  className="sm:text-lg min-w-full bg-white p-2 focus:outline-none mb-4"
                   wrapperClassName="min-w-full"
                   dateFormat="MMM d, yyyy"
                 />
               )}
             />
             {(errors.checkOut || errors.checkIn) && (
-              <span className="text-red-500 font-semibold text-sm mt-6">
-                Selected dates are not available.
-              </span>
+              <Error size="small" message="Selected dates are not available" />
             )}
           </div>
           <div>

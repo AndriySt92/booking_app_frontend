@@ -1,6 +1,6 @@
 import { useFormContext } from 'react-hook-form'
 import { IHotelFormData } from '../../types/hotelTypes'
-import { Input } from '../../components'
+import { Input, Title } from '../../components'
 
 const GuestsSection = () => {
   const {
@@ -10,7 +10,7 @@ const GuestsSection = () => {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-3">Guests</h2>
+      <Title className="mb-3" as='h3' color='gray' size='md'>Guests</Title>
       <div className="grid grid-cols-2 p-6 gap-5 bg-gray-300">
         <Input
           register={register}

@@ -11,7 +11,7 @@ const HomeSlider = ({ hotelsCountriesSummary }: Props) => {
   return (
     <div>
       <Title className="text-center sm:text-left">Explore Popular Destinations</Title>
-      <Text className="text-center sm:text-left !font-normal !text-gray-800" size="lg">
+      <Text className="text-center sm:text-left" weight="normal" color="gray-800" size="lg">
         Discover the most popular countries and their unique stays, handpicked for you.
       </Text>
       <div className="-mx-[6px] mt-2 sm:mt-4">

@@ -1,7 +1,7 @@
 import { useFormContext } from 'react-hook-form'
 import { hotelFacilities } from '../../config/hotelConfigs'
 import { IHotelFormData } from '../../types/hotelTypes'
-import { Error, Input } from '../../components'
+import { Error, Input, Title } from '../../components'
 
 const FacilitiesSection = () => {
   const {
@@ -11,7 +11,9 @@ const FacilitiesSection = () => {
 
   return (
     <fieldset>
-      <legend className="text-2xl font-bold mb-3">Facilities</legend>
+      <Title className="mb-3" as="h3" color="gray" size="md">
+        Facilities
+      </Title>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
         {hotelFacilities.map((facility) => (
           <Input

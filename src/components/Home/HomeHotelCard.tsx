@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { IHotel } from '../../types/hotelTypes'
-import { AiFillStar } from 'react-icons/ai'
-import { Button, HotelImage, Text, Title } from '../'
+import { Button, HotelImage, StarRating, Text, Title } from '../'
 
 interface Props {
   hotel: IHotel
@@ -31,38 +30,34 @@ const HomeHotelCard = ({ hotel, isFavorite }: Props) => {
       {/* Hotel Info */}
       <div className="space-y-1 bg-white p-4 rounded-b-lg">
         <div className="">
-          <div className="flex justify-between items-center">
-            <Title className="line-clamp-1 basis-[80%]" size="sm" as='h4'>
-              {name}
-            </Title>
-            <Text className="!whitespace-nowrap font-semibold sm:!font-normal" size="md">
+          <div className="flex justify-between items-baseline">
+            <div className="line-clamp-1 basis-[80%] mr-2">
+              <Title color="gradient" size="sm" as="h4">
+                {name}
+              </Title>
+            </div>
+            <Text
+              className="!whitespace-nowrap !font-semibold sm:!font-normal"
+              weight="semibold"
+              size="md">
               {pricePerNight}€ / night
             </Text>
           </div>
-          <Text className="!text-base font-semibold">
+          <Text weight="semibold" size="base">
             {city}, {country}
           </Text>
         </div>
 
         {/* Additional Info */}
         <div className="space-y-2">
-          <Text className="opacity-80 text-sm">
+          <Text color="gray-600" size="sm">
             {type} • {facilities.slice(0, 2).join(', ')}...
           </Text>
         </div>
 
         {/* Star Rating with Animated Color Change */}
         <div className="flex justify-between items-center">
-          <div className="flex items-center space-x-1">
-            {Array.from({ length: starRating }).map((_, i) => (
-              <AiFillStar
-                key={i}
-                className="star-animation transition-transform duration-300 text-yellow-500"
-                style={{ animationDelay: `${i * 0.3}s` }}
-                size={20}
-              />
-            ))}
-          </div>
+          <StarRating starRating={starRating} />
 
           {/* Hover Button */}
           <div className="align-bottom opacity-0 group-hover:opacity-100 transition-opacity duration-300">

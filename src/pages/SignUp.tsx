@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form'
 import { ISignUpData } from '../types/userTypes'
-import { Button, Error, Input, LoadingButton } from '../components'
+import { Button, Error, Input, LoadingButton, Text, Title } from '../components'
 import { useSignUp } from '../hooks'
 import { Link } from 'react-router-dom'
 
@@ -24,7 +24,7 @@ const Register = () => {
     <form
       className="flex flex-col m-auto gap-5 max-w-lg w-full custom-shadow-rounded p-8"
       onSubmit={onSubmit}>
-      <h2 className="text-3xl font-bold">Create an Account</h2>
+      <Title>Create an Account</Title>
       <div className="flex flex-col md:flex-row gap-5">
         <Input
           register={register}
@@ -104,9 +104,14 @@ const Register = () => {
         }}
       />
       <div className="sm:text-lg">
-        Already have an account?{' '}
+        <Text as="span" size="md">
+          Already have an account?{' '}
+        </Text>
+
         <Link className="underline" to="/sign-in">
-          Sign in here
+          <Text as="span" size="md">
+            Sign in here
+          </Text>
         </Link>
       </div>
       {error && <Error message={error.message} size="small" />}

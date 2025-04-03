@@ -1,7 +1,7 @@
 import { useFormContext } from 'react-hook-form'
 import { hotelTypes } from '../../config/hotelConfigs'
 import { IHotelFormData } from '../../types/hotelTypes'
-import { Error, Input } from '../../components'
+import { Error, Input, Title } from '../../components'
 
 const TypeSection = () => {
   const {
@@ -14,7 +14,9 @@ const TypeSection = () => {
 
   return (
     <fieldset>
-      <legend className="text-2xl font-bold mb-3">Type</legend>
+      <Title className="mb-3" as="h3" color="gray" size="md">
+        Type
+      </Title>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
         {hotelTypes.map((type) => (
           <Input

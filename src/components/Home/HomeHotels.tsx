@@ -12,7 +12,7 @@ const HomeHotels = ({ hotels }: Props) => {
   return (
     <div>
       <Title className="text-center sm:text-left">Latest Destinations</Title>
-      <Text className="text-center sm:text-left !font-normal" size="lg">
+      <Text className="text-center sm:text-left" weight="normal" size="lg">
         Most recent desinations added by our hosts
       </Text>
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-3 mt-2 sm:mt-4">
