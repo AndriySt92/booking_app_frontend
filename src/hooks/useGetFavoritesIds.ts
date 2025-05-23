@@ -11,7 +11,6 @@ const useGetFavoriteIds = () => {
       showToast({ message, type: 'ERROR' })
     },
     enabled: isLoggedIn,
-    staleTime: Infinity,
   })
 }
 
